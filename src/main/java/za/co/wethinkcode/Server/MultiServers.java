@@ -1,10 +1,12 @@
 package za.co.wethinkcode.Server;
 
 
+import org.json.simple.JSONObject;
+
 import java.net.*;
 import java.io.*;
 
-public class MultiServers {
+public class MultiServers implements Serializable{
     public static int numberOfClients;
 
     public static void incrementServerUsers(){
@@ -41,4 +43,5 @@ public class MultiServers {
 
 
     }
+
 }
