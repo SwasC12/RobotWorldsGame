@@ -21,10 +21,5 @@ public class Obstacles {
         return this.y;
     }
 
-//    public static void main(String[] args) {
-//        Obstacles obs = new Obstacles(12,12);
-//        System.out.println(obs.x);
-//
-//    }
 
 }
