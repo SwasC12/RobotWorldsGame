@@ -34,7 +34,7 @@ public class SimpleClient implements Serializable{
               String name = userInput.readLine();
             System.out.println("give command");
               String command = userInput.readLine();
-
+            System.out.println("ROBOT SUCCESSFULLY LAUNCHED");
             scanner = new Scanner(System.in);
 
             SimpleClient simpleClient = new SimpleClient();
@@ -70,7 +70,7 @@ public class SimpleClient implements Serializable{
 
     }}
 
-    private JSONObject requestMessage(String robotName, String commandName, String arguments)  {
+    public JSONObject requestMessage(String robotName, String commandName, String arguments)  {
         JSONObject jsonRequest = new JSONObject();
         jsonRequest.put("robot", robotName);
         jsonRequest.put("arguments", arguments);
