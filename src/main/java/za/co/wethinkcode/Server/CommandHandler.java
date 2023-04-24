@@ -20,14 +20,14 @@ public class CommandHandler {
     }
 
 
-
+    //list of valid commands accepted from client
     public static List<String> ListOfClientCommands = new ArrayList<>(List.of("launch", "look", "forward", "back", "turn", "repair", "reload", "fire", "state"));
 
     static int maximumNumberOfRobots = 20;
 
     Robot robot;
 
-
+        //create robot, and respective attributes
         public Robot generateRobot(String robotName){
             int x = Robot.generateXAndY()[0];
             int y = Robot.generateXAndY()[1];
@@ -57,6 +57,8 @@ public class CommandHandler {
 //                addToList(new Robot("ROBOT", "Khetha", 10, 0, "OK", 10, 5, 8, 6, "NORTH", 6, "NORMAL"));
 //            }
 
+
+
             if (!ListOfClientCommands.contains(robotCommand)) {
                 return doesNotSuppCom("Responsefile");
             }
@@ -80,6 +82,8 @@ public class CommandHandler {
                     return lookCommandHandler.writeJsonFileForLook("Responsefile", robot);
                 } else if (robotCommand.contains("state")) {
                     robot = myRobots.get(index);
+
+                    //Responsefile generated with state of robot
                     return writeJsonFileForState("Responsefile", robot);
                 }
             }
@@ -89,7 +93,7 @@ public class CommandHandler {
 
 
     public static JSONObject writeJsonFile(String filename, Robot rb) throws Exception{
-
+        //robots attributes
         JSONObject fileJson = new JSONObject();
         fileJson.put("result",rb.getRobotResults());
 
