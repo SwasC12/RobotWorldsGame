@@ -219,6 +219,10 @@ public class LookCommandHandler {
         return fileJson;
 
     }
+
+    /*takes  Robot object and  Position object as parameters. 
+     loops through a list of Obstacles, and checks if each obstacle
+     intersects the path between the Robot's current position and the given Position. */
     public static void obstacleBlocksPath(Robot a, Position b) {
         for (Obstacles obs : World.ListOfObstacles) {
 
