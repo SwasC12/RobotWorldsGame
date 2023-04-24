@@ -27,6 +27,10 @@ public class ServerCommands implements Runnable {
 
 
     public  void Dump(){
+        /*Dump method displays the worlds representation
+     * and everything programmed within and in the 
+     * world
+     */
         System.out.println("world height: " + getWorldHeight());
         System.out.println("world width: " + getWorldWidth());
         System.out.println("World centre: "+"["+World.CenterCoord()[0]+", "+World.CenterCoord()[1]+"]");
@@ -59,6 +63,7 @@ public class ServerCommands implements Runnable {
     }
 
     public static void quit() throws IOException {
+        //stops multiServer --> world
         MultiServers.stopRunning();
     }
 
@@ -73,6 +78,7 @@ public class ServerCommands implements Runnable {
                 if (line.contains("quit")) {
                     // perform quit action
                     ServerCommands.quit();
+                    //server shutdown for individual client
                     System.out.println("Server is shutting down...");
                     finishRun = true;
                     break;
