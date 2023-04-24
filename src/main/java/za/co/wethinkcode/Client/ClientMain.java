@@ -35,6 +35,7 @@ public class ClientMain implements Serializable {
             in = new BufferedReader(new InputStreamReader(
                     socket.getInputStream()));
             out = new PrintStream(String.valueOf(new OutputStreamWriter(socket.getOutputStream())));
+            out.flush();
             System.out.println(">>> Response from server: "+ in.readLine());
 
             // Welcome to robot world
