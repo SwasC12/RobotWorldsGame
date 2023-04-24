@@ -32,7 +32,7 @@ public class ConsoleDisplayServerResponse {
                 System.out.print("      ["+obj_num+"]");
                 System.out.println("  Direction: "+ obj.get("direction").asText());
                 System.out.println("           Type: "+obj.get("type").asText());
-                System.out.println("           Distance: "+obj.get("Distance").asText());
+                System.out.println("           Distance: "+obj.get("distance").asText());
                 System.out.println(" ");
                 obj_num++;
             }

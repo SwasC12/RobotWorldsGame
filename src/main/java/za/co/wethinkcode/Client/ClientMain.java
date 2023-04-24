@@ -24,7 +24,7 @@ public class ClientMain implements Serializable {
 
         try (
             //Socket socket = new Socket(ipAddress,port))
-             Socket socket = new Socket("10.3.16.115", 5000))
+             Socket socket = new Socket("localhost", 5000))
             //Socket socket = new Socket("localhost", 5000))
         {
             System.out.println("Waiting for connection response from server: ");

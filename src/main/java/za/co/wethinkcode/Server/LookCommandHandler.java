@@ -102,10 +102,6 @@ public class LookCommandHandler {
                 //EAST OBSTACLES
                 LookCommandHandler.obstacleBlocksPath(rb, destination);
                 JSONObject [] subJson9 = new JSONObject[eastObstacles.size()];
-                System.out.println("about to enter the south obstacles for loop and size of east list is: ");
-                System.out.println(eastObstacles.size());
-                System.out.println("size of data array before the loop is ");
-                System.out.println(dataArray.size());
                 for (int j = 0;j < eastObstacles.size();j++){
                     subJson9[j] = new  JSONObject();
                     subJson9[j].put("direction","EAST");
@@ -114,16 +110,10 @@ public class LookCommandHandler {
                     dataArray.add(subJson9[j]);
 
                 }
-                System.out.println("size of data array after the loop is ");
-                System.out.println(dataArray.size());
 
                 //EAST ROBOTS
                 robotBlocksPath(rb,destination);
                 JSONObject [] subJson12 = new JSONObject[eastRobots.size()];
-                System.out.println("about to enter the south robots for loop and size of east lis is: ");
-                System.out.println(eastRobots.size());
-                System.out.println("size of data array before the loop is ");
-                System.out.println(dataArray.size());
                 for (int j = 0;j < eastRobots.size();j++){
                     subJson12[j] = new  JSONObject();
                     subJson12[j].put("direction","EAST");
@@ -131,8 +121,6 @@ public class LookCommandHandler {
                     subJson12[j].put("distance", eastRobots.get(j).getRobotX() - rb.getRobotX());
                     dataArray.add(subJson12[j]);
                 }
-                System.out.println("size of data array after the loop is ");
-                System.out.println(dataArray.size());
             }
             else if (i == 2){
                 Position destination = new Position(rb.getRobotX(), World.Bottom_Right[1]);
@@ -261,10 +249,6 @@ public class LookCommandHandler {
             if (a.getRobotY() == b.getY()) {
                 // West to east
                 if (rb.getRobotY() == b.getY() && rb.getRobotX() - a.getRobotX() > 0 && rb.getRobotX() - b.getX() <= 0) {
-                    System.out.println("the conditions entered forced me here!!");
-                    eastRobots.add(rb);
-                    System.out.println("number of east robots");
-                    System.out.println(eastRobots.size());
 
                 }
                 // East to west

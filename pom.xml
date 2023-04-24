@@ -15,22 +15,13 @@
     </properties>
 
     <dependencies>
-    <dependency>
-        <groupId>org.hexworks.zircon</groupId>
-        <artifactId>zircon.core-jvm</artifactId>
-        <version>2022.1.0-RELEASE</version>
-    </dependency>
+
     <dependency>
         <groupId>org.hexworks.zircon</groupId>
         <artifactId>zircon.jvm.swing</artifactId>
         <version>2022.1.0-RELEASE</version>
     </dependency>
-        <dependency>
-            <groupId>org.hexworks.zircon</groupId>
-            <artifactId>zircon.core</artifactId>
-            <version>2022.1.0-RELEASE</version>
-            <scope>compile</scope>
-        </dependency>
+
         <dependency>
             <groupId>org.hexworks.zircon</groupId>
             <artifactId>zircon.jvm</artifactId>
