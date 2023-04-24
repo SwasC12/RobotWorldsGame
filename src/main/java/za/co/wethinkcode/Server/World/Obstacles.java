@@ -1,16 +1,28 @@
 package za.co.wethinkcode.Server.World;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Obstacles {
     int x;
     int y;
 
+    String direction;
 
-    public Obstacles(int x,int y){
+    String type;
+
+
+    public Obstacles(String type,int x,int y){
         this.x = x;
         this.y = y;
+        this.type = type;
+        this.direction = direction;
+    }
+
+    public String getType(){
+        return this.type;
+    }
+
+    public String getDirection(){
+        return this.direction;
     }
 
     public int getX(){
@@ -21,10 +33,5 @@ public class Obstacles {
         return this.y;
     }
 
-//    public static void main(String[] args) {
-//        Obstacles obs = new Obstacles(12,12);
-//        System.out.println(obs.x);
-//
-//    }
 
 }
