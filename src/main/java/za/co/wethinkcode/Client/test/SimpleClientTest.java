@@ -10,7 +10,7 @@ public class SimpleClientTest {
         SimpleClient simpleClient = new SimpleClient();
         String robotName = "robot1";
         String commandName = "move";
-        String arguments = "1,1";
+        String arguments = "[10]";
         JSONObject expected;
         expected = new JSONObject();
         expected.put("robot", robotName);
