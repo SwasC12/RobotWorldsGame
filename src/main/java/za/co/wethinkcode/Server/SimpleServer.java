@@ -2,18 +2,35 @@ package za.co.wethinkcode.Server;
 
 
 import com.fasterxml.jackson.databind.JsonNode;
+<<<<<<< src/main/java/za/co/wethinkcode/Server/SimpleServer.java
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONObject;
 import za.co.wethinkcode.Server.World.Robot;
 import za.co.wethinkcode.Server.World.World;
+=======
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import za.co.wethinkcode.Server.World.Direction;
+import za.co.wethinkcode.Server.World.Robot;
+import za.co.wethinkcode.Server.World.Status;
+import com.fasterxml.jackson.databind.ObjectMapper;
+>>>>>>> src/main/java/za/co/wethinkcode/Server/SimpleServer.java
 
 import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
+<<<<<<< src/main/java/za/co/wethinkcode/Server/SimpleServer.java
 
 import static za.co.wethinkcode.Server.World.Type.ROBOT;
 
+=======
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+>>>>>>> src/main/java/za/co/wethinkcode/Server/SimpleServer.java
 
 public class SimpleServer implements Runnable {
     public static final int PORT = 5000;
@@ -23,6 +40,7 @@ public class SimpleServer implements Runnable {
     Robot robot;
     CommandHandler commandHandler;
 
+<<<<<<< src/main/java/za/co/wethinkcode/Server/SimpleServer.java
     private Socket socket;
     public static World world;
 
@@ -44,11 +62,48 @@ public class SimpleServer implements Runnable {
         in = new BufferedReader(new InputStreamReader(
                 socket.getInputStream()));
 
+=======
+
+
+    public static List<Robot> myRobots = new ArrayList<>();
+    CommandHandler command = new CommandHandler();
+
+    public SimpleServer(Socket socket) throws IOException {
+        clientMachine = socket.getInetAddress().getHostName();
+        System.out.println("Connection from " + clientMachine);
+
+        out = new PrintStream(socket.getOutputStream());
+        in = new BufferedReader(new InputStreamReader(
+                socket.getInputStream()));
+
+        System.out.println("Waiting for client...");
+        byte[] data = new byte[1024];
+        InputStream inputStream = socket.getInputStream();
+        int bytesRead = inputStream.read(data);
+        String jsonData = new String(data, 0, bytesRead);
+        ObjectMapper objectMapper = new ObjectMapper();
+
+
+        JsonNode rootNode = objectMapper.readTree(jsonData);
+
+        String robotCommand = rootNode.get("command").asText();
+        String robotName = rootNode.get("robot").asText();
+        try {
+            OutputStream outputStream  = socket.getOutputStream();
+            byte[] responseData = command.CommandCheck(robotCommand,robotName).toString().getBytes(StandardCharsets.UTF_8);
+
+            outputStream.write(responseData);
+            outputStream.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+>>>>>>> src/main/java/za/co/wethinkcode/Server/SimpleServer.java
 
     }
     @Override
     public void run() {
         try {
+<<<<<<< src/main/java/za/co/wethinkcode/Server/SimpleServer.java
 
             while (socket.isConnected()) {
                 System.out.println("Waiting for the client request");
@@ -96,11 +151,20 @@ public class SimpleServer implements Runnable {
 
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
+=======
+            Object messageFromClient;
+            while ((messageFromClient = in.readLine()) != null) {
+
+            }
+        } catch (IOException ex) {
+            System.out.println("Shutting down single client server");
+>>>>>>> src/main/java/za/co/wethinkcode/Server/SimpleServer.java
         } finally {
             closeQuietly();
         }
     }
 
+<<<<<<< src/main/java/za/co/wethinkcode/Server/SimpleServer.java
     public void closeQuietly() {
         try {
             socket.close();
@@ -109,6 +173,20 @@ public class SimpleServer implements Runnable {
         }
     }
 
+=======
+    private void closeQuietly() {
+        try {
+            in.close();
+            out.close();
+        } catch (IOException ex) {
+        }
+    }
+
+
+
+    
+
+>>>>>>> src/main/java/za/co/wethinkcode/Server/SimpleServer.java
 }
 
 
