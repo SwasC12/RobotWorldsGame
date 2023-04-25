@@ -34,8 +34,13 @@ public class SimpleClient implements Serializable{
               String name = userInput.readLine();
             System.out.println("give command");
               String command = userInput.readLine();
+<<<<<<< src/main/java/za/co/wethinkcode/Client/SimpleClient.java
+            System.out.println("ROBOT SUCCESSFULLY LAUNCHED");
+            scanner = new Scanner(System.in);
+=======
 
             //scanner = new Scanner(System.in);
+>>>>>>> src/main/java/za/co/wethinkcode/Client/SimpleClient.java
 
             SimpleClient simpleClient = new SimpleClient();
             simpleClient.requestMessage(name,command,socket);
@@ -49,12 +54,16 @@ public class SimpleClient implements Serializable{
 
     }}
 
+<<<<<<< src/main/java/za/co/wethinkcode/Client/SimpleClient.java
+    public JSONObject requestMessage(String robotName, String commandName, String arguments)  {
+=======
     private void requestMessage(String robotName, String command, Socket socket) throws IOException {
         String[] arrayArgs;
         if (command.split(" ").length==1){
             arrayArgs = new String[]{};
         }else{
             arrayArgs = Arrays.copyOfRange(command.split(" "), 1, command.split(" ").length);}
+>>>>>>> src/main/java/za/co/wethinkcode/Client/SimpleClient.java
         JSONObject jsonRequest = new JSONObject();
         jsonRequest.put("robot", robotName);
         jsonRequest.put("arguments", Arrays.toString(arrayArgs));

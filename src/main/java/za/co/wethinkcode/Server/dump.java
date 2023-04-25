@@ -9,7 +9,10 @@ public class dump {
 
     public static Obstacles obst;
     public static Robot rob;
-
+    /*Dump method displays the worlds representation
+     * and everything programmed within and in the 
+     * world
+     */
     public  void Dump(){
         System.out.println("Dump command from server in action");
         System.out.println("world height" + getWorldHeight());
