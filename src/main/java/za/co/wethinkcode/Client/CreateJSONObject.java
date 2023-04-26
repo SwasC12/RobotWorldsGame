@@ -10,7 +10,6 @@ public class CreateJSONObject {
 
     public CreateJSONObject(){
         this.command = "launch";
-
     }
 
     public void setRobotName(String robotName) {

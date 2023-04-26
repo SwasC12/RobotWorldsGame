@@ -112,7 +112,7 @@ public class Robot{
         for (Obstacles obs : World.ListOfObstacles) {
             value =  obs.getX() <=a.getX() && obs.getX() +4 >= a.getX()
                     && obs.getY() <= a.getY() && obs.getY() + 4 >= a.getY();
-            if (value == true){
+            if (value){
                 break;
             }
         }

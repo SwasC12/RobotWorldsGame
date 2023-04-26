@@ -15,7 +15,8 @@ public class ConsoleDisplayServerResponse {
         if (command.equalsIgnoreCase("state")) {
             System.out.println("Current state of robot :\n");
             stateRobot(jsonResponse);
-        } else if (command.equalsIgnoreCase("launch") && jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
+        }
+        else if (command.equalsIgnoreCase("launch") && jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
             System.out.println("Congratulations! You have successfully launched your robot.\nHere is the current status of your robot:");
             System.out.println("   *   Repair: " + jsonResponse.get("data").get("repair").asText());
             System.out.println("   *   Shields: " + jsonResponse.get("data").get("shields").asText());
@@ -38,37 +39,35 @@ public class ConsoleDisplayServerResponse {
             }
             System.out.println("    State of robot: ");
             stateRobot(jsonResponse);
-
-        } else if (command.equalsIgnoreCase("forward") && jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
-            System.out.println("HAL moved forward by num steps");
-            System.out.println("HAL is now at position [x,y]");
-
-        } else if (command.equalsIgnoreCase("back") && jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
-            System.out.println("HAL moved backwards by num steps");
-            System.out.println("HAL is now at position [x,y]");
-
-        } else if (command.equalsIgnoreCase("right") && jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
-            System.out.println("HAL turned right");
-            System.out.println("HAL is now at position [x,y]");
-
-        } else if (command.equalsIgnoreCase("left") && jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
-            System.out.println("HAL turned left");
-            System.out.println("HAL is now at position [x,y]");
-
-
-        } else if (command.equalsIgnoreCase("fire") && jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
-            System.out.println("HAL fired with 2 bullets");
-            System.out.println("HAL is left with 7 bullets");
-
-        } else if (jsonResponse.get("result").asText().equalsIgnoreCase("ERROR")) {
+        }
+        /*
+         *TODO
+         */
+//        else if (command.equalsIgnoreCase("forward") && jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
+//            System.out.println("HAL moved forward by num steps");
+//            System.out.println("HAL is now at position [x,y]");
+//        }
+//        else if (command.equalsIgnoreCase("back") && jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
+//            System.out.println("HAL moved backwards by num steps");
+//            System.out.println("HAL is now at position [x,y]");
+//        }
+//        else if (command.equalsIgnoreCase("right") && jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
+//            System.out.println("HAL turned right");
+//            System.out.println("HAL is now at position [x,y]");
+//        }
+//        else if (command.equalsIgnoreCase("left") && jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
+//            System.out.println("HAL turned left");
+//            System.out.println("HAL is now at position [x,y]");
+//        }
+//        else if (command.equalsIgnoreCase("fire") && jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
+//            System.out.println("HAL fired with 2 bullets");
+//            System.out.println("HAL is left with 7 bullets");
+//        }
+        else if (jsonResponse.get("result").asText().equalsIgnoreCase("ERROR")) {
             System.out.println("Oops, there seems to be an error:");
             System.out.println("*   Error Message: "+ jsonResponse.get("data").get("message").asText());
         }
-        else if (command.equalsIgnoreCase("look") && jsonResponse.get("result").asText().equalsIgnoreCase("OK") ) {
-        System.out.println("Looking around the world:");
-        System.out.println(jsonResponse.get("data"));
 
-    }
     }
     public static void stateRobot(JsonNode jsonResponse){
         System.out.println("   *   Shields: " + jsonResponse.get("state").get("shields").asText());

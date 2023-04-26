@@ -3,7 +3,6 @@ package za.co.wethinkcode.Client;
 public class helpCommand {
 
     public helpCommand(){
-
     }
 
     @Override

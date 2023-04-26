@@ -12,13 +12,15 @@ public class ClientRequestandResponse implements Serializable {
     public ClientRequestandResponse(){
     }
     public JsonNode sendRequestToServer(JSONObject jsonRequest, Socket socket) throws IOException, ClassNotFoundException {
-
-             //Send request to server
+        /*
+           send request and receive response
+         */
+             //SEND request to server
              ObjectOutputStream toServer = new ObjectOutputStream(socket.getOutputStream());
              toServer.writeObject(jsonRequest);
              toServer.flush();
 
-             //Read response message from the server
+             //READ response message from the server
              ObjectInputStream fromServer = new ObjectInputStream(socket.getInputStream());
              Object response =  fromServer.readObject();
              String jsonData = response.toString();
