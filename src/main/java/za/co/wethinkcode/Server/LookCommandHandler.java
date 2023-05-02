@@ -249,7 +249,7 @@ public class LookCommandHandler {
             if (a.getRobotY() == b.getY()) {
                 // West to east
                 if (rb.getRobotY() == b.getY() && rb.getRobotX() - a.getRobotX() > 0 && rb.getRobotX() - b.getX() <= 0) {
-
+                    eastRobots.add(rb);
                 }
                 // East to west
                 else if (-rb.getRobotY() + b.getY() == 0 && rb.getRobotX() - a.getRobotX() < 0 && rb.getRobotX()  - b.getX() >= 0) {

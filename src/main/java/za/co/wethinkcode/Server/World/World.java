@@ -3,8 +3,12 @@ package za.co.wethinkcode.Server.World;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-public class World{
+import static za.co.wethinkcode.Server.World.Robot.robotBlockedPathByObstacle;
+
+public class World {
+    public static Random random = new Random();
     public static int width = 800;
     public static int height = 800;
     public   static int[] Centre = new int[2];
@@ -24,9 +28,22 @@ public class World{
 
 
     public static void addObstacles(){
-
-        ListOfObstacles.add(new Obstacles("OBSTACLE",10,10));
+        int X;
+        int Y;
+        while(ListOfObstacles.size()<20){
+            X = random.nextInt(800)-400;
+            Y = random.nextInt(800)-400;
+//            X = 0;
+//            Y = 0;
+            Position point = new Position(X,Y);
+            if (!robotBlockedPathByObstacle(point)){
+                ListOfObstacles.add(new Obstacles("OBSTACLE",X,Y));
+            }
+        }
     }
+
+
+
 
     public static int []  Top_Left_Boundary() {
         World.Top_Left[0] = -width/2;
