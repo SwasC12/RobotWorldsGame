@@ -1,4 +1,4 @@
-package za.co.wethinkcode.Server;
+package za.co.wethinkcode.Server.World;
 import java.io.*;
 import java.util.Properties;
 import org.json.simple.*;
