@@ -26,21 +26,6 @@ public abstract class Command {
         return argument;
     }
 
-    public static Command create(String instruction) {
-        String[] args = instruction.toLowerCase().trim().split(" ");
+//    public static Command create(String instruction) {
 
-        switch (args[0]){
-            case "forward":
-                return new Forward(args[1]);
-            case "back":
-                return new Back(args[1]);
-            case "turn":
-                return new Turn(args[1]);
-            case "fire":
-                return new Fire();
-
-            default:
-                throw new IllegalArgumentException("Unsupported command: " + instruction);
-        }
-    }
 }

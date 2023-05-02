@@ -1,13 +1,24 @@
 package za.co.wethinkcode.Server.World;
 
+
+
 import za.co.wethinkcode.Server.CommandHandler;
 
 import java.net.Socket;
 import java.util.Random;
 
+import static java.lang.String.valueOf;
+
 public class Robot{
 
-    public static int [] xAndY = new int[2] ;
+    public static int width = 800;
+    public static int height = 800;
+    public static Position TOP_LEFT = new Position(-width/2,height/2);
+    public static Position BOTTOM_RIGHT = new Position(width/2,-height/2);
+    public  Position position = new Position(getRobotX(),getRobotY());
+//    public AbstractWorld world;
+
+    public static int [] xAndY = new int[2];
     public static CommandHandler commandHandler;
 
     public static Random random = new Random();
@@ -20,7 +31,7 @@ public class Robot{
     int repair;
     int shields;
 
-    String direction;
+    String currentDirection;
     int shots;
 
     String status;
@@ -41,14 +52,26 @@ public class Robot{
         this.reload = reload;
         this.repair = repair;
         this.shields = shields;
-        this.direction = direction;
+        this.currentDirection = valueOf(Direction.UP);
         this.shots = shots;
         this.status = status;
         this.robotName = nameOfRobot;
     }
 
+//    public AbstractWorld getWorld(){
+//        return world;
+//    }
+
     public void setRobotName(String inp){
         this.robotName = inp;
+    }
+
+    public void setRobotX(int x){
+        this.x = x;
+    }
+
+    public void setRobotY(int y){
+        this.y = y;
     }
 
     public String getRobotName(){
@@ -88,7 +111,10 @@ public class Robot{
     }
 
     public String getRobotDirection(){
-        return this.direction;
+        return this.currentDirection;
+    }
+    public void setCurrentDirection(Direction direction){
+        this.currentDirection = valueOf(direction);
     }
 
     public int getRobotShots(){
@@ -119,6 +145,8 @@ public class Robot{
         return value;
     }
 
+
+
     public static boolean robotBlockedPathByRobot(Position a){
         boolean value = false;
         for (Robot rb : commandHandler.myRobots) {
@@ -129,9 +157,6 @@ public class Robot{
         }
         return value;
     }
-
-
-
     public static int [] generateXAndY(){
 
         int X;
@@ -152,29 +177,89 @@ public class Robot{
         return xAndY;
     }
 
+    public UpdateResponse updatePosition(int nrSteps) {
+        int newX = this.getRobotX();
+        int newY = this.getRobotY();
+        Position previousPosition = new Position(newX, newY);
+
+        if (valueOf(Direction.UP).equals(this.currentDirection)) {
+            System.out.println(nrSteps);
+            System.out.println(newY);
+            newY = newY + nrSteps;
+
+        } else if (valueOf(Direction.RIGHT).equals(this.currentDirection)) {
+            newX = newX + nrSteps;
+
+        } else if (valueOf(Direction.DOWN).equals(this.currentDirection)) {
+            newY = newY - nrSteps;
+
+        } else if (valueOf(Direction.LEFT).equals(this.currentDirection)) {
+            newX = newX - nrSteps;
+
+        }
+        Position newPosition = new Position(newX, newY);
+
+        setRobotX(newX);
+        setRobotY(newY);
+        if (newPosition.isIn(TOP_LEFT, BOTTOM_RIGHT)) {
+            this.position = newPosition;
+        }
+        return UpdateResponse.Done;
+    }
+
+    public void updateDirection(boolean turnRight) {
+        if (turnRight){
+            if (getRobotDirection().equals(valueOf(Direction.UP))){
+                setCurrentDirection(Direction.RIGHT);
+            }
+            else if(getRobotDirection().equals(valueOf(Direction.RIGHT))){
+                setCurrentDirection(Direction.DOWN);
+            }
+            else if(getRobotDirection().equals(valueOf(Direction.DOWN))){
+                setCurrentDirection(Direction.LEFT);
+            }
+            else if(getRobotDirection().equals(valueOf(Direction.LEFT))){
+                setCurrentDirection(Direction.UP);
+            }
+        }else{
+            if (getRobotDirection().equals(valueOf(Direction.UP))){
+                setCurrentDirection(Direction.LEFT);
+            }
+            else if(getRobotDirection().equals(valueOf(Direction.RIGHT))){
+                setCurrentDirection(Direction.UP);
+            }
+            else if(getRobotDirection().equals(valueOf(Direction.DOWN))){
+                setCurrentDirection(Direction.RIGHT);
+            }
+            else if(getRobotDirection().equals(valueOf(Direction.LEFT))){
+                setCurrentDirection(Direction.DOWN);
+            }
+        }
+    }
 
 
     @Override
     public String toString() {
         return "{" +
-                    "result: " + this.results +
-                    "data: {" +
-                    "position: [" + this.x + "," + this.y + "], " +
-                    "visibility: " + this.visibility + " ," +
-                    "reload: " + this.reload + "," +
-                    "repair: " + this.repair + "," +
-                    "shields: " + this.shields + "," +
+                "result: " + this.results +
+                "data: {" +
+                "position: [" + this.x + "," + this.y + "], " +
+                "visibility: " + this.visibility + " ," +
+                "reload: " + this.reload + "," +
+                "repair: " + this.repair + "," +
+                "shields: " + this.shields + "," +
                 "}," +
-                    "state: {" + " ," +
-                    "position: " + "[" + this.x + " ," + this.y + "]," +
-                    "direction: " + this.direction + "," +
-                    "shields: " + this.shields + "," +
-                    "shots: " + this.shots + "," +
-                    "status: " + this.status + "," +
-                    "}" +
+                "state: {" + " ," +
+                "position: " + "[" + this.x + " ," + this.y + "]," +
+                "direction: " + this.currentDirection + "," +
+                "shields: " + this.shields + "," +
+                "shots: " + this.shots + "," +
+                "status: " + this.status + "," +
+                "}" +
                 "}";
 
     }
 
 
 }
+
