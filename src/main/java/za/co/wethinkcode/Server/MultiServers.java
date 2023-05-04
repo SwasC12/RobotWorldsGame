@@ -2,6 +2,8 @@ package za.co.wethinkcode.Server;
 
 
 
+import org.json.simple.JSONObject;
+
 import za.co.wethinkcode.Server.World.World;
 
 import java.util.concurrent.ExecutorService;
@@ -11,8 +13,12 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
+import java.util.jar.JarException;
 
 public class MultiServers {
+    private static FileWriter file;
+    public static int Width;
+    public static int Height;
 
     //this attribute is used to manage tasks
     public static ExecutorService manage;
@@ -24,14 +30,47 @@ public class MultiServers {
 
     public static boolean serverInRunningState = true;
 
-     public static CommandHandler commandHandler;
-     public static World world;
+    public static CommandHandler commandHandler;
+    public static World world;
 
 
 
     public static void main(String[] args) throws ClassNotFoundException, IOException {
+
+        JSONObject json = new JSONObject();
+        if (args.length <3 ){
+            System.out.println("You did not enter any configuration parameters thus we will use default values.");
+
+        }
+
+
+
+        else if (args.length == 3) {
+            json.put("width", args[0]);
+            json.put("height", args[1]);
+            json.put("lookDistance", args[2]);
+        }
+
+
+        try{
+            file = new FileWriter("/home/khetha/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/World/config.json");
+            file.write(json.toString());
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                file.flush();
+                file.close();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+
+
         commandHandler = new CommandHandler();
+
         world = new World();
+
 
         manage = Executors.newFixedThreadPool(10);
 
@@ -72,7 +111,6 @@ public class MultiServers {
     public static void stopRunning() throws IOException {
         serverInRunningState = false;
         serverSocket.close();
-//        System.out.println(listOfClientsConnected.size());
         for (SimpleServer simpleServer :listOfClientsConnected) {
             simpleServer.closeQuietly();
         }

@@ -155,7 +155,6 @@ public class CommandHandler {
     }
 
     public static JSONObject writeJsonFileForState(String filename,Robot rb) throws Exception{
-//        Robot rb = new Robot("ROBOT","HAL",12,14,"OK",10,5,8,6, "NORTH",6, "NORMAL");
         JSONObject fileJson = new JSONObject();
         JSONArray dataArray = new JSONArray();
         JSONObject subJson1 = new JSONObject();
@@ -188,9 +187,8 @@ public class CommandHandler {
                 index=index+1;
             }
         }
-//        System.out.println(myRobots.size());
         myRobots.remove(myRobots.get(index));
-//        System.out.println(myRobots.size());
+
     }
 
 }

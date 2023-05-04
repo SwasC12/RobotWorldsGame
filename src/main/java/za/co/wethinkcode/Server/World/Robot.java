@@ -11,8 +11,8 @@ import static java.lang.String.valueOf;
 
 public class Robot{
 
-    public static int width = 800;
-    public static int height = 800;
+    public static int width = World.width;
+    public static int height = World.height;
     public static Position TOP_LEFT = new Position(-width/2,height/2);
     public static Position BOTTOM_RIGHT = new Position(width/2,-height/2);
     public  Position position = new Position(getRobotX(),getRobotY());
@@ -58,9 +58,7 @@ public class Robot{
         this.robotName = nameOfRobot;
     }
 
-//    public AbstractWorld getWorld(){
-//        return world;
-//    }
+
 
     public void setRobotName(String inp){
         this.robotName = inp;
@@ -162,10 +160,10 @@ public class Robot{
         int X;
         int Y;
         while(true){
-            X = random.nextInt(800)-400;
-            Y = random.nextInt(800)-400;
-//            X = 0;
-//            Y = 0;
+            X = random.nextInt(width)-width/2;
+            Y = random.nextInt(height)-height/2;
+//            X = 398;
+//            Y = 398;
             Position point = new Position(X,Y);
             if (!robotBlockedPathByObstacle(point) && !robotBlockedPathByRobot(point)){
                 xAndY[0] = X;
@@ -183,8 +181,6 @@ public class Robot{
         Position previousPosition = new Position(newX, newY);
 
         if (valueOf(Direction.UP).equals(this.currentDirection)) {
-            System.out.println(nrSteps);
-            System.out.println(newY);
             newY = newY + nrSteps;
 
         } else if (valueOf(Direction.RIGHT).equals(this.currentDirection)) {
