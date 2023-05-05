@@ -3,7 +3,7 @@ package za.co.wethinkcode.Server.World;
 
 
 import za.co.wethinkcode.Server.CommandHandler;
-
+import za.co.wethinkcode.Server.Command;
 import java.net.Socket;
 import java.util.Random;
 
@@ -20,6 +20,7 @@ public class Robot{
 
     public static int [] xAndY = new int[2];
     public static CommandHandler commandHandler;
+    Command command = new Command();
 
     public static Random random = new Random();
     private String robotName;
@@ -185,8 +186,7 @@ public class Robot{
         while(true){
             X = random.nextInt(width)-width/2;
             Y = random.nextInt(height)-height/2;
-//            X = 398;
-//            Y = 398;
+
             Position point = new Position(X,Y);
             if (!robotBlockedPathByObstacle(point) && !robotBlockedPathByRobot(point)){
                 xAndY[0] = X;
@@ -216,15 +216,23 @@ public class Robot{
             newX = newX - nrSteps;
 
         }
-        Position newPosition = new Position(newX, newY);
+        Position start = new Position(getRobotX(),getRobotY());
+        Position end = new Position(newX,newY);
 
-        setRobotX(newX);
-        setRobotY(newY);
-        if (newPosition.isIn(TOP_LEFT, BOTTOM_RIGHT)) {
+        Position newPosition = new Position(newX, newY);
+        if (newPosition.isIn(TOP_LEFT, BOTTOM_RIGHT) && !command.IsPathBlockedObstacle(start,end)  && !command.IsRobotPathBlocked(start, end)) {
             this.position = newPosition;
+            setRobotX(newX);
+            setRobotY(newY);
+            return UpdateResponse.Done;
+
+        } else if (newPosition.isIn(TOP_LEFT, BOTTOM_RIGHT) && command.IsPathBlockedObstacle(start,end)  && command.IsRobotPathBlocked(start, end))  {
+            return UpdateResponse.Obstructed;
         }
         return UpdateResponse.Done;
+
     }
+
 
     public void updateDirection(boolean turnRight) {
         if (turnRight){
@@ -277,6 +285,16 @@ public class Robot{
                 "}";
 
     }
+    public int getX() {
+        return x;
+    }
+
+
+    public int getY() {
+        return y;
+    }
 
 }
+
+
 
