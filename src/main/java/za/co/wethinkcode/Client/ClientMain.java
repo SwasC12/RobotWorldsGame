@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.Random;
 
 public class ClientMain implements Serializable {
     static String name;
@@ -39,12 +40,25 @@ public class ClientMain implements Serializable {
             System.out.println(">>> Response from server: "+ in.readLine());
 
             // Welcome to robot world
-            System.out.println("--------------------------------------------------------");
-            System.out.println("-----------------WELCOME TO ROBOT WORLD-----------------");
-            System.out.println("--------------------------------------------------------");
+//            System.out.println("--------------------------------------------------------");
+//            System.out.println("-----------------WELCOME TO ROBOT WORLD-----------------");
+//            System.out.println("--------------------------------------------------------");
             //  System.out.println("Do you want to launch a robot? (yes/no): ");
             // Getting response from user
 //            String launchRobot = userInput.readLine();
+
+            String[] rwArts = {asciiArt.rw,asciiArt.rw2,asciiArt.rw3,
+                    asciiArt.rw4,asciiArt.rw5,asciiArt.rw6, asciiArt.rw7,
+                    asciiArt.rw8, asciiArt.rw9, asciiArt.rw10, asciiArt.rw11,
+                    asciiArt.rw12};
+
+            Random random = new Random();
+            String asciiText = rwArts[random.nextInt(rwArts.length)];
+            String[] lines = asciiText.split("\n");
+            for (String line : lines){
+                System.out.println(line + "\r");
+                Thread.sleep(75);
+            }
 
             while (true){
                 String userInput = getInput("Do you want to launch a robot? (yes/no): ");
