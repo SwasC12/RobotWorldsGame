@@ -24,7 +24,7 @@ public class SimpleClient implements Serializable {
 
         try (
                 // Socket socket = new Socket(ipAddress,port))
-                // Socket socket = new Socket("10.3.16.115", 5000))
+                //Socket socket = new Socket("20.20.15.75", 5000))
                 Socket socket = new Socket("localhost", 5000))
         {
             System.out.println("Waiting for connection response from server: ");
@@ -53,7 +53,8 @@ public class SimpleClient implements Serializable {
                     CreateJSONObject createJSONObject = new CreateJSONObject();
                     //  System.out.println("Please enter the name of the robot:");
                     createJSONObject.setRobotName(getInput("Please enter the name of the robot:"));
-
+                    createJSONObject.setCommand(getInput(createJSONObject.getRobotName() + "> Please enter the launch command: <launch> <kind> <shieldStrength int> <maxShots int> ? "));
+//                    if (createJSONObject.getCommand().equalsIgnoreCase("launch"))
                     System.out.println("Client launching " + createJSONObject.getRobotName() + "...");
                     Thread.sleep(3000);
 
@@ -91,7 +92,11 @@ public class SimpleClient implements Serializable {
                                 System.out.println("You already launched your robot!!!");
                             }
                         }
+                    } else {
+                        continue;
                     }
+
+
                 } else if (userInput.equalsIgnoreCase("no")) {
                     System.out.println("Okay, bye...");
                     return;

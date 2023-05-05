@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.simple.JSONObject;
 import za.co.wethinkcode.Server.World.Robot;
+import za.co.wethinkcode.Server.World.Status;
 import za.co.wethinkcode.Server.World.World;
 
 import java.io.*;
@@ -70,11 +71,12 @@ public class SimpleServer implements Runnable {
                     //Process the request from the server
                     String robotCommand = rootNode.get("command").asText();
                     String robotName = rootNode.get("robot").asText();
+                    String[] args = rootNode.get("arguments").asText().replace("[","").replace("]","").split(",");
                     robot.setRobotName(robotName);
                     if (robotCommand != null && robotName != null) {
                         System.out.println("----------------------------------------------- ");
                         System.out.println("Processing Client request ...");
-                        Thread.sleep(3000);
+                        //Thread.sleep(3000);
                         ObjectOutputStream toClient = new ObjectOutputStream(socket.getOutputStream());
                         if (rootNode.get("command").asText().contains("forward")) {
                             responseData = Forward.execute(Integer.parseInt(rootNode.get("arguments").asText().replace("]", "").replace("[", "")), robotName);
@@ -84,7 +86,7 @@ public class SimpleServer implements Runnable {
                         } else if (rootNode.get("command").asText().contains("turn")) {
                             responseData = Turn.execute(rootNode.get("arguments").asText().replace("]", "").replace("[", ""), robotName);
                         } else {
-                            responseData = commandHandler.CommandCheck(robotCommand, robotName);
+                            responseData = commandHandler.CommandCheck(robotCommand, robotName,args);
                         }
 
                         System.out.println("------------------------------------------------");
@@ -105,6 +107,10 @@ public class SimpleServer implements Runnable {
             System.out.println(robot.getRobotName() + " exited from the Server");
             // System.out.println(robot.getRobotName() +" " + robot.getType() +" "+ robot.getRobotDirection() );
             commandHandler.removeRobot(robot);
+//            for (Robot deadRob: CommandHandler.myRobots){
+//                if (deadRob.getRobotStatus().equals(Status.DEAD));
+//                commandHandler.removeRobot(deadRob);
+//            }
 
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);

@@ -42,7 +42,7 @@ public class Forward  {
             subJson2.put("direction",myRobots.get(index).getRobotDirection());
             subJson2.put("shields",myRobots.get(index).getRobotShields());
             subJson2.put("shots",myRobots.get(index).getRobotShots());
-            subJson2.put("status",myRobots.get(index).getRobotStatus());
+            subJson2.put("status",myRobots.get(index).getRobotStatus().toString());
             fileJson.put("data",subJson1);
             fileJson.put("state",subJson2);
         }

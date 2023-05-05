@@ -33,8 +33,10 @@ public class Robot{
 
     String currentDirection;
     int shots;
+    int shotDistance;
 
-    String status;
+
+    Status status;
 
     String type;
     Socket socket;
@@ -43,7 +45,7 @@ public class Robot{
         this.socket = socket;
     }
 
-    public Robot(String type, String nameOfRobot,int x, int y, String results, int visibility, int reload, int repair,int shields, String direction,int shots, String status){
+    public Robot(String type, String nameOfRobot,int x, int y, String results, int visibility, int reload, int repair,int shields, String direction,int shots, Status status){
         this.type = type;
         this.x = x;
         this.y = y;
@@ -54,7 +56,7 @@ public class Robot{
         this.shields = shields;
         this.currentDirection = valueOf(Direction.UP);
         this.shots = shots;
-        this.status = status;
+        this.status = Status.NORMAL;
         this.robotName = nameOfRobot;
     }
 
@@ -107,6 +109,10 @@ public class Robot{
     public int getRobotShields(){
         return this.shields;
     }
+    public void setShields(int shields) {
+        this.shields = shields;
+    }
+
 
     public String getRobotDirection(){
         return this.currentDirection;
@@ -119,8 +125,25 @@ public class Robot{
         return this.shots;
     }
 
-    public String getRobotStatus(){
+    public void setRobotShots(int shots) {
+        this.shots = shots;
+    }
+
+    public int getShotDistance() {
+        return shotDistance;
+    }
+
+    public void setShotDistance(int shotDistance) {
+        this.shotDistance = shotDistance;
+    }
+
+
+    public Status getRobotStatus(){
         return this.status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public void setRobotX(){
@@ -232,7 +255,6 @@ public class Robot{
             }
         }
     }
-
 
     @Override
     public String toString() {

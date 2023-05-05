@@ -16,7 +16,7 @@ public class ConsoleDisplayServerResponse {
             System.out.println("Current state of robot :\n");
             stateRobot(jsonResponse);
         }
-        else if (command.equalsIgnoreCase("launch") && jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
+        else if (command.split(" ")[0].equalsIgnoreCase("launch") && jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
             System.out.println("Congratulations! You have successfully launched your robot.\nHere is the current status of your robot:");
             System.out.println("   *   Repair: " + jsonResponse.get("data").get("repair").asText());
             System.out.println("   *   Shields: " + jsonResponse.get("data").get("shields").asText());
@@ -39,7 +39,15 @@ public class ConsoleDisplayServerResponse {
             }
             System.out.println("    State of robot: ");
             stateRobot(jsonResponse);
+        }else if (command.equalsIgnoreCase("fire")) {
+            if (jsonResponse.get("result").asText().equalsIgnoreCase("OK")){
+                System.out.println("Fire response:  \n" + "    data:  "+ jsonResponse.get("data"));
+                System.out.println("    My Robot state: "+jsonResponse.get("state"));
+            } else if (jsonResponse.get("result").asText().equalsIgnoreCase("No bullets")) {
+                System.out.println("You have run out of bullets!!!, try reload option");
+            }
         }
+
 //        /*
 //         *TODO
 //         */
