@@ -53,9 +53,6 @@ public class World {
         }
     }
 
-
-
-
     public static int []  Top_Left_Boundary() {
         World.Top_Left[0] = -width/2;
         World.Top_Left[1] = height/2;

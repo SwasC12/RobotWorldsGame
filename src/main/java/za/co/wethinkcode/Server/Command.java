@@ -11,30 +11,21 @@ import static za.co.wethinkcode.Server.World.World.getWorldObstacles;
 
 public class Command {
     public Command() {
-
     }
 
-//    public boolean IsPositionBlockedObstacle(Position pos) {
-//        List<Obstacles> obstacles = getWorldObstacles();
-//        for (Obstacles obs : obstacles) {
-//            if ((pos.getX() <= obs.getX() && pos.getX() <= obs.getX() + 4) &&
-//                    (pos.getY() <= obs.getY() && pos.getY() <= obs.getY() + 4))
-//                return true;
-//        }
-//        return false;
-//    }
-//
-//    public boolean IsRobotPositionBlocked(Position posi) {
-//        List<Robot> listOfRobots = commandHandler.myRobots;
-//        for (Robot robo : listOfRobots) {
-//            if ((posi.getX() == robo.getRobotX() &&
-//                    (posi.getY() == robo.getRobotY())))
-//                return true;
-//        }
-//        return false;
-//    }
+    public boolean IsPositionBlockedObstacle(Position pos) {
+        System.out.println("Position Obstacle");
+        List<Obstacles> obstacles = getWorldObstacles();
+        for (Obstacles obs : obstacles) {
+            if ((pos.getX() <= obs.getX() && pos.getX() <= obs.getX() + 4) &&
+                    (pos.getY() <= obs.getY() && pos.getY() <= obs.getY() + 4))
+                return true;
+        }
+        return false;
+    }
 
     public boolean IsPathBlockedObstacle(Position start, Position end) {
+        System.out.println("Path Obstacle");
         List<Obstacles> Path = getWorldObstacles();
         for (Obstacles blocked : Path) {
             if ((blocked.getX() >= start.getX() && blocked.getX() <= end.getX() &&
@@ -52,6 +43,7 @@ public class Command {
     }
 
     public boolean IsRobotPathBlocked(Position start,Position end) {
+        System.out.println("Path Robot");
         List<Robot> Robots = commandHandler.myRobots;
         for (Robot blocked : Robots) {
             if (blocked.getX() >= start.getX() && blocked.getX() <= end.getX() &&
