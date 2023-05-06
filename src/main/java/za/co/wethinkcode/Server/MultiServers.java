@@ -90,7 +90,6 @@ public class MultiServers {
 
                 System.out.println("Connection: " + socket);
                 manage.submit(singleServer);
-                stopRunning();
 
             }
             catch(IOException ex) {

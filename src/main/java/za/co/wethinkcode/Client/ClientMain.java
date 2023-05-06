@@ -29,7 +29,7 @@ public class ClientMain implements Serializable {
                 Socket socket = new Socket("localhost", 5000))
         {
             System.out.println("Waiting for connection response from server: ");
-            Thread.sleep(4000);
+            Thread.sleep(2000);
             ClientRequestandResponse client = new ClientRequestandResponse();
 
 //            BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
@@ -57,7 +57,7 @@ public class ClientMain implements Serializable {
             String[] lines = asciiText.split("\n");
             for (String line : lines){
                 System.out.println(line + "\r");
-                Thread.sleep(75);
+            //    Thread.sleep(75);
             }
 
             while (true){
@@ -70,7 +70,7 @@ public class ClientMain implements Serializable {
                     createJSONObject.setCommand(getInput(createJSONObject.getRobotName() + "> Please enter the launch command: <launch> <kind> <shieldStrength int> <maxShots int> ? "));
 //                    if (createJSONObject.getCommand().equalsIgnoreCase("launch"))
                     System.out.println("Client launching " + createJSONObject.getRobotName() + "...");
-                    Thread.sleep(3000);
+                  //  Thread.sleep(3000);
 
                     // code to launch the robot
                     JsonNode response = client.sendRequestToServer(createJSONObject.getJsonObject() ,socket);
@@ -99,7 +99,7 @@ public class ClientMain implements Serializable {
                                 response = client.sendRequestToServer(createJSONObject.getJsonObject(),socket);
                                 //display response on console
                                 System.out.println("Waiting for the response from the server");
-                                Thread.sleep(3000);
+                              //  Thread.sleep(3000);
                                 ConsoleDisplayServerResponse.displayResponse(response, createJSONObject.getCommand());
                             }
                             else  {
@@ -122,9 +122,9 @@ public class ClientMain implements Serializable {
             }
 
 
-        } catch (InterruptedException | ClassNotFoundException | ConnectException e) {
+        } catch (InterruptedException| ClassNotFoundException | ConnectException e) {
             System.err.println("Failed to connect to server: " + e.getMessage());
-//            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }catch (IOException e){
             System.err.println("Error : "+ e.getMessage());
         }

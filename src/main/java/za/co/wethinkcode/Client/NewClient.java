@@ -28,7 +28,7 @@ public class NewClient implements Serializable {
                 Socket socket = new Socket("localhost", 5000))
         {
             System.out.println("Waiting for connection response from server: ");
-            Thread.sleep(4000);
+            Thread.sleep(2000);
             ClientRequestandResponse client = new ClientRequestandResponse();
 
 //            BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
@@ -56,7 +56,7 @@ public class NewClient implements Serializable {
                     createJSONObject.setCommand(getInput(createJSONObject.getRobotName() + "> Please enter the launch command: <launch> <kind> <shieldStrength int> <maxShots int> ? "));
 //                    if (createJSONObject.getCommand().equalsIgnoreCase("launch"))
                     System.out.println("Client launching " + createJSONObject.getRobotName() + "...");
-                    Thread.sleep(3000);
+                  //  Thread.sleep(3000);
 
                     // code to launch the robot
                     JsonNode response = client.sendRequestToServer(createJSONObject.getJsonObject() ,socket);
@@ -85,7 +85,7 @@ public class NewClient implements Serializable {
                                 response = client.sendRequestToServer(createJSONObject.getJsonObject(),socket);
                                 //display response on console
                                 System.out.println("Waiting for the response from the server");
-                                Thread.sleep(3000);
+                               // Thread.sleep(3000);
                                 ConsoleDisplayServerResponse.displayResponse(response, createJSONObject.getCommand());
                             }
                             else  {
