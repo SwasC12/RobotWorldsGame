@@ -63,11 +63,6 @@ public class CommandHandler {
                 }
             }
 
-//            if (this.myRobots.size() == 0){
-//                addToList(new Robot("ROBOT", "Khetha", 10, 0, "OK", 10, 5, 8, 6, "NORTH", 6, "NORMAL"));
-//            }
-
-
 
             if (!ListOfClientCommands.contains(robotCommand)) {
                 return doesNotSuppCom("Responsefile");

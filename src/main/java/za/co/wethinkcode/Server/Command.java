@@ -13,17 +13,6 @@ public class Command {
     public Command() {
     }
 
-    public boolean IsPositionBlockedObstacle(Position pos) {
-        System.out.println("Position Obstacle");
-        List<Obstacles> obstacles = getWorldObstacles();
-        for (Obstacles obs : obstacles) {
-            if ((pos.getX() <= obs.getX() && pos.getX() <= obs.getX() + 4) &&
-                    (pos.getY() <= obs.getY() && pos.getY() <= obs.getY() + 4))
-                return true;
-        }
-        return false;
-    }
-
     public boolean IsPathBlockedObstacle(Position start, Position end) {
         System.out.println("Path Obstacle");
         List<Obstacles> Path = getWorldObstacles();
@@ -46,10 +35,14 @@ public class Command {
         System.out.println("Path Robot");
         List<Robot> Robots = commandHandler.myRobots;
         for (Robot blocked : Robots) {
+            if (blocked.getRobotX() == start.getX() && blocked.getRobotY() == start.getY()) {
+                continue;
+            }
             if (blocked.getX() >= start.getX() && blocked.getX() <= end.getX() &&
                     (blocked.getY() <= start.getY() && blocked.getY() >= end.getY() ||
                             (blocked.getX() <= start.getX() && blocked.getX() <= end.getX() &&
                                     (blocked.getY() >= start.getY() && blocked.getY() >= end.getY())))){
+                System.out.println(blocked.getX()+" "+ blocked.getY());
                 return true;
             }
         }

@@ -56,7 +56,7 @@ public class NewClient implements Serializable {
                     createJSONObject.setCommand(getInput(createJSONObject.getRobotName() + "> Please enter the launch command: <launch> <kind> <shieldStrength int> <maxShots int> ? "));
 //                    if (createJSONObject.getCommand().equalsIgnoreCase("launch"))
                     System.out.println("Client launching " + createJSONObject.getRobotName() + "...");
-                  //  Thread.sleep(3000);
+
 
                     // code to launch the robot
                     JsonNode response = client.sendRequestToServer(createJSONObject.getJsonObject() ,socket);

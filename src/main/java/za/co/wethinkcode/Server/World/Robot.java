@@ -167,8 +167,6 @@ public class Robot{
         return value;
     }
 
-
-
     public static boolean robotBlockedPathByRobot(Position a){
         boolean value = false;
         for (Robot rb : commandHandler.myRobots) {
@@ -179,6 +177,7 @@ public class Robot{
         }
         return value;
     }
+
     public static int [] generateXAndY(){
 
         int X;
@@ -218,22 +217,21 @@ public class Robot{
         }
         Position start = new Position(getRobotX(),getRobotY());
         Position end = new Position(newX,newY);
-        System.out.println(command.IsPositionBlockedObstacle(end));
+//        System.out.println(command.IsPositionBlockedObstacle(end));
         System.out.println(command.IsRobotPathBlocked(start, end));
         System.out.println(command.IsPathBlockedObstacle(start, end));
 
         Position newPosition = new Position(newX, newY);
-        if (newPosition.isIn(TOP_LEFT, BOTTOM_RIGHT) && !command.IsPathBlockedObstacle(start,end)  && !command.IsRobotPathBlocked(start, end) && !command.IsPositionBlockedObstacle(end)) {
+        if (newPosition.isIn(TOP_LEFT, BOTTOM_RIGHT) && !command.IsPathBlockedObstacle(start,end)  && !command.IsRobotPathBlocked(start, end)) {
             this.position = newPosition;
             setRobotX(newX);
             setRobotY(newY);
             return UpdateResponse.Done;
 
-        } else if (newPosition.isIn(TOP_LEFT, BOTTOM_RIGHT) && command.IsPathBlockedObstacle(start,end)  && command.IsRobotPathBlocked(start, end) && command.IsPositionBlockedObstacle(end))  {
+        } else { //if (newPosition.isIn(TOP_LEFT, BOTTOM_RIGHT) && command.IsPathBlockedObstacle(start,end)  && command.IsRobotPathBlocked(start, end))  {
             return UpdateResponse.Obstructed;
         }
-        return UpdateResponse.Done;
-
+        //return UpdateResponse.Done;
     }
 
 
