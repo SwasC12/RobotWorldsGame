@@ -14,7 +14,6 @@ public class Command {
     }
 
     public boolean IsPathBlockedObstacle(Position start, Position end) {
-        System.out.println("Path Obstacle");
         List<Obstacles> Path = getWorldObstacles();
         for (Obstacles blocked : Path) {
             if ((blocked.getX() >= start.getX() && blocked.getX() <= end.getX() &&
@@ -32,7 +31,6 @@ public class Command {
     }
 
     public boolean IsRobotPathBlocked(Position start,Position end) {
-        System.out.println("Path Robot");
         List<Robot> Robots = commandHandler.myRobots;
         for (Robot blocked : Robots) {
             if (blocked.getRobotX() == start.getX() && blocked.getRobotY() == start.getY()) {
@@ -42,7 +40,6 @@ public class Command {
                     (blocked.getY() <= start.getY() && blocked.getY() >= end.getY() ||
                             (blocked.getX() <= start.getX() && blocked.getX() <= end.getX() &&
                                     (blocked.getY() >= start.getY() && blocked.getY() >= end.getY())))){
-                System.out.println(blocked.getX()+" "+ blocked.getY());
                 return true;
             }
         }

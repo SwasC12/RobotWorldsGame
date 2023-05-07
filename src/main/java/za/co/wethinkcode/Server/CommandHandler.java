@@ -9,6 +9,7 @@ import za.co.wethinkcode.Server.World.Status;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.String.valueOf;
 
 
 public class CommandHandler {
@@ -36,7 +37,7 @@ public class CommandHandler {
         public Robot generateRobot(String robotName, int shieldStrength, int maxShots, int shotDistance){
             int x = Robot.generateXAndY()[0];
             int y = Robot.generateXAndY()[1];
-            Robot robot = new Robot("ROBOT", robotName, x, y, "OK", 800, 5, 8, shieldStrength, "NORTH", maxShots, Status.NORMAL);
+            Robot robot = new Robot("ROBOT", robotName, x, y, "OK", 800, 5, 8, shieldStrength, "NORTH", maxShots, valueOf(Status.NORMAL));
             robot.setRobotName(robotName);
             robot.setRobotName(robotName);
             robot.setRobotShots(maxShots);

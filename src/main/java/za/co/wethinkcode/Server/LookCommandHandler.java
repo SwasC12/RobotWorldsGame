@@ -80,12 +80,13 @@ public class LookCommandHandler {
 
                 //NORTH EDGE
                 edgeBlocksPath(rb, destination);
-//                if (northEdge.size()== 1) {
-                subJson3.put("direction", "NORTH");
-                subJson3.put("type", "EDGE");
-                subJson3.put("distance", World.Top_Left[1] - rb.getRobotY());
-                dataArray.add(subJson3);
-//                }
+                System.out.println(northEdge.size());
+                if (northEdge.size()== 1) {
+                    subJson3.put("direction", "NORTH");
+                    subJson3.put("type", "EDGE");
+                    subJson3.put("distance", World.Top_Left[1] - rb.getRobotY());
+                    dataArray.add(subJson3);
+                }
 
                 //NORTH OBSTACLES
                 LookCommandHandler.obstacleBlocksPath(rb, destination);
@@ -116,12 +117,13 @@ public class LookCommandHandler {
 //                JSONObject [] subJson8 = new JSONObject[eastObstacles.size()];
                 //EAST EDGE
                 edgeBlocksPath(rb, destination);
-//                if (eastEdge.size()== 1) {
-                subJson4.put("direction", "EAST");
-                subJson4.put("type", "EDGE");
-                subJson4.put("distance", World.Bottom_Right[0] - rb.getRobotX());
-                dataArray.add(subJson4);
-//                }
+                System.out.println(eastEdge.size());
+                if (eastEdge.size()== 1) {
+                    subJson4.put("direction", "EAST");
+                    subJson4.put("type", "EDGE");
+                    subJson4.put("distance", World.Bottom_Right[0] - rb.getRobotX());
+                    dataArray.add(subJson4);
+                }
 
                 //EAST OBSTACLES
                 LookCommandHandler.obstacleBlocksPath(rb, destination);
@@ -152,12 +154,13 @@ public class LookCommandHandler {
 
                 //SOUTH EDGE
                 edgeBlocksPath(rb, destination);
-//                if (southEdge.size()== 1) {
-                subJson5.put("direction", "SOUTH");
-                subJson5.put("type", "EDGE");
-                subJson5.put("distance", -World.Bottom_Right[1] + rb.getRobotY());
-                dataArray.add(subJson5);
-//                }
+                System.out.println(southEdge.size());
+                if (southEdge.size()== 1) {
+                    subJson5.put("direction", "SOUTH");
+                    subJson5.put("type", "EDGE");
+                    subJson5.put("distance", -World.Bottom_Right[1] + rb.getRobotY());
+                    dataArray.add(subJson5);
+                }
 
                 //SOUTH OBSTACLES
                 LookCommandHandler.obstacleBlocksPath(rb, destination);
@@ -189,13 +192,14 @@ public class LookCommandHandler {
 
                 //WEST EDGE
                 edgeBlocksPath(rb, destination);
-//                if (westEdge.size()== 1) {
-                subJson6.put("direction", "WEST");
-                subJson6.put("type", "EDGE");
-                subJson6.put("distance", -World.Top_Left[0] + rb.getRobotX());
+                System.out.println(westEdge.size());
+                if (westEdge.size()== 1) {
+                    subJson6.put("direction", "WEST");
+                    subJson6.put("type", "EDGE");
+                    subJson6.put("distance", -World.Top_Left[0] + rb.getRobotX());
 
-                dataArray.add(subJson6);
-//                }
+                    dataArray.add(subJson6);
+                }
 
                 //WEST OBSTACLES
                 LookCommandHandler.obstacleBlocksPath(rb, destination);
@@ -310,17 +314,17 @@ public class LookCommandHandler {
                 eastEdge.add(new Edge(World.Bottom_Right_Boundary()[0],b.getY()));
             }
             // East to west
-            if (b.getX() <= World.Top_Left_Boundary()[0]) {
+            else if (b.getX() <= World.Top_Left_Boundary()[0]) {
                 westEdge.add(new Edge(World.Top_Left_Boundary()[0],b.getY()));
             }
         }
-        if (a.getRobotX() == b.getX()) {
+        else if (a.getRobotX() == b.getX()) {
             // North to south
             if ( b.getY() <= World.Bottom_Right_Boundary()[1]) {
                 southEdge.add(new Edge(b.getX(),World.Bottom_Right_Boundary()[1]));
             }
             // South to north
-            if (b.getY() >= World.Top_Left_Boundary()[1]) {
+            else if (b.getY() >= World.Top_Left_Boundary()[1]) {
                 northEdge.add(new Edge(b.getX(),World.Top_Left_Boundary()[1]));
             }
         }

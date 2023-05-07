@@ -6,6 +6,8 @@ import za.co.wethinkcode.Server.World.*;
 import java.io.IOException;
 import java.net.Socket;
 
+import static java.lang.String.valueOf;
+
 public class HandleFireCommand {
     Robot robot;
 
@@ -157,7 +159,7 @@ public class HandleFireCommand {
                 setRobotHit(robot1);
                 getRobotHit().setShields(robot1.getRobotShields()-1);
                 if (getRobotHit().getRobotShields()==-1){
-                    getRobotHit().setStatus(Status.DEAD);
+                    getRobotHit().setStatus(valueOf(Status.DEAD));
                     CommandHandler.myRobots.remove(robot1);
                 }
                 //if (robot1.getRobotShields()<0){

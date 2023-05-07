@@ -37,7 +37,7 @@ public class Robot{
     int shotDistance;
 
 
-    Status status;
+    String status;
 
     String type;
     Socket socket;
@@ -46,7 +46,7 @@ public class Robot{
         this.socket = socket;
     }
 
-    public Robot(String type, String nameOfRobot,int x, int y, String results, int visibility, int reload, int repair,int shields, String direction,int shots, Status status){
+    public Robot(String type, String nameOfRobot,int x, int y, String results, int visibility, int reload, int repair,int shields, String direction,int shots, String status){
         this.type = type;
         this.x = x;
         this.y = y;
@@ -57,7 +57,7 @@ public class Robot{
         this.shields = shields;
         this.currentDirection = valueOf(Direction.UP);
         this.shots = shots;
-        this.status = Status.NORMAL;
+        this.status = valueOf(Status.NORMAL);
         this.robotName = nameOfRobot;
     }
 
@@ -139,11 +139,11 @@ public class Robot{
     }
 
 
-    public Status getRobotStatus(){
+    public String getRobotStatus(){
         return this.status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -167,6 +167,8 @@ public class Robot{
         return value;
     }
 
+
+
     public static boolean robotBlockedPathByRobot(Position a){
         boolean value = false;
         for (Robot rb : commandHandler.myRobots) {
@@ -177,7 +179,6 @@ public class Robot{
         }
         return value;
     }
-
     public static int [] generateXAndY(){
 
         int X;
@@ -217,21 +218,22 @@ public class Robot{
         }
         Position start = new Position(getRobotX(),getRobotY());
         Position end = new Position(newX,newY);
-//        System.out.println(command.IsPositionBlockedObstacle(end));
-        System.out.println(command.IsRobotPathBlocked(start, end));
-        System.out.println(command.IsPathBlockedObstacle(start, end));
+
 
         Position newPosition = new Position(newX, newY);
-        if (newPosition.isIn(TOP_LEFT, BOTTOM_RIGHT) && !command.IsPathBlockedObstacle(start,end)  && !command.IsRobotPathBlocked(start, end)) {
+        if (newPosition.isIn(TOP_LEFT, BOTTOM_RIGHT) && !command.IsPathBlockedObstacle(start,end)  && !command.IsRobotPathBlocked(start, end) ) {
             this.position = newPosition;
             setRobotX(newX);
             setRobotY(newY);
             return UpdateResponse.Done;
 
-        } else { //if (newPosition.isIn(TOP_LEFT, BOTTOM_RIGHT) && command.IsPathBlockedObstacle(start,end)  && command.IsRobotPathBlocked(start, end))  {
+        } else{ //if (newPosition.isIn(TOP_LEFT, BOTTOM_RIGHT) && command.IsPathBlockedObstacle(start,end)  && command.IsRobotPathBlocked(start, end) && command.IsPositionBlockedObstacle(end))  {
             return UpdateResponse.Obstructed;
         }
-        //return UpdateResponse.Done;
+//        setRobotX(newX);
+//        setRobotY(newY);
+//        return UpdateResponse.Done;
+
     }
 
 
@@ -296,6 +298,8 @@ public class Robot{
     }
 
 }
+
+
 
 
 

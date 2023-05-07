@@ -8,8 +8,8 @@ import java.net.Socket;
 import java.net.SocketException;
 import java.util.Random;
 
-public class ClientMain implements Serializable {
-    static String name;
+public class ClientMain extends StoreClientDetails  implements Serializable {
+    //    public static String name;
     static String command;
     private static BufferedReader in;
     private static PrintStream out;
@@ -57,7 +57,7 @@ public class ClientMain implements Serializable {
             String[] lines = asciiText.split("\n");
             for (String line : lines){
                 System.out.println(line + "\r");
-            //    Thread.sleep(75);
+                //    Thread.sleep(75);
             }
 
             while (true){
@@ -67,10 +67,12 @@ public class ClientMain implements Serializable {
                     CreateJSONObject createJSONObject = new CreateJSONObject();
                     //  System.out.println("Please enter the name of the robot:");
                     createJSONObject.setRobotName(getInput("Please enter the name of the robot:"));
+
                     createJSONObject.setCommand(getInput(createJSONObject.getRobotName() + "> Please enter the launch command: <launch> <kind> <shieldStrength int> <maxShots int> ? "));
+
 //                    if (createJSONObject.getCommand().equalsIgnoreCase("launch"))
                     System.out.println("Client launching " + createJSONObject.getRobotName() + "...");
-                  //  Thread.sleep(3000);
+                    //  Thread.sleep(3000);
 
                     // code to launch the robot
                     JsonNode response = client.sendRequestToServer(createJSONObject.getJsonObject() ,socket);
@@ -82,7 +84,7 @@ public class ClientMain implements Serializable {
                         while (socket.isConnected()) {
 //                        System.out.println(createJSONObject.getRobotName() + "> What must I do next?");
                             String command = getInput(createJSONObject.getRobotName() + "> What must I do next?");
-
+                            name = createJSONObject.getRobotName();
                             if (command.equalsIgnoreCase("quit")){
                                 out.println("Shutting down "+createJSONObject.getRobotName()+"...");
                                 socket.close();
@@ -99,7 +101,7 @@ public class ClientMain implements Serializable {
                                 response = client.sendRequestToServer(createJSONObject.getJsonObject(),socket);
                                 //display response on console
                                 System.out.println("Waiting for the response from the server");
-                              //  Thread.sleep(3000);
+                                //  Thread.sleep(3000);
                                 ConsoleDisplayServerResponse.displayResponse(response, createJSONObject.getCommand());
                             }
                             else  {

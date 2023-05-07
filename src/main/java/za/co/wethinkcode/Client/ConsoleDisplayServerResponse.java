@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 public class ConsoleDisplayServerResponse {
     public static void displayResponse(JsonNode jsonResponse, String command) throws NullPointerException {
-        System.out.println(" ");
+//        System.out.println(" ");
         if (!command.equalsIgnoreCase("launch")) {
             System.out.println("CLIENT REQUESTS: " + "COMMAND: " + command.split(" ")[0] + " ----->> SERVER ");
         }
@@ -26,6 +26,7 @@ public class ConsoleDisplayServerResponse {
             //  System.out.println(jsonResponse.getClass());
         }
         else if (command.equalsIgnoreCase("look") && jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
+
             System.out.println("Robot looking around the world>>>>>>>>>>>>>>:");
             System.out.println("   *   Objects:");
             int obj_num=1;
@@ -51,19 +52,25 @@ public class ConsoleDisplayServerResponse {
 //        /*
 //         *TODO
 //         */
+
         else if (command.split(" ").length>1) {
-            if (command.split(" ")[0].equalsIgnoreCase("forward") && jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
-                System.out.println("HAL moved forward by " + command.split(" ")[1] + " steps");
-                System.out.println("HAL is now at position " + jsonResponse.get("state").get("position").asText());
-            } else if (command.split(" ")[0].equalsIgnoreCase("back") && jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
-                System.out.println("HAL moved backwards by " + command.split(" ")[1] + " steps");
-                System.out.println("HAL is now at position " + jsonResponse.get("state").get("position").asText());
-            } else if (command.split(" ")[1].equalsIgnoreCase("right") && jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
-                System.out.println("HAL turned right");
-                System.out.println("HAL is now at position " + jsonResponse.get("state").get("position").asText());
-            } else if (command.split(" ")[1].equalsIgnoreCase("left") && jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
-                System.out.println("HAL turned left");
-                System.out.println("HAL is now at position " + jsonResponse.get("state").get("position").asText());
+//            System.out.println("entered in movements..");
+            if (command.split(" ")[0].equalsIgnoreCase("forward") && jsonResponse.get("data").get("message").asText().equalsIgnoreCase("Done")) {
+                System.out.println(StoreClientDetails.name+" moved forward by " + command.split(" ")[1] + " steps");
+                System.out.println(StoreClientDetails.name+" is now at position " + jsonResponse.get("state").get("position").asText());
+            } else if (command.split(" ")[0].equalsIgnoreCase("back") && jsonResponse.get("data").get("message").asText().equalsIgnoreCase("Done")) {
+                System.out.println(StoreClientDetails.name+" moved backwards by " + command.split(" ")[1] + " steps");
+                System.out.println(StoreClientDetails.name+" is now at position " + jsonResponse.get("state").get("position").asText());
+            } else if (command.split(" ")[1].equalsIgnoreCase("right") && jsonResponse.get("data").get("message").asText().equalsIgnoreCase("Done")) {
+                System.out.println(StoreClientDetails.name+" turned right");
+                System.out.println(StoreClientDetails.name+" is now at position " + jsonResponse.get("state").get("position").asText());
+            } else if (command.split(" ")[1].equalsIgnoreCase("left") && jsonResponse.get("data").get("message").asText().equalsIgnoreCase("Done")) {
+                System.out.println(StoreClientDetails.name+" turned left");
+                System.out.println(StoreClientDetails.name+" is now at position " + jsonResponse.get("state").get("position").asText());
+            }
+            else{
+                System.out.println("Sorry the path you attempting to move to is obstructed");
+                System.out.println(StoreClientDetails.name+" is now at position " + jsonResponse.get("state").get("position").asText());
             }
 //        else if (command.equalsIgnoreCase("fire") && jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
 //            System.out.println("HAL fired with 2 bullets");
@@ -84,4 +91,3 @@ public class ConsoleDisplayServerResponse {
         System.out.println("   *   Status: " + jsonResponse.get("state").get("status").asText());
     }
 }
-

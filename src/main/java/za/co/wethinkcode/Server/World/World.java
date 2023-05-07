@@ -81,11 +81,9 @@ public class World {
         try{
 
             reader = new FileReader("src/main/java/za/co/wethinkcode/Server/World/config.json");
-//            reader = new FileReader("/home/khetha/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/World/config.json");
             data = (JSONObject) parser.parse(reader);
             if (data.size() == 0){
                 reader = new FileReader("src/main/java/za/co/wethinkcode/Server/World/default.json");
-//                reader = new FileReader("/home/khetha/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/World/default.json");
                 data = (JSONObject) parser.parse(reader);
             }
 
