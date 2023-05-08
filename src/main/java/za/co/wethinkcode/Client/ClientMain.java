@@ -67,8 +67,41 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
                     CreateJSONObject createJSONObject = new CreateJSONObject();
                     //  System.out.println("Please enter the name of the robot:");
                     createJSONObject.setRobotName(getInput("Please enter the name of the robot:"));
+                    String launchInput;
+                    while (true){
+                        launchInput = getInput(createJSONObject.getRobotName() + "> Please enter the launch command: <launch> <kind> <shieldStrength int> <maxShots int> ? ");
+                        //createJSONObject.setCommand(getInput(createJSONObject.getRobotName() + "> Please enter the launch command: <launch> <kind> <shieldStrength int> <maxShots int> ? "));
+                        String[] launchInputs = launchInput.split(" ");
 
-                    createJSONObject.setCommand(getInput(createJSONObject.getRobotName() + "> Please enter the launch command: <launch> <kind> <shieldStrength int> <maxShots int> ? "));
+                        if (launchInputs.length!=4){
+                            System.out.println("Please type launch command as instructed!");
+                            continue;
+                        }
+
+                        if (!launchInputs[0].equalsIgnoreCase("launch")){
+                            System.out.println("Please type launch command as instructed!");
+                            continue;
+                        }
+
+                        if (launchInputs[1].equalsIgnoreCase("")){
+                            System.out.println("Please type launch command as instructed!");
+                            continue;
+                        }
+                        if (!isDigitAndRangeOneToEight(launchInputs[2])) {
+                            System.out.println("Please type launch command as instructed!");
+                            continue;
+                        }
+                        if (!isDigitAndRangeOneToEight(launchInputs[3])){
+                            System.out.println("Please type launch command as instructed!");
+
+                        }
+                        else{
+//                         System.out.println("Please type launch command as instructed!");
+                            break;}
+                    }
+
+                    createJSONObject.setCommand(launchInput);
+                    //createJSONObject.setCommand(launchInput);
 
 //                    if (createJSONObject.getCommand().equalsIgnoreCase("launch"))
                     System.out.println("Client launching " + createJSONObject.getRobotName() + "...");
@@ -78,6 +111,8 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
                     JsonNode response = client.sendRequestToServer(createJSONObject.getJsonObject() ,socket);
                     //display response on console
                     ConsoleDisplayServerResponse.displayResponse(response, createJSONObject.getCommand());
+
+
 
                     //check if the launch was successfully
                     if (response.get("result").asText().equalsIgnoreCase("OK")){
@@ -142,6 +177,10 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
             input = userInput.readLine();
         }
         return input.strip().toLowerCase();
+    }
+
+    public static boolean isDigitAndRangeOneToEight(String user_input) {
+        return user_input.matches("[0-9]+");
     }
 
 }

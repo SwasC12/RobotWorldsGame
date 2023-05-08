@@ -116,9 +116,6 @@ public class CommandHandler {
                     // BulletPosition bulletPosition = new BulletPosition(robot.getShotDistance(), robot);
                     Position shotPosition = new Position(bulletPosition.getXf(), bulletPosition.getYf());
                     Position robPostion = new Position(robot.getRobotX(),robot.getRobotY());
-//        return !shotBlockedPathByObstacle(robot, position) && shotBlockedPathByRobot(position);
-//
-                    System.out.println(handleFireCommand.shotBlockedPositionByRobot(new Position(bulletPosition.getXf(), bulletPosition.getYf())));
 
                     if (robot.getRobotShots()>0){
                         System.out.println("Bullet initial position: "+ "["+bulletPosition.getXi()+","+bulletPosition.getYi()+"]");

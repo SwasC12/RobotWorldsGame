@@ -88,18 +88,11 @@ public class HandleFireCommand {
         boolean correct = false;
         for (Robot rob : CommandHandler.myRobots) {
             correct = b.getX()== rob.getRobotX() && b.getY()==rob.getRobotY();
-            System.out.println(correct);
-            System.out.println("X" + b.getX()+", "+ rob.getRobotX() );
-            System.out.println("Y" + b.getY()+", "+ rob.getRobotY() );
             if (correct){
-               // System.out.println(correct);
                 setRobotPosition(new Position(rob.getRobotX(),rob.getRobotY()));
-                System.out.println("CORRECT");
-               // rob.setShields(rob.getRobotShields()-1);
                 break;
             }
         }
-        System.out.println(correct);
         return correct;
     }
 
@@ -162,12 +155,6 @@ public class HandleFireCommand {
                     getRobotHit().setStatus(valueOf(Status.DEAD));
                     CommandHandler.myRobots.remove(robot1);
                 }
-                //if (robot1.getRobotShields()<0){
-                 //   getRobotHit().setStatus("DEAD");
-                   // CommandHandler.myRobots.remove(robot1);
-                   // socket.close();
-
-                //}
             }
         }
 
