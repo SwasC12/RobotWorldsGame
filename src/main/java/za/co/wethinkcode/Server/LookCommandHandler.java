@@ -74,13 +74,11 @@ public class LookCommandHandler {
 
         for (int i = 0;i<4;i++){
             if (i == 0){
-//                System.out.println(World.lookDistance);
                 Position destination = new Position(rb.getRobotX(),rb.getRobotY()+ World.lookDistance);
 
 
                 //NORTH EDGE
                 edgeBlocksPath(rb, destination);
-                System.out.println(northEdge.size());
                 if (northEdge.size()== 1) {
                     subJson3.put("direction", "NORTH");
                     subJson3.put("type", "EDGE");
@@ -117,7 +115,6 @@ public class LookCommandHandler {
 //                JSONObject [] subJson8 = new JSONObject[eastObstacles.size()];
                 //EAST EDGE
                 edgeBlocksPath(rb, destination);
-                System.out.println(eastEdge.size());
                 if (eastEdge.size()== 1) {
                     subJson4.put("direction", "EAST");
                     subJson4.put("type", "EDGE");
@@ -154,7 +151,6 @@ public class LookCommandHandler {
 
                 //SOUTH EDGE
                 edgeBlocksPath(rb, destination);
-                System.out.println(southEdge.size());
                 if (southEdge.size()== 1) {
                     subJson5.put("direction", "SOUTH");
                     subJson5.put("type", "EDGE");
@@ -192,7 +188,6 @@ public class LookCommandHandler {
 
                 //WEST EDGE
                 edgeBlocksPath(rb, destination);
-                System.out.println(westEdge.size());
                 if (westEdge.size()== 1) {
                     subJson6.put("direction", "WEST");
                     subJson6.put("type", "EDGE");

@@ -6,9 +6,10 @@ import java.io.*;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.Random;
 
-public class SimpleClient implements Serializable {
-    static String name;
+public class SimpleClient extends StoreClientDetails  implements Serializable {
+    //    public static String name;
     static String command;
     private static BufferedReader in;
     private static PrintStream out;
@@ -39,12 +40,25 @@ public class SimpleClient implements Serializable {
             System.out.println(">>> Response from server: "+ in.readLine());
 
             // Welcome to robot world
-            System.out.println("--------------------------------------------------------");
-            System.out.println("-----------------WELCOME TO ROBOT WORLD-----------------");
-            System.out.println("--------------------------------------------------------");
+//            System.out.println("--------------------------------------------------------");
+//            System.out.println("-----------------WELCOME TO ROBOT WORLD-----------------");
+//            System.out.println("--------------------------------------------------------");
             //  System.out.println("Do you want to launch a robot? (yes/no): ");
             // Getting response from user
 //            String launchRobot = userInput.readLine();
+
+            String[] rwArts = {asciiArt.rw,asciiArt.rw2,asciiArt.rw3,
+                    asciiArt.rw4,asciiArt.rw5,asciiArt.rw6, asciiArt.rw7,
+                    asciiArt.rw8, asciiArt.rw9, asciiArt.rw10, asciiArt.rw11,
+                    asciiArt.rw12};
+
+            Random random = new Random();
+            String asciiText = rwArts[random.nextInt(rwArts.length)];
+            String[] lines = asciiText.split("\n");
+            for (String line : lines){
+                System.out.println(line + "\r");
+                //    Thread.sleep(75);
+            }
 
             while (true){
                 String userInput = getInput("Do you want to launch a robot? (yes/no): ");
@@ -53,10 +67,12 @@ public class SimpleClient implements Serializable {
                     CreateJSONObject createJSONObject = new CreateJSONObject();
                     //  System.out.println("Please enter the name of the robot:");
                     createJSONObject.setRobotName(getInput("Please enter the name of the robot:"));
+
                     createJSONObject.setCommand(getInput(createJSONObject.getRobotName() + "> Please enter the launch command: <launch> <kind> <shieldStrength int> <maxShots int> ? "));
+
 //                    if (createJSONObject.getCommand().equalsIgnoreCase("launch"))
                     System.out.println("Client launching " + createJSONObject.getRobotName() + "...");
-                   // Thread.sleep(3000);
+                    //  Thread.sleep(3000);
 
                     // code to launch the robot
                     JsonNode response = client.sendRequestToServer(createJSONObject.getJsonObject() ,socket);
@@ -68,7 +84,7 @@ public class SimpleClient implements Serializable {
                         while (socket.isConnected()) {
 //                        System.out.println(createJSONObject.getRobotName() + "> What must I do next?");
                             String command = getInput(createJSONObject.getRobotName() + "> What must I do next?");
-
+                            name = createJSONObject.getRobotName();
                             if (command.equalsIgnoreCase("quit")){
                                 out.println("Shutting down "+createJSONObject.getRobotName()+"...");
                                 socket.close();
@@ -85,7 +101,7 @@ public class SimpleClient implements Serializable {
                                 response = client.sendRequestToServer(createJSONObject.getJsonObject(),socket);
                                 //display response on console
                                 System.out.println("Waiting for the response from the server");
-                               // Thread.sleep(3000);
+                                //  Thread.sleep(3000);
                                 ConsoleDisplayServerResponse.displayResponse(response, createJSONObject.getCommand());
                             }
                             else  {
@@ -108,9 +124,9 @@ public class SimpleClient implements Serializable {
             }
 
 
-        } catch (InterruptedException | ClassNotFoundException | ConnectException e) {
+        } catch (InterruptedException| ClassNotFoundException | ConnectException e) {
             System.err.println("Failed to connect to server: " + e.getMessage());
-//            throw new RuntimeException(e);
+            //throw new RuntimeException(e);
         }catch (IOException e){
             System.err.println("Error : "+ e.getMessage());
         }

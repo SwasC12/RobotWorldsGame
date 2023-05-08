@@ -68,7 +68,7 @@ public class ConsoleDisplayServerResponse {
                 System.out.println(StoreClientDetails.name+" turned left");
                 System.out.println(StoreClientDetails.name+" is now at position " + jsonResponse.get("state").get("position").asText());
             }
-            else{
+            else if (command.split(" ")[1].equalsIgnoreCase("left") && jsonResponse.get("data").get("message").asText().equalsIgnoreCase("Done")){
                 System.out.println("Sorry the path you attempting to move to is obstructed");
                 System.out.println(StoreClientDetails.name+" is now at position " + jsonResponse.get("state").get("position").asText());
             }
