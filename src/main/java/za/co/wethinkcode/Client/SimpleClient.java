@@ -16,36 +16,19 @@ public class SimpleClient extends StoreClientDetails  implements Serializable {
 
     public static void main(String[] args) throws IOException {
 
-//        if (args.length != 2) {
-//            System.out.println("java ClientExample <ipAddress> <port>");
-//            return;
-//        }
-//        String ipAddress = args[0];
-//        int port = Integer.parseInt(args[1]);
 
         try (
-                // Socket socket = new Socket(ipAddress,port))
-                //Socket socket = new Socket("20.20.15.75", 5000))
                 Socket socket = new Socket("localhost", 5000))
         {
             System.out.println("Waiting for connection response from server: ");
             Thread.sleep(2000);
             ClientRequestandResponse client = new ClientRequestandResponse();
 
-//            BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
             in = new BufferedReader(new InputStreamReader(
                     socket.getInputStream()));
             out = new PrintStream(String.valueOf(new OutputStreamWriter(socket.getOutputStream())));
             out.flush();
             System.out.println(">>> Response from server: "+ in.readLine());
-
-            // Welcome to robot world
-//            System.out.println("--------------------------------------------------------");
-//            System.out.println("-----------------WELCOME TO ROBOT WORLD-----------------");
-//            System.out.println("--------------------------------------------------------");
-            //  System.out.println("Do you want to launch a robot? (yes/no): ");
-            // Getting response from user
-//            String launchRobot = userInput.readLine();
 
             String[] rwArts = {asciiArt.rw,asciiArt.rw2,asciiArt.rw3,
                     asciiArt.rw4,asciiArt.rw5,asciiArt.rw6, asciiArt.rw7,
@@ -65,12 +48,10 @@ public class SimpleClient extends StoreClientDetails  implements Serializable {
 
                 if (userInput.equalsIgnoreCase("yes")) {
                     CreateJSONObject createJSONObject = new CreateJSONObject();
-                    //  System.out.println("Please enter the name of the robot:");
                     createJSONObject.setRobotName(getInput("Please enter the name of the robot:"));
 
                     createJSONObject.setCommand(getInput(createJSONObject.getRobotName() + "> Please enter the launch command: <launch> <kind> <shieldStrength int> <maxShots int> ? "));
 
-//                    if (createJSONObject.getCommand().equalsIgnoreCase("launch"))
                     System.out.println("Client launching " + createJSONObject.getRobotName() + "...");
                     //  Thread.sleep(3000);
 
@@ -101,7 +82,6 @@ public class SimpleClient extends StoreClientDetails  implements Serializable {
                                 response = client.sendRequestToServer(createJSONObject.getJsonObject(),socket);
                                 //display response on console
                                 System.out.println("Waiting for the response from the server");
-                                //  Thread.sleep(3000);
                                 ConsoleDisplayServerResponse.displayResponse(response, createJSONObject.getCommand());
                             }
                             else  {

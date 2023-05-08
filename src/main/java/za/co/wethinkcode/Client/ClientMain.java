@@ -32,20 +32,11 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
             Thread.sleep(2000);
             ClientRequestandResponse client = new ClientRequestandResponse();
 
-//            BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
             in = new BufferedReader(new InputStreamReader(
                     socket.getInputStream()));
             out = new PrintStream(String.valueOf(new OutputStreamWriter(socket.getOutputStream())));
             out.flush();
             System.out.println(">>> Response from server: "+ in.readLine());
-
-            // Welcome to robot world
-//            System.out.println("--------------------------------------------------------");
-//            System.out.println("-----------------WELCOME TO ROBOT WORLD-----------------");
-//            System.out.println("--------------------------------------------------------");
-            //  System.out.println("Do you want to launch a robot? (yes/no): ");
-            // Getting response from user
-//            String launchRobot = userInput.readLine();
 
             String[] rwArts = {asciiArt.rw,asciiArt.rw2,asciiArt.rw3,
                     asciiArt.rw4,asciiArt.rw5,asciiArt.rw6, asciiArt.rw7,
@@ -57,7 +48,6 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
             String[] lines = asciiText.split("\n");
             for (String line : lines){
                 System.out.println(line + "\r");
-                //    Thread.sleep(75);
             }
 
             while (true){
@@ -65,12 +55,10 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
 
                 if (userInput.equalsIgnoreCase("yes")) {
                     CreateJSONObject createJSONObject = new CreateJSONObject();
-                    //  System.out.println("Please enter the name of the robot:");
                     createJSONObject.setRobotName(getInput("Please enter the name of the robot:"));
                     String launchInput;
                     while (true){
                         launchInput = getInput(createJSONObject.getRobotName() + "> Please enter the launch command: <launch> <kind> <shieldStrength int> <maxShots int> ? ");
-                        //createJSONObject.setCommand(getInput(createJSONObject.getRobotName() + "> Please enter the launch command: <launch> <kind> <shieldStrength int> <maxShots int> ? "));
                         String[] launchInputs = launchInput.split(" ");
 
                         if (launchInputs.length!=4){
@@ -96,16 +84,12 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
 
                         }
                         else{
-//                         System.out.println("Please type launch command as instructed!");
                             break;}
                     }
 
                     createJSONObject.setCommand(launchInput);
-                    //createJSONObject.setCommand(launchInput);
 
-//                    if (createJSONObject.getCommand().equalsIgnoreCase("launch"))
                     System.out.println("Client launching " + createJSONObject.getRobotName() + "...");
-                    //  Thread.sleep(3000);
 
                     // code to launch the robot
                     JsonNode response = client.sendRequestToServer(createJSONObject.getJsonObject() ,socket);
@@ -169,7 +153,6 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
 
     public static String getInput(String prompt) throws IOException {
         System.out.println(prompt);
-//        String input = scanner.nextLine();
         BufferedReader userInput = new BufferedReader(new InputStreamReader(System.in));
         String input = userInput.readLine();
         while (input.isBlank()) {

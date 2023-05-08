@@ -49,7 +49,7 @@ public class Back {
             fileJson.put("result",myRobots.get(index).getRobotResults()).toString();
 
             JSONObject subJson3 = new JSONObject();
-            subJson3.put("message","Obstrucetd");
+            subJson3.put("message","Obstructed");
 
             JSONObject subJson4 = new JSONObject();
             subJson4.put("position","["+myRobots.get(index).getRobotX()+","+myRobots.get(index).getRobotY()+"]");

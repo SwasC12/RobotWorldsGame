@@ -227,13 +227,10 @@ public class Robot{
             setRobotY(newY);
             return UpdateResponse.Done;
 
-        } else{ //if (newPosition.isIn(TOP_LEFT, BOTTOM_RIGHT) && command.IsPathBlockedObstacle(start,end)  && command.IsRobotPathBlocked(start, end) && command.IsPositionBlockedObstacle(end))  {
+        }else{
+
             return UpdateResponse.Obstructed;
         }
-//        setRobotX(newX);
-//        setRobotY(newY);
-//        return UpdateResponse.Done;
-
     }
 
 

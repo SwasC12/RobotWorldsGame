@@ -23,13 +23,7 @@ public class HandleFireCommand {
     }
 
     //determine if the Hit or Miss
-//    public boolean Hit() {
-//        BulletPosition bulletPosition = new BulletPosition(robot.getShotDistance(), robot);
-//        Position position = new Position(bulletPosition.getXf(), bulletPosition.getYf());
-//        return !shotBlockedPathByObstacle(robot, position) && shotBlockedPathByRobot(position);
-//
-//
-//    }
+
 
     public boolean shotBlockedPathByObstacle(Position a, Position b) {
 
@@ -131,16 +125,11 @@ public class HandleFireCommand {
         missResponse.put("result", "OK");
         missResponse.put("data", dataJson1);
         missResponse.put("state", stateJson1);
-        //missResponse.put("data", "NJABULO");
-        //missResponse.put("state", "MBANJWA");
         return missResponse;
     }
 
     public JSONObject createJSONResponseSuccess(Robot rb) throws IOException {
         rb.setRobotShots(rb.getRobotShots()-1);
-//        if (getRobotHit().getRobotShields()==-1){
-//              getRobotHit().setStatus("DEAD");
-//        }
 
         double distance = Math.sqrt((getRobotPosition().getX()-rb.getRobotX())*(getRobotPosition().getX()-rb.getRobotX()) +(getRobotPosition().getY()-rb.getRobotY())*(getRobotPosition().getY()-rb.getRobotY()));
         //subJSON for data and state

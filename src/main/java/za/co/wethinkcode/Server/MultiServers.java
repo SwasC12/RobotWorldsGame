@@ -96,8 +96,6 @@ public class MultiServers {
                 stopRunning();
             }
         }
-
-
     }
 
     public static void startCommandHandlerThread(){
