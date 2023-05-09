@@ -51,7 +51,9 @@ public class MultiServers {
 
 
         try{
-            file = new FileWriter("src/main/java/za/co/wethinkcode/Server/World/config.json");
+            file = new FileWriter("/home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/Worldconfig.json");
+
+//            file = new FileWriter("src/main/java/za/co/wethinkcode/Server/World/config.json");
             file.write(json.toString());
         }catch (Exception e){
             e.printStackTrace();
