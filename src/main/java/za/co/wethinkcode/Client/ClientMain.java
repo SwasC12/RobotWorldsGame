@@ -6,13 +6,25 @@ import java.io.*;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.net.SocketException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+
+import static java.lang.Character.isDigit;
+import static java.lang.Integer.parseInt;
 
 public class ClientMain extends StoreClientDetails  implements Serializable {
     //    public static String name;
     static String command;
     private static BufferedReader in;
     private static PrintStream out;
+    public static List<String> forTurn= new ArrayList<>(List.of("right","left"));
+    public static List<String> validCom= new ArrayList<>(List.of("forward","back","turn"));
+    public static List<String> other = new ArrayList<>(List.of("launch", "look", "repair", "reload", "fire", "state"));
+
+    public static List<String> forMovem= new ArrayList<>(List.of("forward","back"));
+
+
 
     public static void main(String[] args) throws IOException {
 
@@ -109,7 +121,27 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
                                 socket.close();
                                 break;
                             }
+                            while (isLenghtOne(command)){
+                                command = getInput(createJSONObject.getRobotName() + "> What must I do next?");
+                            }
 
+
+
+                            if (command.split(" ").length ==2&& validCom.contains(command.split(" ")[0]) ){
+
+                                boolean isTurn = command.split(" ")[0].equalsIgnoreCase("turn") && forTurn.contains(command.split(" ")[1]);
+                                boolean isMove = forMovem.contains(command.split(" ")[0]) && isNumber(command.split(" ")[1]);
+                                while (((!isTurn) || (!isMove ))&& !other.contains(command.split(" ")[0])){
+                                    System.out.println("Please specify the correct argument format for "+command.split(" ")[0]);
+                                    command = getInput(createJSONObject.getRobotName() + "> What must I do next?");
+                                    while (isLenghtOne(command)){
+                                        command = getInput(createJSONObject.getRobotName() + "> What must I do next?");
+                                    }
+                                    isTurn = command.split(" ")[0].equalsIgnoreCase("turn") && forTurn.contains(command.split(" ")[1]);
+                                    isMove = forMovem.contains(command.split(" ")[0]) && isNumber(command.split(" ")[1]);
+
+                                }
+                            }
                             createJSONObject.setCommand(command);
                             if (createJSONObject.getCommand().equalsIgnoreCase("help")){
                                 helpCommand helpCommand = new helpCommand();
@@ -165,8 +197,24 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
     public static boolean isDigitAndRangeOneToEight(String user_input) {
         return user_input.matches("[0-9]+");
     }
+    public static boolean isNumber(String expression) {
+        try {
+            Integer.parseInt(expression);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+    public static boolean isLenghtOne(String command){
+        if (command.split(" ").length == 1 && validCom.contains(command) && !other.contains(command)){
+            System.out.println("Please enter arguments for "+command.split(" ")[0]);
+            return true;
+        }
+        return false;
+    }
 
 }
+
 
 
 

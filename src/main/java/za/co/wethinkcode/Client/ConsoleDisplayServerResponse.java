@@ -72,18 +72,18 @@ public class ConsoleDisplayServerResponse {
                 System.out.println("Sorry the path you attempting to move to is obstructed");
                 System.out.println(StoreClientDetails.name + " is now at position " + jsonResponse.get("state").get("position").asText());
 
-            } else if (jsonResponse.get("result").asText().equalsIgnoreCase("ERROR")) {
-                System.out.println("Oops, there seems to be an error:");
-                System.out.println("*   Error Message: " + jsonResponse.get("data").get("message").asText());
             }
+        }else if (jsonResponse.get("result").asText().equalsIgnoreCase("ERROR")) {
+            System.out.println("Oops, there seems to be an error:");
+            System.out.println("*   Error Message: " + jsonResponse.get("data").get("message").asText());
         }
     }
 
-        public static void stateRobot(JsonNode jsonResponse) {
-            System.out.println("   *   Shields: " + jsonResponse.get("state").get("shields").asText());
-            System.out.println("   *   Position: " + jsonResponse.get("state").get("position").asText());
-            System.out.println("   *   Shots remaining: " + jsonResponse.get("state").get("shots").asText());
-            System.out.println("   *   Direction: " + jsonResponse.get("state").get("direction").asText());
-            System.out.println("   *   Status: " + jsonResponse.get("state").get("status").asText());
+    public static void stateRobot(JsonNode jsonResponse) {
+        System.out.println("   *   Shields: " + jsonResponse.get("state").get("shields").asText());
+        System.out.println("   *   Position: " + jsonResponse.get("state").get("position").asText());
+        System.out.println("   *   Shots remaining: " + jsonResponse.get("state").get("shots").asText());
+        System.out.println("   *   Direction: " + jsonResponse.get("state").get("direction").asText());
+        System.out.println("   *   Status: " + jsonResponse.get("state").get("status").asText());
     }
 }
