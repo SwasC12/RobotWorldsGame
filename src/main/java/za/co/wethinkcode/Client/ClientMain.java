@@ -131,7 +131,8 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
 
                                 boolean isTurn = command.split(" ")[0].equalsIgnoreCase("turn") && forTurn.contains(command.split(" ")[1]);
                                 boolean isMove = forMovem.contains(command.split(" ")[0]) && isNumber(command.split(" ")[1]);
-                                while (((!isTurn) || (!isMove ))&& !other.contains(command.split(" ")[0])){
+
+                                while (((!isTurn) && (!isMove))&& !other.contains(command.split(" ")[0])){
                                     System.out.println("Please specify the correct argument format for "+command.split(" ")[0]);
                                     command = getInput(createJSONObject.getRobotName() + "> What must I do next?");
                                     while (isLenghtOne(command)){
