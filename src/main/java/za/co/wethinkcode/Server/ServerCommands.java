@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import static za.co.wethinkcode.Server.World.World.ListOfObstacles;
-//import static za.co.wethinkcode.Server.World.World.listOfRobots;
+
 
 public class ServerCommands implements Runnable {
 
@@ -28,9 +28,9 @@ public class ServerCommands implements Runnable {
 
     public  void Dump(){
         /*Dump method displays the worlds representation
-     * and everything programmed within and in the 
-     * world
-     */
+         * and everything programmed within and in the
+         * world
+         */
         System.out.println("world height: " + getWorldHeight());
         System.out.println("world width: " + getWorldWidth());
         System.out.println("World centre: "+"["+World.CenterCoord()[0]+", "+World.CenterCoord()[1]+"]");
@@ -95,6 +95,13 @@ public class ServerCommands implements Runnable {
                     System.out.println("Number of robots in the world: " + commandHandler.getRobots().size());
                     for (Robot robot : commandHandler.getRobots()) {
                         System.out.println(robot.getRobotName());
+                        System.out.println("The state of this robot is: ");
+                        System.out.println("   *   Shields: " + robot.getRobotShields());
+                        System.out.println("   *   Position: " + "["+robot.getRobotX()+","+robot.getRobotY()+"]");
+                        System.out.println("   *   Shots remaining: " + robot.getRobotShots());
+                        System.out.println("   *   Direction: " + robot.getRobotDirection());
+                        System.out.println("   *   Status: " + robot.getRobotStatus());
+
                     }
                 }
 

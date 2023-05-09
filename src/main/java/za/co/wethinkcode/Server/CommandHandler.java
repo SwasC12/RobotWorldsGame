@@ -2,11 +2,14 @@ package za.co.wethinkcode.Server;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import za.co.wethinkcode.Server.World.Position;
 import za.co.wethinkcode.Server.World.Robot;
+import za.co.wethinkcode.Server.World.Status;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.String.valueOf;
 
 
 public class CommandHandler {
@@ -14,6 +17,9 @@ public class CommandHandler {
 
     public static List<Robot> myRobots = new ArrayList<>();
     LookCommandHandler lookCommandHandler;
+    HandleFireCommand handleFireCommand;
+
+    private int shotDistance;
 
     public CommandHandler() {
         this.myRobots = new ArrayList<>();
@@ -28,17 +34,22 @@ public class CommandHandler {
     Robot robot;
 
         //create robot, and respective attributes
-        public Robot generateRobot(String robotName){
+        public Robot generateRobot(String robotName, int shieldStrength, int maxShots, int shotDistance){
             int x = Robot.generateXAndY()[0];
             int y = Robot.generateXAndY()[1];
-            Robot robot = new Robot("ROBOT", robotName, x, y, "OK", 800, 5, 8, 6, "NORTH", 6, "NORMAL");
+            Robot robot = new Robot("ROBOT", robotName, x, y, "OK", 800, 5, 8, shieldStrength, "NORTH", maxShots, valueOf(Status.NORMAL));
             robot.setRobotName(robotName);
+            robot.setRobotName(robotName);
+            robot.setRobotShots(maxShots);
+            robot.setShields(shieldStrength);
+            robot.setShotDistance(shotDistance);
             return robot;
         }
 
 
-        public  JSONObject CommandCheck(String robotCommand, String robotName) throws Exception {
+        public  JSONObject CommandCheck(String robotCommand, String robotName, String[] args) throws Exception {
             this.lookCommandHandler = new LookCommandHandler(this);
+            this.handleFireCommand = new HandleFireCommand(this);
             int index = 0;
 
             //find the robot passing the command !!
@@ -53,11 +64,6 @@ public class CommandHandler {
                 }
             }
 
-//            if (this.myRobots.size() == 0){
-//                addToList(new Robot("ROBOT", "Khetha", 10, 0, "OK", 10, 5, 8, 6, "NORTH", 6, "NORMAL"));
-//            }
-
-
 
             if (!ListOfClientCommands.contains(robotCommand)) {
                 return doesNotSuppCom("Responsefile");
@@ -70,9 +76,21 @@ public class CommandHandler {
                             }
                         }
 
-                        this.robot = generateRobot(robotName);
-                        addToList(this.robot);
-                        return writeJsonFile("Responsefile", robot);
+                    //args
+                    //shots entered by the client
+                    int maxShots = Integer.parseInt(args[2].trim());
+                    //configure Gun
+                    Gun gun = new Gun(maxShots, robot);
+
+                    maxShots = gun.getNumShots();
+                    //from the maximum number of shots I can get a bullet distance
+                    shotDistance = gun.getShotDistance();
+                    int shieldStrength = Integer.parseInt(args[1].trim());
+
+                       this.robot = generateRobot(robotName,shieldStrength ,maxShots,shotDistance );
+
+                       addToList(this.robot);
+                       return writeJsonFile("Responsefile", robot);
 
                 } else if (robotCommand.contains("launch") && myRobots.size() >= maximumNumberOfRobots) {
                     return robotIsFull("Responsefile");
@@ -85,6 +103,58 @@ public class CommandHandler {
 
                     //Responsefile generated with state of robot
                     return writeJsonFileForState("Responsefile", robot);
+                }
+
+                else if (robotCommand.equalsIgnoreCase("fire")) {
+                    //if I call the fire command, then I need to update the bullet position from the robot gun
+//                    BulletPosition bulletPosition =  new BulletPosition(shotDistance);
+
+                    //check the final position of the bullet
+                    robot = myRobots.get(index);
+                    BulletPosition bulletPosition =  new BulletPosition(robot.getShotDistance(), robot, robot.getRobotX(), robot.getRobotY() );
+
+                    // BulletPosition bulletPosition = new BulletPosition(robot.getShotDistance(), robot);
+                    Position shotPosition = new Position(bulletPosition.getXf(), bulletPosition.getYf());
+                    Position robPostion = new Position(robot.getRobotX(),robot.getRobotY());
+
+                    if (robot.getRobotShots()>0){
+                        System.out.println("Bullet initial position: "+ "["+bulletPosition.getXi()+","+bulletPosition.getYi()+"]");
+                        System.out.println("Shot travel distance: "+ robot.getShotDistance() +" steps");
+                        System.out.println("Bullet final position: "+ "["+bulletPosition.getXf()+","+bulletPosition.getYf()+"]");
+
+                        if ( (!handleFireCommand.shotBlockedPathByObstacle(robPostion,shotPosition) &&
+                                handleFireCommand.shotBlockedPathByRobot(robPostion,shotPosition) )
+                                ||
+                                (!handleFireCommand.shotBlockedPathByObstacle(robPostion,shotPosition) &&
+                                        handleFireCommand.shotBlockedPositionByRobot(new Position(bulletPosition.getXf(), bulletPosition.getYf()))
+                                )
+                        )
+                        {
+                            return handleFireCommand.createJSONResponseSuccess(robot);
+                        }
+                        else if ( (handleFireCommand.shotBlockedPathByObstacle(robPostion,shotPosition) &&
+                                (handleFireCommand.shotBlockedPathByRobot(robPostion,shotPosition)
+                                        ||
+                                        handleFireCommand.shotBlockedPositionByRobot(new Position(bulletPosition.getXf(), bulletPosition.getYf()))
+                                )) && Math.sqrt((handleFireCommand.getObstaclePosition().getX()-robot.getRobotX())*(handleFireCommand.getObstaclePosition().getX()-robot.getRobotX())
+                                + (handleFireCommand.getObstaclePosition().getY()-robot.getRobotY())*(handleFireCommand.getObstaclePosition().getY()-robot.getRobotY()))
+                                >
+                                Math.sqrt((handleFireCommand.getRobotPosition().getX()-robot.getRobotX())*(handleFireCommand.getRobotPosition().getX()-robot.getRobotX())
+                                        + (handleFireCommand.getRobotPosition().getX()-robot.getRobotY())*(handleFireCommand.getRobotPosition().getX()-robot.getRobotY())))
+                        {
+                            return handleFireCommand.createJSONResponseSuccess(robot);
+                        }
+
+                        else {
+                            return handleFireCommand.createJSONResponseMiss(robot);
+                            //      System.out.println();
+                        }
+                    }
+                    else{
+                        JSONObject jsonObject = new JSONObject();
+                        jsonObject.put("result", "No bullets");
+                        return jsonObject;
+                    }
                 }
             }
 
@@ -109,7 +179,7 @@ public class CommandHandler {
         subJson2.put("direction",rb.getRobotDirection());
         subJson2.put("shields",rb.getRobotShields());
         subJson2.put("shots",rb.getRobotShots());
-        subJson2.put("status",rb.getRobotStatus());
+        subJson2.put("status",rb.getRobotStatus().toString());
         fileJson.put("data",subJson1);
         fileJson.put("state",subJson2);
 
@@ -155,7 +225,6 @@ public class CommandHandler {
     }
 
     public static JSONObject writeJsonFileForState(String filename,Robot rb) throws Exception{
-//        Robot rb = new Robot("ROBOT","HAL",12,14,"OK",10,5,8,6, "NORTH",6, "NORMAL");
         JSONObject fileJson = new JSONObject();
         JSONArray dataArray = new JSONArray();
         JSONObject subJson1 = new JSONObject();
@@ -164,7 +233,7 @@ public class CommandHandler {
         subJson2.put("direction",rb.getRobotDirection());
         subJson2.put("shields",rb.getRobotShields());
         subJson2.put("shots",rb.getRobotShots());
-        subJson2.put("status",rb.getRobotStatus());
+        subJson2.put("status",rb.getRobotStatus().toString());
         fileJson.put("state",subJson2);
 
         return fileJson;
@@ -188,9 +257,8 @@ public class CommandHandler {
                 index=index+1;
             }
         }
-//        System.out.println(myRobots.size());
         myRobots.remove(myRobots.get(index));
-//        System.out.println(myRobots.size());
+
     }
 
 }

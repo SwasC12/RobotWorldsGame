@@ -1,4 +1,5 @@
 za/co/wethinkcode/ServerTest/WorldTest.class
+za/co/wethinkcode/ServerTest/MovementTest.class
 za/co/wethinkcode/ClientTest/ClientRequestandResponseTest.class
 za/co/wethinkcode/ServerTest/dumpTest.class
 za/co/wethinkcode/ClientTest/ClientMainTest.class
