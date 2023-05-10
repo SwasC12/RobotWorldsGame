@@ -20,6 +20,9 @@ public class MultiServers {
     private static FileWriter file;
     public static int Width;
     public static int Height;
+    private static String red = ServerGraphics.ANSI_RED;
+    private static String green = ServerGraphics.ANSI_GREEN;
+    private static String reset = ServerGraphics.ANSI_RESET;
 
 
     //this attribute is used to manage tasks
@@ -39,7 +42,7 @@ public class MultiServers {
 
         JSONObject json = new JSONObject();
         if (args.length <3 ){
-            System.out.println("You did not enter any configuration parameters thus we will use default values.");
+            System.out.println(red + "You did not enter any configuration parameters thus we will use default values." + reset);
 
         }
 
@@ -75,7 +78,7 @@ public class MultiServers {
         manage = Executors.newFixedThreadPool(10);
 
         serverSocket = new ServerSocket( 5000);
-        System.out.println("Server running & waiting for client connections.");
+        System.out.println(green + "Server running & waiting for client connections." + reset);
         serverInRunningState = true;
 
         MultiServers.startCommandHandlerThread();
@@ -89,7 +92,7 @@ public class MultiServers {
                 SimpleServer singleServer = new SimpleServer(socket,world, commandHandler);
                 listOfClientsConnected.add(singleServer);
 
-                System.out.println("Connection: " + socket);
+                System.out.println(green + "Connection: " + socket + reset);
                 manage.submit(singleServer);
 
             }

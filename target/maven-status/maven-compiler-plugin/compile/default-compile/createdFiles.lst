@@ -19,6 +19,7 @@ za/co/wethinkcode/Client/helpCommand.class
 za/co/wethinkcode/Client/ClientMain.class
 za/co/wethinkcode/Server/World/IWorld$UpdateResponse.class
 za/co/wethinkcode/Client/GuiResponseDisplay.class
+za/co/wethinkcode/Server/ServerGraphics.class
 za/co/wethinkcode/Client/ConsoleDisplayServerResponse.class
 za/co/wethinkcode/Client/NewClient.class
 za/co/wethinkcode/Server/LookCommandHandler.class

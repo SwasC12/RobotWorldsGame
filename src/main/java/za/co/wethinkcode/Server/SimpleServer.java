@@ -18,6 +18,12 @@ public class SimpleServer implements Runnable {
     private final BufferedReader in;
     private final PrintStream out;
     private final String clientMachine;
+    private static String cyan_bg = ServerGraphics.ANSI_CYAN_BG;
+    private static String reset = ServerGraphics.ANSI_RESET;
+    private static String black = ServerGraphics.ANSI_BLACK;
+    private static String green = ServerGraphics.ANSI_GREEN;
+    private static String cyan_bg_bright = ServerGraphics.ANSI_CYAN_BG_BRIGHT;
+    private static String red = ServerGraphics.ANSI_RED;
     Robot robot;
     CommandHandler commandHandler;
 
@@ -37,7 +43,7 @@ public class SimpleServer implements Runnable {
 
         clientMachine = socket.getInetAddress().getHostName();
         System.out.println("   A new Client has connected from: " + clientMachine);
-        System.out.println("   Client's IP Address is: " + socket.getInetAddress().getHostAddress());
+        System.out.println("   Client's IP Address is: " + cyan_bg + black + socket.getInetAddress().getHostAddress() + reset);
 
         out = new PrintStream(socket.getOutputStream());
         out.println("Hi Client, you have successfully connected our server..");
@@ -73,8 +79,8 @@ public class SimpleServer implements Runnable {
                     String[] args = rootNode.get("arguments").asText().replace("[","").replace("]","").split(",");
                     robot.setRobotName(robotName);
                     if (robotCommand != null && robotName != null) {
-                        System.out.println("----------------------------------------------- ");
-                        System.out.println("Processing Client request ...");
+                        System.out.println(green + "----------------------------------------------- " + reset);
+                        System.out.println(cyan_bg_bright + black + "Processing Client request ..." + reset);
                         ObjectOutputStream toClient = new ObjectOutputStream(socket.getOutputStream());
                         if (rootNode.get("command").asText().contains("forward")) {
                             responseData = Forward.execute(Integer.parseInt(rootNode.get("arguments").asText().replace("]", "").replace("[", "")), robotName);
@@ -87,11 +93,11 @@ public class SimpleServer implements Runnable {
                             responseData = commandHandler.CommandCheck(robotCommand, robotName,args);
                         }
 
-                        System.out.println("------------------------------------------------");
-                        System.out.println("Sending results back to client as a response:>>>>");
-                        System.out.println("    ---------------------------------------------------------------------");
-                        System.out.println("    RESPONSE: " + responseData.toJSONString());
-                        System.out.println("    ---------------------------------------------------------------------");
+                        System.out.println(green + "------------------------------------------------" + reset);
+                        System.out.println(green + "Sending results back to client as a response:>>>>" + reset);
+                        System.out.println(green + "    ---------------------------------------------------------------------" + reset);
+                        System.out.println(green + "    RESPONSE: " + responseData.toJSONString() + reset);
+                        System.out.println(green + "    ---------------------------------------------------------------------" + reset);
                         System.out.println(" ");
                         toClient.writeObject(responseData);
                         toClient.flush();
@@ -102,7 +108,7 @@ public class SimpleServer implements Runnable {
                 }
             }
         } catch (IOException ex) {
-            System.out.println(robot.getRobotName() + " exited from the Server");
+            System.out.println(red + robot.getRobotName() + " exited from the Server" + reset);
             commandHandler.removeRobot(robot);
 
 
