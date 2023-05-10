@@ -6,8 +6,7 @@ public class Gun {
     private int numShots;
 
     Robot robot;
-    private int shotDistance;
-    private int shotMaxDistance=10;
+    private final int shotMaxDistance=50;
 
     public Gun (int numShots, Robot robot){
         this.numShots=numShots;
@@ -30,14 +29,15 @@ public class Gun {
 
     public int getShotDistance() {
 
+        int shotDistance;
         if (numShots <=0){
-            this.shotDistance = 0;
+            shotDistance = 0;
         }
         else if (numShots >=shotMaxDistance){
-            this.shotDistance = 1;
+            shotDistance = 1;
         }
         else{
-            this.shotDistance = shotMaxDistance - this.numShots + 1;
+            shotDistance = shotMaxDistance - this.numShots + 1;
         }
         return shotDistance;
     }

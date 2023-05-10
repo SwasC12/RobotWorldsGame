@@ -26,7 +26,7 @@ public class Back {
             }
         }
         JSONObject fileJson = new JSONObject();
-        if (myRobots.get(index).updatePosition(nrSteps).equals(UpdateResponse.Done)) {
+        if (myRobots.get(index).updatePosition(-nrSteps).equals(UpdateResponse.Done)) {
             fileJson.put("result", myRobots.get(index).getRobotResults());
 
             JSONObject subJson1 = new JSONObject();

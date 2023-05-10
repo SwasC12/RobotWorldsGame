@@ -135,17 +135,17 @@ public class HandleFireCommand {
         //subJSON for data and state
 
         //Update robot shields
-
         for (Robot robot1: CommandHandler.myRobots){
             if (robot1.getRobotX()==getRobotPosition().getX() && robot1.getRobotY()==getRobotPosition().getY()){
                 setRobotHit(robot1);
                 getRobotHit().setShields(robot1.getRobotShields()-1);
-                if (getRobotHit().getRobotShields()==-1){
-                    getRobotHit().setStatus(valueOf(Status.DEAD));
-                    CommandHandler.myRobots.remove(robot1);
-                }
+            }
+            if (robot1.getRobotShields()==-1){
+                robot1.setStatus(String.valueOf(Status.DEAD));
+                CommandHandler.myRobots.remove(robot1);
             }
         }
+
 
         //Update hit rob state
         JSONObject subJson2 = new JSONObject();
@@ -153,8 +153,7 @@ public class HandleFireCommand {
         subJson2.put("direction",getRobotHit().getRobotDirection());
         subJson2.put("shields",getRobotHit().getRobotShields());
         subJson2.put("shots",getRobotHit().getRobotShots());
-        subJson2.put("status",rb.getRobotStatus());
-
+        subJson2.put("status",getRobotHit().getRobotStatus());
 
 
         JSONObject dataJson = new JSONObject();

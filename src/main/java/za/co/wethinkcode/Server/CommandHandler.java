@@ -130,25 +130,29 @@ public class CommandHandler {
                                 )
                         )
                         {
+                            System.out.println("I am in Case 1:   MyROBOT >>>> NO OBSTACLE  >>>>>>TargetROBOT");
                             return handleFireCommand.createJSONResponseSuccess(robot);
                         }
-                        else if ( (handleFireCommand.shotBlockedPathByObstacle(robPostion,shotPosition) &&
-                                (handleFireCommand.shotBlockedPathByRobot(robPostion,shotPosition)
-                                        ||
-                                        handleFireCommand.shotBlockedPositionByRobot(new Position(bulletPosition.getXf(), bulletPosition.getYf()))
-                                )) && Math.sqrt((handleFireCommand.getObstaclePosition().getX()-robot.getRobotX())*(handleFireCommand.getObstaclePosition().getX()-robot.getRobotX())
-                                + (handleFireCommand.getObstaclePosition().getY()-robot.getRobotY())*(handleFireCommand.getObstaclePosition().getY()-robot.getRobotY()))
-                                >
-                                Math.sqrt((handleFireCommand.getRobotPosition().getX()-robot.getRobotX())*(handleFireCommand.getRobotPosition().getX()-robot.getRobotX())
-                                        + (handleFireCommand.getRobotPosition().getX()-robot.getRobotY())*(handleFireCommand.getRobotPosition().getX()-robot.getRobotY())))
+                        else if ( ((handleFireCommand.shotBlockedPathByObstacle(robPostion,shotPosition) && handleFireCommand.shotBlockedPathByRobot(robPostion,shotPosition))
+                                ||  ( (handleFireCommand.shotBlockedPathByObstacle(robPostion,shotPosition) && handleFireCommand.shotBlockedPositionByRobot(new Position(bulletPosition.getXf(), bulletPosition.getYf()))))
+                        ) &&
+                                Math.sqrt((handleFireCommand.getObstaclePosition().getX()-robot.getRobotX())*(handleFireCommand.getObstaclePosition().getX()-robot.getRobotX())
+                                        + (handleFireCommand.getObstaclePosition().getY()-robot.getRobotY())*(handleFireCommand.getObstaclePosition().getY()-robot.getRobotY()))
+                                        >
+                                        Math.sqrt((handleFireCommand.getRobotPosition().getX()-robot.getRobotX())*(handleFireCommand.getRobotPosition().getX()-robot.getRobotX())
+                                                + (handleFireCommand.getRobotPosition().getY()-robot.getRobotY())*(handleFireCommand.getRobotPosition().getY()-robot.getRobotY())))
                         {
+                            System.out.println("I am in Case 2:   MyROBOT >>>>>>> TargetROBOT >>>>>>> OBSTACLE ");
                             return handleFireCommand.createJSONResponseSuccess(robot);
                         }
 
                         else {
+                            System.out.println("I am in Miss Case:  MyROBOT >>>>>> OBSTACLE >>>>>>>> TargetROBOT\n" +
+                                    "                 ");
                             return handleFireCommand.createJSONResponseMiss(robot);
                             //      System.out.println();
                         }
+
                     }
                     else{
                         JSONObject jsonObject = new JSONObject();
@@ -232,7 +236,8 @@ public class CommandHandler {
         subJson2.put("position","["+rb.getRobotX()+","+rb.getRobotY()+"]");
         subJson2.put("direction",rb.getRobotDirection());
         subJson2.put("shields",rb.getRobotShields());
-        subJson2.put("shots",rb.getRobotShots());
+        //subJson2.put("shots",rb.getRobotShots());
+        subJson2.put("shots",rb.getRobotShots()+" (shotDistance = "+rb.getShotDistance()+" steps)");
         subJson2.put("status",rb.getRobotStatus().toString());
         fileJson.put("state",subJson2);
 

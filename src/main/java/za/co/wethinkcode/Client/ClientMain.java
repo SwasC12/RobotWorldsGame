@@ -37,7 +37,7 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
 
         try (
                 // Socket socket = new Socket(ipAddress,port))
-                //Socket socket = new Socket("20.20.15.75", 5000))
+                //Socket socket = new Socket("20.20.15.174", 5000))
                 Socket socket = new Socket("localhost", 5000))
         {
             System.out.println("Waiting for connection response from server: ");
