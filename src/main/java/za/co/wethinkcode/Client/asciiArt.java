@@ -205,4 +205,23 @@ public class asciiArt{
                         
             """;
 
+    public static final String rwBazooka = """
+            {>==╦╦=ʖ><O>
+            """;
+    public static final String rwSniper = """
+            (҂‾ ▵‾)︻デ═一
+            """;
+
+    public static final String rwShotgun = """
+            ︻┻┳══━一
+            """;
+
+    public static final String rwMiss = """
+            ¯\\_(ツ)_/¯
+            """;
+
+    public static final String rwDead = """
+            (×_×)
+            """;
+
 }
