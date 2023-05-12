@@ -4,6 +4,7 @@ package za.co.wethinkcode.Server;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import za.co.wethinkcode.Server.World.Robot;
 import za.co.wethinkcode.Server.World.Status;
@@ -11,6 +12,9 @@ import za.co.wethinkcode.Server.World.World;
 
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
+
+import static za.co.wethinkcode.Server.CommandHandler.myRobots;
 
 
 public class SimpleServer implements Runnable {
@@ -78,7 +82,43 @@ public class SimpleServer implements Runnable {
                     String robotName = rootNode.get("robot").asText();
                     String[] args = rootNode.get("arguments").asText().replace("[","").replace("]","").split(",");
                     robot.setRobotName(robotName);
-                    if (robotCommand != null && robotName != null) {
+
+                    int index_dead = 0;
+                    ArrayList<String> robotList = new ArrayList<>();
+
+                    for (Robot rob: CommandHandler.deadRobots){
+                        if (rob.getRobotName().equalsIgnoreCase(robotName)) {
+                            robotList.add(rob.getRobotName());
+                            break;
+                        }
+                        else{
+                            index_dead=index_dead+1;
+                        }
+                    }
+                    System.out.println("DEAD robots:" +CommandHandler.deadRobots.size());
+                    System.out.println("index:  "+ index_dead);
+
+                    if (CommandHandler.deadRobots.size()>=1 && robotList.contains(robotName))  {
+                                ObjectOutputStream toClient = new ObjectOutputStream(socket.getOutputStream());
+                                JSONObject subJson2 = new JSONObject();
+                                JSONObject fileJson = new JSONObject();
+
+                                subJson2.put("position","["+CommandHandler.deadRobots.get(index_dead).getRobotX()+","+CommandHandler.deadRobots.get(index_dead).getRobotY()+"]");
+                                subJson2.put("direction",CommandHandler.deadRobots.get(index_dead).getRobotDirection());
+                                subJson2.put("shields",CommandHandler.deadRobots.get(index_dead).getRobotShields());
+                                //subJson2.put("shots",rb.getRobotShots());
+                                subJson2.put("shots",CommandHandler.deadRobots.get(index_dead).getRobotShots()+" (shotDistance = "+CommandHandler.deadRobots.get(index_dead).getShotDistance()+" steps)");
+                                subJson2.put("status",CommandHandler.deadRobots.get(index_dead).getRobotStatus().toString());
+                                fileJson.put("result", "DEAD");
+                                fileJson.put("state",subJson2);
+                                toClient.writeObject(fileJson);
+                                toClient.flush();
+                    }
+                    else if (robotCommand != null && robotName != null ) {
+                         for (Robot rob : myRobots){
+                             System.out.println(rob.getRobotName() +"  "+ rob.getRobotStatus());
+                         }
+
                         System.out.println(green + "----------------------------------------------- " + reset);
                         System.out.println(cyan_bg_bright + black + "Processing Client request ..." + reset);
                         ObjectOutputStream toClient = new ObjectOutputStream(socket.getOutputStream());
@@ -101,6 +141,9 @@ public class SimpleServer implements Runnable {
                         System.out.println(" ");
                         toClient.writeObject(responseData);
                         toClient.flush();
+                         for (Robot rob : myRobots){
+                             System.out.println(rob.getRobotName() +"  "+ rob.getRobotStatus());
+                         }
                     }
 
                 } catch (Exception e) {

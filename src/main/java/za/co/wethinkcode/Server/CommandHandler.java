@@ -16,6 +16,7 @@ public class CommandHandler {
 
 
     public static List<Robot> myRobots = new ArrayList<>();
+    public static List<Robot> deadRobots = new ArrayList<>();
     LookCommandHandler lookCommandHandler;
     HandleFireCommand handleFireCommand;
 
@@ -23,6 +24,7 @@ public class CommandHandler {
 
     public CommandHandler() {
         this.myRobots = new ArrayList<>();
+        this.deadRobots = new ArrayList<>();
     }
 
 
@@ -51,6 +53,20 @@ public class CommandHandler {
             this.lookCommandHandler = new LookCommandHandler(this);
             this.handleFireCommand = new HandleFireCommand(this);
             int index = 0;
+//            int index_d = 0;
+//
+////          find robot passing command in dead robots
+//            if (deadRobots.size()>=1) {
+//                for (Robot rob: deadRobots){
+//                    if (rob.getRobotName().equalsIgnoreCase(robotName)){
+//                        break;
+//                    }else {
+//                        index_d=index_d+1;
+//                    }
+//                }
+//                robot = deadRobots.get(index_d);
+//                return writeJsonFile("Responsefile",robot);
+//            }
 
             //find the robot passing the command !!
             if (myRobots.size() >= 1){
@@ -63,6 +79,18 @@ public class CommandHandler {
                     }
                 }
             }
+            //find robot passing command in dead robots
+//            else if (deadRobots.size()>=1) {
+//                for (Robot rob: deadRobots){
+//                    if (rob.getRobotName().equalsIgnoreCase(robotName)){
+//                        break;
+//                    }else {
+//                        index=index+1;
+//                    }
+//                }
+//                robot = deadRobots.get(index);
+//                return writeJsonFile("Responsefile",robot);
+//            }
 
 
             if (!ListOfClientCommands.contains(robotCommand)) {
@@ -156,7 +184,7 @@ public class CommandHandler {
                     }
                     else{
                         JSONObject jsonObject = new JSONObject();
-                        jsonObject.put("result", "No bullets");
+                        jsonObject.put("message", "No bullets");
                         return jsonObject;
                     }
                 }
@@ -224,6 +252,15 @@ public class CommandHandler {
         jsonRequest.put("result","ERROR");
         JSONObject subJson1 = new JSONObject();
         subJson1.put("message","No more space in this world");
+        jsonRequest.put("data",subJson1);
+        return jsonRequest;
+    }
+
+    public static JSONObject robotIsDEAD(){
+        JSONObject jsonRequest = new JSONObject();
+        jsonRequest.put("result","OK");
+        JSONObject subJson1 = new JSONObject();
+        subJson1.put("message","Your is DEAD, cannot execute any command");
         jsonRequest.put("data",subJson1);
         return jsonRequest;
     }

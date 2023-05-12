@@ -1,5 +1,4 @@
 package za.co.wethinkcode.Client;
-
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.io.*;
@@ -13,7 +12,7 @@ import java.util.Random;
 import static java.lang.Character.isDigit;
 import static java.lang.Integer.parseInt;
 
-public class ClientMain extends StoreClientDetails  implements Serializable {
+public class ClientMainTwo extends StoreClientDetails  implements Serializable {
     //    public static String name;
     static String command;
     private static BufferedReader in;
@@ -93,6 +92,7 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
                         }
                         if (!isDigitAndRangeOneToEight(launchInputs[3])){
                             System.out.println("Please type launch command as instructed!");
+
                         }
                         else{
                             break;}
@@ -175,7 +175,7 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
             }
 
 
-        } catch (InterruptedException| ClassNotFoundException | ConnectException e) {
+        } catch (InterruptedException | ClassNotFoundException | ConnectException e) {
             System.err.println("Failed to connect to server: " + e.getMessage());
             //throw new RuntimeException(e);
         }catch (IOException e){
@@ -214,7 +214,6 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
     }
 
 }
-
 
 
 
