@@ -73,25 +73,25 @@ public class ClientMainTwo extends StoreClientDetails  implements Serializable {
                         String[] launchInputs = launchInput.split(" ");
 
                         if (launchInputs.length!=4){
-                            System.out.println("Please type launch command as instructed!");
+                            System.out.println("Please type launch command as instructed!!");
                             continue;
                         }
 
                         if (!launchInputs[0].equalsIgnoreCase("launch")){
-                            System.out.println("Please type launch command as instructed!");
+                            System.out.println("Please type launch command as instructed!!");
                             continue;
                         }
 
                         if (launchInputs[1].equalsIgnoreCase("")){
-                            System.out.println("Please type launch command as instructed!");
+                            System.out.println("Please type launch command as instructed!!");
                             continue;
                         }
                         if (!isDigitAndRangeOneToEight(launchInputs[2])) {
-                            System.out.println("Please type launch command as instructed!");
+                            System.out.println("Please type launch command as instructed!!");
                             continue;
                         }
                         if (!isDigitAndRangeOneToEight(launchInputs[3])){
-                            System.out.println("Please type launch command as instructed!");
+                            System.out.println("Please type launch command as instructed!!");
 
                         }
                         else{
