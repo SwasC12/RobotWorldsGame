@@ -50,7 +50,8 @@ public class ConsoleDisplayServerResponse {
                             System.out.println("Fire response:  \n" + "    data:  " + jsonResponse.get("data"));
                             System.out.println("    My Robot state: " + jsonResponse.get("state"));
                         }
-                        else {
+
+                        else if (jsonResponse.get("result").asText().equalsIgnoreCase("No bullets")){
 //                            System.out.println(jsonResponse.get("message"));
                             System.out.println("You have run out of bullets!!!, try reload option");
                         }

@@ -178,14 +178,10 @@ public class CommandHandler {
                             System.out.println("I am in Miss Case:  MyROBOT >>>>>> OBSTACLE >>>>>>>> TargetROBOT\n" +
                                     "                 ");
                             return handleFireCommand.createJSONResponseMiss(robot);
-                            //      System.out.println();
                         }
-
                     }
                     else{
-                        JSONObject jsonObject = new JSONObject();
-                        jsonObject.put("message", "No bullets");
-                        return jsonObject;
+                        return handleFireCommand.createJSONResponseNoShots(robot);
                     }
                 }
             }

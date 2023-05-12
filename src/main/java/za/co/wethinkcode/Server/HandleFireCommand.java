@@ -178,4 +178,18 @@ public class HandleFireCommand {
         }
         return successResponse;
     }
+
+    public JSONObject createJSONResponseNoShots(Robot rb){
+        //subJSON for data and state
+        JSONObject dataJson1 = new JSONObject();
+        dataJson1.put("message","No bullets left!!!");
+        JSONObject stateJson1 = new JSONObject();
+        stateJson1.put("shots", rb.getRobotShots());
+
+        JSONObject missResponse = new JSONObject();
+        missResponse.put("result", "OK");
+        missResponse.put("data", dataJson1);
+        missResponse.put("state", stateJson1);
+        return missResponse;
+    }
 }
