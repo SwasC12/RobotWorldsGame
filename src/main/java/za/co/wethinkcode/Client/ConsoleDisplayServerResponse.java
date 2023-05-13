@@ -1,19 +1,30 @@
 package za.co.wethinkcode.Client;
+import za.co.wethinkcode.Server.ServerGraphics;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
 public class ConsoleDisplayServerResponse {
+    private static String cyan_bg = ServerGraphics.ANSI_CYAN_BG;
+    private static String reset = ServerGraphics.ANSI_RESET;
+    private static String black = ServerGraphics.ANSI_BLACK;
+    private static String green = ServerGraphics.ANSI_GREEN;
+    private static String cyan_bg_bright = ServerGraphics.ANSI_CYAN_BG_BRIGHT;
+    private static String red = ServerGraphics.ANSI_RED;
+    private static String y_bg = ServerGraphics.ANSI_YELLOW_BG;
+
+
     public static void displayResponse(JsonNode jsonResponse, String command) throws NullPointerException {
+    
 
         if (!command.equalsIgnoreCase("launch")) {
-            System.out.println("CLIENT REQUESTS: " + "COMMAND: " + command.split(" ")[0] + " ----->> SERVER ");
+            System.out.println(green + "CLIENT REQUESTS: " + "COMMAND: " + command.split(" ")[0] + " ----->> SERVER ");
         }
-        System.out.println("-------------------------------------------------");
-        System.out.println("-------------------------------------------------");
-        System.out.println("SERVER RESPONSE:");
+        System.out.println(green + "-------------------------------------------------" + reset);
+        System.out.println(green + "-------------------------------------------------" + reset);
+        System.out.println(green + "SERVER RESPONSE:" + reset);
 
          if (command.equalsIgnoreCase("state")) {
-            System.out.println("Current state of robot :\n");
+            System.out.println(red + y_bg + "Current state of robot :\n" + reset);
             stateRobot(jsonResponse);
         }
 
@@ -22,90 +33,91 @@ public class ConsoleDisplayServerResponse {
 
                  if (command.split(" ")[0].equalsIgnoreCase("launch")
                           ) {
-                                System.out.println("Congratulations! You have successfully launched your robot.\nHere is the current status of your robot:");
-                                System.out.println("   *   Repair: " + jsonResponse.get("data").get("repair").asText());
-                                System.out.println("   *   Shields: " + jsonResponse.get("data").get("shields").asText());
-                                System.out.println("   *   Reload: " + jsonResponse.get("data").get("reload").asText());
-                                System.out.println("   *   Visibility: " + jsonResponse.get("data").get("visibility").asText());
-                                System.out.println("   *   Position: " + jsonResponse.get("data").get("position").asText() + "\n");
+                                System.out.println(green + "Congratulations! You have successfully launched your robot.\nHere is the current status of your robot:" + reset);
+                                System.out.println(green + "   *   Repair: " + jsonResponse.get("data").get("repair").asText() + reset);
+                                System.out.println(green + "   *   Shields: " + jsonResponse.get("data").get("shields").asText()+ reset);
+                                System.out.println(green + "   *   Reload: " + jsonResponse.get("data").get("reload").asText()+ reset);
+                                System.out.println(green + "   *   Visibility: " + jsonResponse.get("data").get("visibility").asText()+ reset);
+                                System.out.println(green + "   *   Position: " + jsonResponse.get("data").get("position").asText() + "\n"+ reset);
                 }
                  else if (command.equalsIgnoreCase("look"))
                        {
-                                System.out.println("Robot looking around the world>>>>>>>>>>>>>>:");
-                                System.out.println("   *   Objects:");
+                                System.out.println(green +  "Robot looking around the world>>>>>>>>>>>>>>:" + reset);
+                                System.out.println(green + "   *   Objects:" +reset  );
                                 int obj_num = 1;
                                 for (JsonNode obj : jsonResponse.get("objects")) {
-                                    System.out.print("      [" + obj_num + "]");
-                                    System.out.println("  Direction: " + obj.get("direction").asText());
-                                    System.out.println("           Type: " + obj.get("type").asText());
-                                    System.out.println("           Distance: " + obj.get("distance").asText());
+                                    System.out.print(green + "      [" + obj_num + "]");
+                                    System.out.println(green + "  Direction: " + obj.get("direction").asText()+ reset);
+                                    System.out.println(green + "           Type: " + obj.get("type").asText()+ reset);
+                                    System.out.println(green + "           Distance: " + obj.get("distance").asText()+ reset);
                                     System.out.println(" ");
                                     obj_num++;
                                 }
-                                System.out.println("    State of robot: ");
+                                System.out.println(green + "    State of robot: " + reset);
                                 stateRobot(jsonResponse);
                        }
                  else if (command.equalsIgnoreCase("fire") ) {
                        if (jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
-                            System.out.println("Fire response:  \n" + "    data:  " + jsonResponse.get("data"));
-                            System.out.println("    My Robot state: " + jsonResponse.get("state"));
+                            System.out.println(red + "Fire response:  \n" + "    data:  " + jsonResponse.get("data") + reset);
+                            System.out.println(red + "    My Robot state: " + jsonResponse.get("state")+ reset);
                         }
 
                         else if (jsonResponse.get("result").asText().equalsIgnoreCase("No bullets")){
 //                            System.out.println(jsonResponse.get("message"));
-                            System.out.println("You have run out of bullets!!!, try reload option");
+                            System.out.println(red + "You have run out of bullets!!!, try reload option" + reset);
                         }
                        }
                  else if (command.split(" ").length > 1) {
 
                        if (command.split(" ")[0].equalsIgnoreCase("forward") && jsonResponse.get("data").get("message").asText().equalsIgnoreCase("Done")) {
-                                System.out.println(StoreClientDetails.name + " moved forward by " + command.split(" ")[1] + " steps");
-                                System.out.println(StoreClientDetails.name + " is now at position " + jsonResponse.get("state").get("position").asText());
+                                System.out.println(green + StoreClientDetails.name + " moved forward by " + command.split(" ")[1] + " steps" + reset);
+                                System.out.println(green + StoreClientDetails.name + " is now at position " + jsonResponse.get("state").get("position").asText()+ reset);
 
                        }
                        else if (command.split(" ")[0].equalsIgnoreCase("back") && jsonResponse.get("data").get("message").asText().equalsIgnoreCase("Done")) {
-                                System.out.println(StoreClientDetails.name + " moved backwards by " + command.split(" ")[1] + " steps");
-                                System.out.println(StoreClientDetails.name + " is now at position " + jsonResponse.get("state").get("position").asText());
+                                System.out.println(green + StoreClientDetails.name + " moved backwards by " + command.split(" ")[1] + " steps"+ reset);
+                                System.out.println(green + StoreClientDetails.name + " is now at position " + jsonResponse.get("state").get("position").asText()+ reset);
 
                        }
                        else if (command.split(" ")[1].equalsIgnoreCase("right") && jsonResponse.get("data").get("message").asText().equalsIgnoreCase("Done")) {
-                                System.out.println(StoreClientDetails.name + " turned right");
-                                System.out.println(StoreClientDetails.name + " is now at position " + jsonResponse.get("state").get("position").asText());
+                                System.out.println(green + StoreClientDetails.name + " turned right"+ reset);
+                                System.out.println(green + StoreClientDetails.name + " is now at position " + jsonResponse.get("state").get("position").asText()+ reset);
 
                        }
                        else if (command.split(" ")[1].equalsIgnoreCase("left") && jsonResponse.get("data").get("message").asText().equalsIgnoreCase("Done")) {
-                                System.out.println(StoreClientDetails.name + " turned left");
-                                System.out.println(StoreClientDetails.name + " is now at position " + jsonResponse.get("state").get("position").asText());
+                                System.out.println(green + StoreClientDetails.name + " turned left"+ reset);
+                                System.out.println(green + StoreClientDetails.name + " is now at position " + jsonResponse.get("state").get("position").asText()+ reset);
 
                        }
                        else if (command.split(" ")[0].equalsIgnoreCase("forward") && jsonResponse.get("data").get("message").asText().equalsIgnoreCase("Obstructed")) {
-                                System.out.println("Sorry the path you attempting to move to is obstructed");
-                                System.out.println(StoreClientDetails.name + " is now at position " + jsonResponse.get("state").get("position").asText());
+                                System.out.println(red + "Sorry the path you attempting to move to is obstructed"+ reset);
+                                System.out.println(green + StoreClientDetails.name + " is now at position " + jsonResponse.get("state").get("position").asText()+ reset);
 
                        }
                        else if (command.split(" ")[0].equalsIgnoreCase("back") && jsonResponse.get("data").get("message").asText().equalsIgnoreCase("Obstructed")) {
-                                System.out.println("Sorry the path you attempting to move to is obstructed");
-                                System.out.println(StoreClientDetails.name + " is now at position " + jsonResponse.get("state").get("position").asText());
+                                System.out.println(red + "Sorry the path you attempting to move to is obstructed"+ reset);
+                                System.out.println(green + StoreClientDetails.name + " is now at position " + jsonResponse.get("state").get("position").asText()+ reset);
 
                        }
                  }
          }
         else if (jsonResponse.get("result").asText().equalsIgnoreCase("ERROR")) {
-            System.out.println("Oops, there seems to be an error:");
-            System.out.println("*   Error Message: " + jsonResponse.get("data").get("message").asText());
+            System.out.println(red + "Oops, there seems to be an error:" + reset);
+            System.out.println(red + "*   Error Message: " + y_bg + red +  jsonResponse.get("data").get("message").asText()+ reset);
         }
 
         else if(jsonResponse.get("result").asText().equalsIgnoreCase("DEAD")) {
-            System.out.println("Your Robot is DEAD!!!");
+            System.out.println(red + "Your Robot is DEAD!!!" + reset);
+            System.out.println(asciiArt.rwDead);
             stateRobot(jsonResponse);
          }
     }
 
     public static void stateRobot(JsonNode jsonResponse) {
-        System.out.println("   *   Shields: " + jsonResponse.get("state").get("shields").asText());
-        System.out.println("   *   Position: " + jsonResponse.get("state").get("position").asText());
-        System.out.println("   *   Shots remaining: " + jsonResponse.get("state").get("shots").asText());
-        System.out.println("   *   Direction: " + jsonResponse.get("state").get("direction").asText());
-        System.out.println("   *   Status: " + jsonResponse.get("state").get("status").asText());
+        System.out.println(green + "   *   Shields: " + jsonResponse.get("state").get("shields").asText()+ reset);
+        System.out.println(green + "   *   Position: " + jsonResponse.get("state").get("position").asText()+ reset);
+        System.out.println(green + "   *   Shots remaining: " + jsonResponse.get("state").get("shots").asText()+ reset);
+        System.out.println(green + "   *   Direction: " + jsonResponse.get("state").get("direction").asText()+ reset);
+        System.out.println(green + "   *   Status: " + jsonResponse.get("state").get("status").asText()+ reset);
     }
 }
