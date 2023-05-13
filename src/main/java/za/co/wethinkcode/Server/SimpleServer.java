@@ -28,6 +28,7 @@ public class SimpleServer implements Runnable {
     private static String green = ServerGraphics.ANSI_GREEN;
     private static String cyan_bg_bright = ServerGraphics.ANSI_CYAN_BG_BRIGHT;
     private static String red = ServerGraphics.ANSI_RED;
+    private static String y_bg = ServerGraphics.ANSI_YELLOW_BG;
     Robot robot;
     CommandHandler commandHandler;
 
@@ -46,8 +47,8 @@ public class SimpleServer implements Runnable {
         this.commandHandler = commandHandler;
 
         clientMachine = socket.getInetAddress().getHostName();
-        System.out.println("   A new Client has connected from: " + clientMachine);
-        System.out.println("   Client's IP Address is: " + cyan_bg + black + socket.getInetAddress().getHostAddress() + reset);
+        System.out.println(green + "   A new Client has connected from: " + clientMachine);
+        System.out.println(green + "   Client's IP Address is: " + cyan_bg + black + socket.getInetAddress().getHostAddress() + reset);
 
         out = new PrintStream(socket.getOutputStream());
         out.println("Hi Client, you have successfully connected our server..");
@@ -63,7 +64,7 @@ public class SimpleServer implements Runnable {
         try {
 
             while (socket.isConnected()) {
-                System.out.println("Waiting for the client request");
+                System.out.println(green + "Waiting for the client request" + reset);
 
 
                 //Read request from server
@@ -95,7 +96,7 @@ public class SimpleServer implements Runnable {
                             index_dead=index_dead+1;
                         }
                     }
-                    System.out.println("DEAD robots:" +CommandHandler.deadRobots.size());
+                    System.out.println(red + y_bg + "DEAD robots:" + reset + red + CommandHandler.deadRobots.size() + reset);
                     System.out.println("index:  "+ index_dead);
 
                     if (CommandHandler.deadRobots.size()>=1 && robotList.contains(robotName))  {
