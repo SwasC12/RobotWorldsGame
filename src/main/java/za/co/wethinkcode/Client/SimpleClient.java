@@ -1,6 +1,7 @@
 package za.co.wethinkcode.Client;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import za.co.wethinkcode.Server.ServerGraphics;
 
 import java.io.*;
 import java.net.ConnectException;
@@ -18,6 +19,11 @@ public class SimpleClient extends StoreClientDetails  implements Serializable {
     static String command;
     private static BufferedReader in;
     private static PrintStream out;
+    private static String red = ServerGraphics.ANSI_RED;
+    private static String reset = ServerGraphics.ANSI_RESET;
+    private static String green = ServerGraphics.ANSI_GREEN;
+    private static String y_bg = ServerGraphics.ANSI_YELLOW_BG;
+
     public static List<String> forTurn= new ArrayList<>(List.of("right","left"));
     public static List<String> validCom= new ArrayList<>(List.of("forward","back","turn"));
     public static List<String> other = new ArrayList<>(List.of("launch", "look", "repair", "reload", "fire", "state"));
@@ -40,7 +46,7 @@ public class SimpleClient extends StoreClientDetails  implements Serializable {
                 //Socket socket = new Socket("20.20.15.75", 5000))
                 Socket socket = new Socket("localhost", 5000))
         {
-            System.out.println("Waiting for connection response from server: ");
+            System.out.println(green + "Waiting for connection response from server: " + reset);
             Thread.sleep(2000);
             ClientRequestandResponse client = new ClientRequestandResponse();
 
@@ -48,12 +54,11 @@ public class SimpleClient extends StoreClientDetails  implements Serializable {
                     socket.getInputStream()));
             out = new PrintStream(String.valueOf(new OutputStreamWriter(socket.getOutputStream())));
             out.flush();
-            System.out.println(">>> Response from server: "+ in.readLine());
+            System.out.println(green + ">>> Response from server: "+ in.readLine() + reset);
 
             String[] rwArts = {asciiArt.rw,asciiArt.rw2,asciiArt.rw3,
                     asciiArt.rw4,asciiArt.rw5,asciiArt.rw6, asciiArt.rw7,
-                    asciiArt.rw8, asciiArt.rw9, asciiArt.rw10, asciiArt.rw11,
-                    asciiArt.rw12};
+                    asciiArt.rw9,asciiArt.rw11,asciiArt.rw12};
 
             Random random = new Random();
             String asciiText = rwArts[random.nextInt(rwArts.length)];
@@ -63,36 +68,36 @@ public class SimpleClient extends StoreClientDetails  implements Serializable {
             }
 
             while (true){
-                String userInput = getInput("Do you want to launch a robot? (yes/no): ");
+                String userInput = getInput(green + "Do you want to launch a robot? (yes/no): " + reset);
 
                 if (userInput.equalsIgnoreCase("yes")) {
                     CreateJSONObject createJSONObject = new CreateJSONObject();
-                    createJSONObject.setRobotName(getInput("Please enter the name of the robot:"));
+                    createJSONObject.setRobotName(getInput(green + "Please enter the name of the robot:" + reset));
                     String launchInput;
                     while (true){
-                        launchInput = getInput(createJSONObject.getRobotName() + "> Please enter the launch command: <launch> <kind> <shieldStrength int> <maxShots int> ? ");
+                        launchInput = getInput(green + createJSONObject.getRobotName() +  "> Please enter the launch command: <launch> <kind> <shieldStrength int> <maxShots int> ? "+ reset);
                         String[] launchInputs = launchInput.split(" ");
 
                         if (launchInputs.length!=4){
-                            System.out.println("Please type launch command as instructed!");
+                            System.out.println(red + "Please type launch command as instructed!" + reset);
                             continue;
                         }
 
                         if (!launchInputs[0].equalsIgnoreCase("launch")){
-                            System.out.println("Please type launch command as instructed!");
+                            System.out.println(red + "Please type launch command as instructed!" + reset);
                             continue;
                         }
 
                         if (launchInputs[1].equalsIgnoreCase("")){
-                            System.out.println("Please type launch command as instructed!");
+                            System.out.println(red + "Please type launch command as instructed!" + reset);
                             continue;
                         }
                         if (!isDigitAndRangeOneToEight(launchInputs[2])) {
-                            System.out.println("Please type launch command as instructed!");
+                            System.out.println(red + "Please type launch command as instructed!" + reset);
                             continue;
                         }
                         if (!isDigitAndRangeOneToEight(launchInputs[3])){
-                            System.out.println("Please type launch command as instructed!");
+                            System.out.println(red + "Please type launch command as instructed!" + reset);
 
                         }
                         else{
@@ -101,7 +106,7 @@ public class SimpleClient extends StoreClientDetails  implements Serializable {
 
                     createJSONObject.setCommand(launchInput);
 
-                    System.out.println("Client launching " + createJSONObject.getRobotName() + "...");
+                    System.out.println(green + "Client launching " + createJSONObject.getRobotName() + "..." + reset);
 
                     // code to launch the robot
                     JsonNode response = client.sendRequestToServer(createJSONObject.getJsonObject() ,socket);
@@ -114,15 +119,15 @@ public class SimpleClient extends StoreClientDetails  implements Serializable {
                     if (response.get("result").asText().equalsIgnoreCase("OK")){
                         while (socket.isConnected()) {
 //                        System.out.println(createJSONObject.getRobotName() + "> What must I do next?");
-                            String command = getInput(createJSONObject.getRobotName() + "> What must I do next?");
+                            String command = getInput(green + createJSONObject.getRobotName() + "> What must I do next?" + reset);
                             name = createJSONObject.getRobotName();
                             if (command.equalsIgnoreCase("quit")){
-                                out.println("Shutting down "+createJSONObject.getRobotName()+"...");
+                                out.println(green + "Shutting down "+createJSONObject.getRobotName()+"..." + reset);
                                 socket.close();
                                 break;
                             }
                             while (isLenghtOne(command)){
-                                command = getInput(createJSONObject.getRobotName() + "> What must I do next?");
+                                command = getInput(green + createJSONObject.getRobotName() + "> What must I do next?" + reset);
                             }
 
 
@@ -132,10 +137,10 @@ public class SimpleClient extends StoreClientDetails  implements Serializable {
                                 boolean isTurn = command.split(" ")[0].equalsIgnoreCase("turn") && forTurn.contains(command.split(" ")[1]);
                                 boolean isMove = forMovem.contains(command.split(" ")[0]) && isNumber(command.split(" ")[1]);
                                 while (((!isTurn) || (!isMove ))&& !other.contains(command.split(" ")[0])){
-                                    System.out.println("Please specify the correct argument format for "+command.split(" ")[0]);
+                                    System.out.println(red + "Please specify the correct argument format for "+ y_bg + command.split(" ")[0] + reset);
                                     command = getInput(createJSONObject.getRobotName() + "> What must I do next?");
                                     while (isLenghtOne(command)){
-                                        command = getInput(createJSONObject.getRobotName() + "> What must I do next?");
+                                        command = getInput(green + createJSONObject.getRobotName() + "> What must I do next?" + reset);
                                     }
                                     isTurn = command.split(" ")[0].equalsIgnoreCase("turn") && forTurn.contains(command.split(" ")[1]);
                                     isMove = forMovem.contains(command.split(" ")[0]) && isNumber(command.split(" ")[1]);
@@ -151,12 +156,12 @@ public class SimpleClient extends StoreClientDetails  implements Serializable {
                                 //send request to server and receive response
                                 response = client.sendRequestToServer(createJSONObject.getJsonObject(),socket);
                                 //display response on console
-                                System.out.println("Waiting for the response from the server");
+                                System.out.println(green + "Waiting for the response from the server" + reset);
                                 //  Thread.sleep(3000);
                                 ConsoleDisplayServerResponse.displayResponse(response, createJSONObject.getCommand());
                             }
                             else  {
-                                System.out.println("You already launched your robot!!!");
+                                System.out.println(red + "You already launched your robot!!!" + reset);
                             }
                         }
                     } else {
@@ -165,10 +170,10 @@ public class SimpleClient extends StoreClientDetails  implements Serializable {
 
 
                 } else if (userInput.equalsIgnoreCase("no")) {
-                    System.out.println("Okay, bye...");
+                    System.out.println(green + "Okay, bye..." + reset);
                     return;
                 }else {
-                    System.out.println("Invalid input, please enter yes/no");
+                    System.out.println(red + "Invalid input, please enter yes/no" + reset);
                     continue;
                 }
                 break;
@@ -176,10 +181,10 @@ public class SimpleClient extends StoreClientDetails  implements Serializable {
 
 
         } catch (InterruptedException| ClassNotFoundException | ConnectException e) {
-            System.err.println("Failed to connect to server: " + e.getMessage());
+            System.err.println(red + "Failed to connect to server: " + y_bg +  e.getMessage() + reset);
             //throw new RuntimeException(e);
         }catch (IOException e){
-            System.err.println("Error : "+ e.getMessage());
+            System.err.println(red + "Error : "+ y_bg + e.getMessage() + reset);
         }
     }
 
@@ -207,7 +212,7 @@ public class SimpleClient extends StoreClientDetails  implements Serializable {
     }
     public static boolean isLenghtOne(String command){
         if (command.split(" ").length == 1 && validCom.contains(command) && !other.contains(command)){
-            System.out.println("Please enter arguments for "+command.split(" ")[0]);
+            System.out.println(red + "Please enter arguments for "+ y_bg + command.split(" ")[0] + reset);
             return true;
         }
         return false;
