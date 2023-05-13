@@ -7,11 +7,19 @@ import za.co.wethinkcode.Server.World.World;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import za.co.wethinkcode.Server.ServerGraphics;
 
 import static za.co.wethinkcode.Server.World.World.ListOfObstacles;
 
 
 public class ServerCommands implements Runnable {
+    private static String cyan_bg = ServerGraphics.ANSI_CYAN_BG;
+    private static String reset = ServerGraphics.ANSI_RESET;
+    private static String black = ServerGraphics.ANSI_BLACK;
+    private static String green = ServerGraphics.ANSI_GREEN;
+    private static String cyan_bg_bright = ServerGraphics.ANSI_CYAN_BG_BRIGHT;
+    private static String red = ServerGraphics.ANSI_RED;
+    private static String y_bg = ServerGraphics.ANSI_YELLOW_BG;
 
 
 
@@ -31,18 +39,18 @@ public class ServerCommands implements Runnable {
          * and everything programmed within and in the
          * world
          */
-        System.out.println("world height: " + getWorldHeight());
-        System.out.println("world width: " + getWorldWidth());
-        System.out.println("World centre: "+"["+World.CenterCoord()[0]+", "+World.CenterCoord()[1]+"]");
-        System.out.println("World top left: "+"["+World.Top_Left_Boundary()[0]+", "+World.Top_Left_Boundary()[1]+"]");
-        System.out.println("World bottom right: "+"["+World.Bottom_Right_Boundary()[0]+", "+World.Bottom_Right_Boundary()[1]+"]");
+        System.out.println(green + "world height: " + getWorldHeight() + reset);
+        System.out.println(green + "world width: " + getWorldWidth()+ reset);
+        System.out.println(green + "World centre: "+"["+World.CenterCoord()[0]+", "+World.CenterCoord()[1]+"]"+ reset);
+        System.out.println(green + "World top left: "+"["+World.Top_Left_Boundary()[0]+", "+World.Top_Left_Boundary()[1]+"]"+ reset);
+        System.out.println(green + "World bottom right: "+"["+World.Bottom_Right_Boundary()[0]+", "+World.Bottom_Right_Boundary()[1]+"]"+ reset);
 
         for (int i = 0; i<ListOfObstacles.size();i++) {
-            System.out.println("Obstacle at position" + "[" + ListOfObstacles.get(i).getX() + ", " + ListOfObstacles.get(i).getY() + "]");
+            System.out.println(green + "Obstacle at position" + "[" + ListOfObstacles.get(i).getX() + ", " + ListOfObstacles.get(i).getY() + "]" + reset);
         }
         for(int i = 0; i<commandHandler.myRobots.size();i++) {
-            System.out.println("robot in world: " + commandHandler.myRobots.get(i).getRobotName());
-            System.out.println("Robot at position " + "[" + commandHandler.myRobots.get(i).getRobotX() + ", " + commandHandler.myRobots.get(i).getRobotY() + "]");
+            System.out.println(green + "robot in world: " + commandHandler.myRobots.get(i).getRobotName() + reset);
+            System.out.println(green + "Robot at position " + "[" + commandHandler.myRobots.get(i).getRobotX() + ", " + commandHandler.myRobots.get(i).getRobotY() + "]" + reset);
         }
     }
 
@@ -79,7 +87,7 @@ public class ServerCommands implements Runnable {
                     // perform quit action
                     ServerCommands.quit();
                     //server shutdown for individual client
-                    System.out.println("Server is shutting down...");
+                    System.out.println(red + "Server is shutting down..." + reset);
                     finishRun = true;
                     break;
                 }
@@ -92,15 +100,15 @@ public class ServerCommands implements Runnable {
                 else if (line.contains("robots")) {
                     // perform robots action
 
-                    System.out.println("Number of robots in the world: " + commandHandler.getRobots().size());
+                    System.out.println(cyan_bg + green + "Number of robots in the world: " + commandHandler.getRobots().size() + reset);
                     for (Robot robot : commandHandler.getRobots()) {
                         System.out.println(robot.getRobotName());
-                        System.out.println("The state of this robot is: ");
-                        System.out.println("   *   Shields: " + robot.getRobotShields());
-                        System.out.println("   *   Position: " + "["+robot.getRobotX()+","+robot.getRobotY()+"]");
-                        System.out.println("   *   Shots remaining: " + robot.getRobotShots());
-                        System.out.println("   *   Direction: " + robot.getRobotDirection());
-                        System.out.println("   *   Status: " + robot.getRobotStatus());
+                        System.out.println(red + "The state of this robot is: " + reset);
+                        System.out.println(red + "   *   Shields: " + robot.getRobotShields()+ reset);
+                        System.out.println(red +"   *   Position: " + "["+robot.getRobotX()+","+robot.getRobotY()+"]"+ reset);
+                        System.out.println(red + "   *   Shots remaining: " + robot.getRobotShots()+ reset);
+                        System.out.println(red + "   *   Direction: " + robot.getRobotDirection()+ reset);
+                        System.out.println(red + "   *   Status: " + robot.getRobotStatus()+ reset);
 
                     }
                 }
