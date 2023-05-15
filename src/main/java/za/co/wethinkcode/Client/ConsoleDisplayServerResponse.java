@@ -33,7 +33,7 @@ public class ConsoleDisplayServerResponse {
 
                  if (command.split(" ")[0].equalsIgnoreCase("launch")
                           ) {
-                                System.out.println(green + "Congratulations! You have successfully launched your robot.\nHere is the current status of your robot:" + reset);
+                                System.out.println(green + "Launch Success!\nHere is the current status of your robot:" + reset);
                                 System.out.println(green + "   *   Repair: " + jsonResponse.get("data").get("repair").asText() + reset);
                                 System.out.println(green + "   *   Shields: " + jsonResponse.get("data").get("shields").asText()+ reset);
                                 System.out.println(green + "   *   Reload: " + jsonResponse.get("data").get("reload").asText()+ reset);

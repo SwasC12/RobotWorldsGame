@@ -47,6 +47,7 @@ public class SimpleClient extends StoreClientDetails  implements Serializable {
                 Socket socket = new Socket("localhost", 5000))
         {
             System.out.println(green + "Waiting for connection response from server: " + reset);
+
             Thread.sleep(2000);
             ClientRequestandResponse client = new ClientRequestandResponse();
 
@@ -107,7 +108,6 @@ public class SimpleClient extends StoreClientDetails  implements Serializable {
                     createJSONObject.setCommand(launchInput);
 
                     System.out.println(green + "Client launching " + createJSONObject.getRobotName() + "..." + reset);
-
                     // code to launch the robot
                     JsonNode response = client.sendRequestToServer(createJSONObject.getJsonObject() ,socket);
                     //display response on console
@@ -158,6 +158,7 @@ public class SimpleClient extends StoreClientDetails  implements Serializable {
                                 //display response on console
                                 System.out.println(green + "Waiting for the response from the server" + reset);
                                 //  Thread.sleep(3000);
+
                                 ConsoleDisplayServerResponse.displayResponse(response, createJSONObject.getCommand());
                             }
                             else  {

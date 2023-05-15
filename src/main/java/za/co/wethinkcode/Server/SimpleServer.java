@@ -51,7 +51,8 @@ public class SimpleServer implements Runnable {
         System.out.println(green + "   Client's IP Address is: " + cyan_bg + black + socket.getInetAddress().getHostAddress() + reset);
 
         out = new PrintStream(socket.getOutputStream());
-        out.println("Hi Client, you have successfully connected our server..");
+//        out.println("Hi Client, you have successfully connected our server..");
+        out.println(green + "connected to server" + reset);
         out.flush();
         in = new BufferedReader(new InputStreamReader(
                 socket.getInputStream()));

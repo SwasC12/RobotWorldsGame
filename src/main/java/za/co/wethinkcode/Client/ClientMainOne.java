@@ -51,7 +51,7 @@ import static java.lang.Integer.parseInt;
 
                 String[] rwArts = {asciiArt.rw,asciiArt.rw2,asciiArt.rw3,
                         asciiArt.rw4,asciiArt.rw5,asciiArt.rw6, asciiArt.rw7,
-                        asciiArt.rw8, asciiArt.rw9, asciiArt.rw10, asciiArt.rw11,
+                        asciiArt.rw9, asciiArt.rw11,
                         asciiArt.rw12};
 
                 Random random = new Random();

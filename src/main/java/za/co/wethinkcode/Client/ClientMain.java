@@ -47,6 +47,9 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
                 //Socket socket = new Socket("20.20.15.174", 5000))
                 Socket socket = new Socket("localhost", 5000))
         {
+            asciiArt load = new asciiArt();
+            load.rwLoadBar("loading",50,10);
+            System.out.println(" ");
             System.out.println(green + "Waiting for connection response from server: " + reset);
             Thread.sleep(2000);
             ClientRequestandResponse client = new ClientRequestandResponse();
@@ -56,6 +59,7 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
             out = new PrintStream(String.valueOf(new OutputStreamWriter(socket.getOutputStream())));
             out.flush();
             System.out.println(green + ">>> Response from server: " + reset + in.readLine());
+
 
             String[] rwArts = {asciiArt.rw,asciiArt.rw2,asciiArt.rw3,
                     asciiArt.rw4,asciiArt.rw5,asciiArt.rw6, asciiArt.rw7,
