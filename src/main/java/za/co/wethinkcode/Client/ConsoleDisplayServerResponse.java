@@ -13,7 +13,7 @@ public class ConsoleDisplayServerResponse {
     private static String y_bg = ServerGraphics.ANSI_YELLOW_BG;
 
 
-    public static void displayResponse(JsonNode jsonResponse, String command) throws NullPointerException {
+    public static void displayResponse(JsonNode jsonResponse, String command) throws NullPointerException, InterruptedException {
     
 
         if (!command.equalsIgnoreCase("launch")) {
@@ -41,7 +41,8 @@ public class ConsoleDisplayServerResponse {
                                 System.out.println(green + "   *   Position: " + jsonResponse.get("data").get("position").asText() + "\n"+ reset);
                 }
                  else if (command.equalsIgnoreCase("look"))
-                       {
+                       {        asciiArt rwLooked = new asciiArt();
+                                rwLooked.rwLook();//
                                 System.out.println(green +  "Robot looking around the world>>>>>>>>>>>>>>:" + reset);
                                 System.out.println(green + "   *   Objects:" +reset  );
                                 int obj_num = 1;

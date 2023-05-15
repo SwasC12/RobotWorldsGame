@@ -224,4 +224,28 @@ public class asciiArt{
             (×_×)
             """;
 
+    public void rwLook () throws InterruptedException {
+        long start_time = System.currentTimeMillis();
+        long wait_time = 2000;
+        long end_time = start_time + wait_time;
+        while (System.currentTimeMillis() < end_time) {
+            System.out.print("\r" + "(o_o )");
+            Thread.sleep(300);
+            System.out.print("\r" + "( o_o)");
+            Thread.sleep(300);
+            System.out.print("\r" + "( o_o )");
+            Thread.sleep(300);
+            System.out.print("\r" + "( -_- )");
+            Thread.sleep(200);
+            System.out.print("\r" + "( o_o )");
+            Thread.sleep(200);
+            System.out.print("\r" + "( -_- )");
+            Thread.sleep(200);
+            System.out.print("\r" + "(-_- )");
+            Thread.sleep(200);
+            System.out.print("\r" + "(o_o )");
+            Thread.sleep(300);
+            System.out.println("");
+        }
+    }
 }
