@@ -4,10 +4,12 @@ za/co/wethinkcode/Server/GameOver.class
 za/co/wethinkcode/Server/ServerCommands.class
 za/co/wethinkcode/Server/SimpleServer.class
 za/co/wethinkcode/Server/World/IWorld.class
+za/co/wethinkcode/Client/ClientMainOne.class
 za/co/wethinkcode/Server/dump.class
 za/co/wethinkcode/Server/World/UpdateResponse.class
 za/co/wethinkcode/Server/MultiServers.class
 za/co/wethinkcode/Server/World/Edge.class
+za/co/wethinkcode/Server/CurrentDirectory.class
 za/co/wethinkcode/Server/CommandHandler.class
 za/co/wethinkcode/Client/CreateJSONObject.class
 za/co/wethinkcode/Server/Forward.class
@@ -23,6 +25,7 @@ za/co/wethinkcode/Server/ServerGraphics.class
 za/co/wethinkcode/Client/ConsoleDisplayServerResponse.class
 za/co/wethinkcode/Client/NewClient.class
 za/co/wethinkcode/Server/LookCommandHandler.class
+za/co/wethinkcode/Client/ClientMainTwo.class
 za/co/wethinkcode/Client/StoreClientDetails.class
 za/co/wethinkcode/Server/World/IWorld$Direction.class
 za/co/wethinkcode/Server/Gun.class

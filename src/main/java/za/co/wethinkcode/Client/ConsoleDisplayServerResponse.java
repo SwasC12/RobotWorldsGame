@@ -109,7 +109,10 @@ public class ConsoleDisplayServerResponse {
 
         else if(jsonResponse.get("result").asText().equalsIgnoreCase("DEAD")) {
             System.out.println(red + "Your Robot is DEAD!!!" + reset);
-            System.out.println(asciiArt.rwDead);
+            asciiArt dead = new asciiArt();
+            dead.rwDead();
+            asciiArt gameOver = new asciiArt();
+            gameOver.rwGameOver();
             stateRobot(jsonResponse);
          }
     }

@@ -158,9 +158,9 @@ public class asciiArt{
             ¯\\_(ツ)_/¯
             """;
 
-    public static final String rwDead = """
-            (×_×)
-            """;
+//     public static final String rwDead = """
+//             (×_×) //animate
+//             """;
 
     public void rwLook () throws InterruptedException {
         long start_time = System.currentTimeMillis();
@@ -206,4 +206,122 @@ public class asciiArt{
         }
 
     }
+
+    public void rwDead() throws InterruptedException{
+        long start_time = System.currentTimeMillis();
+        long wait_time = 2000;
+        long end_time = start_time + wait_time;
+
+        while (System.currentTimeMillis() < end_time){
+                System.out.print("\r" + "(×_×)");
+                Thread.sleep(300);
+                System.out.print("\r" + "(-_-)");
+                Thread.sleep(300);
+                System.out.print("\r" + "(×_×)");
+                Thread.sleep(300);
+                System.out.print("\r" + "(-_-)");
+                Thread.sleep(300);
+                System.out.println(" ");
+        }
+        
+    }
+
+    public void rwGameOver() throws InterruptedException{
+        long start_time = System.currentTimeMillis();
+        long wait_time = 2000;
+        long end_time = start_time + wait_time;
+        
+        while (System.currentTimeMillis() < end_time){
+                System.out.print("\r" + "𝔾𝕒𝕞𝕖 𝕆𝕧𝕖𝕣");
+                Thread.sleep(300);
+                System.out.print("\r" + " ");
+                Thread.sleep(300);
+                System.out.print("\r" + "𝔾𝕒𝕞𝕖 𝕆𝕧𝕖𝕣");
+                Thread.sleep(300);
+                System.out.print("\r" + " ");
+                Thread.sleep(300);
+                System.out.println(" ");
+
+        }
+    }
+
+
+    public void rwShotgun() throws InterruptedException{
+        long start_time = System.currentTimeMillis();
+        long wait_time = 2000;
+        long end_time = start_time + wait_time;
+
+        while (System.currentTimeMillis() < end_time){
+                System.out.print("\r" + "︻┻┳══━一");
+                Thread.sleep(100);
+                System.out.print("\r" + "︻┻┳══━一 -");
+                Thread.sleep(100);
+                System.out.print("\r" + "︻┻┳══━一  -");
+                Thread.sleep(100);
+                System.out.print("\r" + "︻┻┳══━一   -");
+                Thread.sleep(100);
+                System.out.print("\r" + "︻┻┳══━一    -");
+                Thread.sleep(100);
+                System.out.print("\r" + "︻┻┳══━一     -");
+                Thread.sleep(100);
+                System.out.print("\r" + "︻┻┳══━一      -");
+                Thread.sleep(100);
+                System.out.println(" ");
+        }
+
+    }
+
+
+    public void rwBazooka() throws InterruptedException{
+        long start_time = System.currentTimeMillis();
+        long wait_time = 2000;
+        long end_time = start_time + wait_time;
+
+        while (System.currentTimeMillis() < end_time){
+                System.out.print("\r" + "{>==╦╦=ʖ><O>");
+                Thread.sleep(100);
+                System.out.print("\r" + "{>==╦╦=ʖ>  <O>");
+                Thread.sleep(100);
+                System.out.print("\r" + "{>==╦╦=ʖ>   <O>");
+                Thread.sleep(100);
+                System.out.print("\r" + "{>==╦╦=ʖ>    <O>");
+                Thread.sleep(100);
+                System.out.print("\r" + "{>==╦╦=ʖ>     <O>");
+                Thread.sleep(100);
+                System.out.print("\r" + "{>==╦╦=ʖ>      <O>");
+                Thread.sleep(100);
+                System.out.print("\r" + "{>==╦╦=ʖ>        <O>");
+                Thread.sleep(100);
+                System.out.println(" ");
+        }
+
+
+    }
+
+
+    public void rwSniper() throws InterruptedException{
+
+        long start_time = System.currentTimeMillis();
+        long wait_time = 2000;
+        long end_time = start_time + wait_time;
+
+        while (System.currentTimeMillis() < end_time){
+                System.out.print("\r" + "(҂‾ ▵‾)︻デ═一");
+                Thread.sleep(100);
+                System.out.print("\r" + "(҂‾ ▵‾)︻デ═一 -");
+                Thread.sleep(100);
+                System.out.print("\r" + "(҂‾ ▵‾)︻デ═一  -");
+                Thread.sleep(100);
+                System.out.print("\r" + "(҂‾ ▵‾)︻デ═一   -");
+                Thread.sleep(100);
+                System.out.print("\r" + "(҂‾ ▵‾)︻デ═一    -");
+                Thread.sleep(100);
+                System.out.print("\r" + "(҂‾ ▵‾)︻デ═一     -");
+                Thread.sleep(100);
+                System.out.print("\r" + "(҂‾ ▵‾)︻デ═一      -");
+                Thread.sleep(100);
+        }
+    }
+
+
 }

@@ -1,0 +1,14 @@
+{
+    "robots" : [
+      {"kind" : "sniper",
+      "max-shield" :  10,
+      "max-shots" : 10},
+      {"kind" : "bazooka",
+      "max-shield" : 10,
+      "max-shots" : 10},
+      {"kind" : "shotgun",
+      "max-shield" :  10,
+      "max-shots" : 10}
+    ]
+  
+  }
