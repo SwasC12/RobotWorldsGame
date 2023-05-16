@@ -4,10 +4,8 @@ package za.co.wethinkcode.Server;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import za.co.wethinkcode.Server.World.Robot;
-import za.co.wethinkcode.Server.World.Status;
 import za.co.wethinkcode.Server.World.World;
 
 import java.io.*;
@@ -15,6 +13,7 @@ import java.net.*;
 import java.util.ArrayList;
 
 import static za.co.wethinkcode.Server.CommandHandler.myRobots;
+//import static za.co.wethinkcode.Server.CommandHandler.reloadRobots;
 
 
 public class SimpleServer implements Runnable {
@@ -36,6 +35,7 @@ public class SimpleServer implements Runnable {
     public static World textWorld;
 
     JSONObject responseData;
+    private String Reload;
 
 
 //    CommandHandler command = new CommandHandler();
@@ -100,26 +100,55 @@ public class SimpleServer implements Runnable {
                     System.out.println(red + y_bg + "DEAD robots:" + reset + red + CommandHandler.deadRobots.size() + reset);
                     System.out.println("index:  "+ index_dead);
 
-                    if (CommandHandler.deadRobots.size()>=1 && robotList.contains(robotName))  {
-                                ObjectOutputStream toClient = new ObjectOutputStream(socket.getOutputStream());
-                                JSONObject subJson2 = new JSONObject();
-                                JSONObject fileJson = new JSONObject();
+//                    int index_reload = 0;
+//                    ArrayList<String> robots = new ArrayList<>();
+//                    for (Robot robo : reloadRobots){
+//                        if (robo.getRobotStatus().equalsIgnoreCase(robotName)){
+//                            robots.add(robo.getRobotName());
+//                            break;
+//                        }else {
+//                            index_reload = index_reload+1;
+//                        }
+//                        System.out.println("Reloading");
+//                    }
+//
+//                    if (reloadRobots.size()>= 1 && robots.contains(robotName)){
+//                        ObjectOutputStream toClient = new ObjectOutputStream(socket.getOutputStream());
+//                        JSONObject subJson3 = new JSONObject();
+//                        JSONObject fileJson = new JSONObject();
+//
+//                        fileJson.put("result", "RELOADING");
+//                        subJson3.put("status", reloadRobots.get(index_reload).getRobotStatus().toString());
+//                        fileJson.put("state",subJson3);
+//                        toClient.writeObject(fileJson);
+//                        toClient.flush();
+//
+//                    }  else if (robotCommand != null && robotName != null ) {
+//                        for (Robot robo : reloadRobots){
+//                            System.out.println(robo.getRobotName() +"  "+ robo.getRobotStatus());
+//                        }
+//                }
 
-                                subJson2.put("position","["+CommandHandler.deadRobots.get(index_dead).getRobotX()+","+CommandHandler.deadRobots.get(index_dead).getRobotY()+"]");
-                                subJson2.put("direction",CommandHandler.deadRobots.get(index_dead).getRobotDirection());
-                                subJson2.put("shields",CommandHandler.deadRobots.get(index_dead).getRobotShields());
-                                //subJson2.put("shots",rb.getRobotShots());
-                                subJson2.put("shots",CommandHandler.deadRobots.get(index_dead).getRobotShots()+" (shotDistance = "+CommandHandler.deadRobots.get(index_dead).getShotDistance()+" steps)");
-                                subJson2.put("status",CommandHandler.deadRobots.get(index_dead).getRobotStatus().toString());
-                                fileJson.put("result", "DEAD");
-                                fileJson.put("state",subJson2);
-                                toClient.writeObject(fileJson);
-                                toClient.flush();
+
+                    if (CommandHandler.deadRobots.size()>=1 && robotList.contains(robotName))  {
+                        ObjectOutputStream toClient = new ObjectOutputStream(socket.getOutputStream());
+                        JSONObject subJson2 = new JSONObject();
+                        JSONObject fileJson = new JSONObject();
+
+                        subJson2.put("position","["+CommandHandler.deadRobots.get(index_dead).getRobotX()+","+CommandHandler.deadRobots.get(index_dead).getRobotY()+"]");
+                        subJson2.put("direction",CommandHandler.deadRobots.get(index_dead).getRobotDirection());
+                        subJson2.put("shields",CommandHandler.deadRobots.get(index_dead).getRobotShields());
+                        subJson2.put("shots",CommandHandler.deadRobots.get(index_dead).getRobotShots()+" (shotDistance = "+CommandHandler.deadRobots.get(index_dead).getShotDistance()+" steps)");
+                        subJson2.put("status",CommandHandler.deadRobots.get(index_dead).getRobotStatus().toString());
+                        fileJson.put("result", "DEAD");
+                        fileJson.put("state",subJson2);
+                        toClient.writeObject(fileJson);
+                        toClient.flush();
                     }
                     else if (robotCommand != null && robotName != null ) {
-                         for (Robot rob : myRobots){
-                             System.out.println(rob.getRobotName() +"  "+ rob.getRobotStatus());
-                         }
+                        for (Robot rob : myRobots){
+                            System.out.println(rob.getRobotName() +"  "+ rob.getRobotStatus());
+                        }
 
                         System.out.println(green + "----------------------------------------------- " + reset);
                         System.out.println(cyan_bg_bright + black + "Processing Client request ..." + reset);
@@ -143,9 +172,9 @@ public class SimpleServer implements Runnable {
                         System.out.println(" ");
                         toClient.writeObject(responseData);
                         toClient.flush();
-                         for (Robot rob : myRobots){
-                             System.out.println(rob.getRobotName() +"  "+ rob.getRobotStatus());
-                         }
+                        for (Robot rob : myRobots){
+                            System.out.println(rob.getRobotName() +"  "+ rob.getRobotStatus());
+                        }
                     }
 
                 } catch (Exception e) {
