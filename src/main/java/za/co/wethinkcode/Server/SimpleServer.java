@@ -99,9 +99,10 @@ public class SimpleServer implements Runnable {
                     System.out.println(red + y_bg + "DEAD robots:" + reset + red + CommandHandler.deadRobots.size() + reset);
                     System.out.println("index:  "+ index_dead);
 
+//
 //                    int index_reload = 0;
 //                    ArrayList<String> robots = new ArrayList<>();
-//                    for (Robot robo : reloadRobots){
+//                    for (Robot robo : robots){
 //                        if (robo.getRobotStatus().equalsIgnoreCase(robotName)){
 //                            robots.add(robo.getRobotName());
 //                            break;
@@ -111,19 +112,19 @@ public class SimpleServer implements Runnable {
 //                        System.out.println("Reloading");
 //                    }
 //
-//                    if (reloadRobots.size()>= 1 && robots.contains(robotName)){
+//                    if (robots.size()>= 1 && robots.contains(robotName)){
 //                        ObjectOutputStream toClient = new ObjectOutputStream(socket.getOutputStream());
 //                        JSONObject subJson3 = new JSONObject();
 //                        JSONObject fileJson = new JSONObject();
 //
 //                        fileJson.put("result", "RELOADING");
-//                        subJson3.put("status", reloadRobots.get(index_reload).getRobotStatus().toString());
+//                        subJson3.put("status", robots.get(index_reload).getRobotStatus().toString());
 //                        fileJson.put("state",subJson3);
 //                        toClient.writeObject(fileJson);
 //                        toClient.flush();
 //
 //                    }  else if (robotCommand != null && robotName != null ) {
-//                        for (Robot robo : reloadRobots){
+//                        for (Robot robo : robots){
 //                            System.out.println(robo.getRobotName() +"  "+ robo.getRobotStatus());
 //                        }
 //                }

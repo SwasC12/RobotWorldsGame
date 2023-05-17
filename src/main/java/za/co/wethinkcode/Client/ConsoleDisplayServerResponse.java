@@ -66,8 +66,10 @@ public class ConsoleDisplayServerResponse {
                         else if (jsonResponse.get("result").asText().equalsIgnoreCase("No bullets")){
 //                            System.out.println(jsonResponse.get("message"));
                             System.out.println(red + "You have run out of bullets!!!, try reload option" + reset);
-                        }
+
                        }
+
+                 }
                  else if (command.split(" ").length > 1) {
 
                        if (command.split(" ")[0].equalsIgnoreCase("forward") && jsonResponse.get("data").get("message").asText().equalsIgnoreCase("Done")) {
@@ -100,7 +102,10 @@ public class ConsoleDisplayServerResponse {
                                 System.out.println(green + StoreClientDetails.name + " is now at position " + jsonResponse.get("state").get("position").asText()+ reset);
 
                        }
+                 } else if (command.equalsIgnoreCase("reload")){
+                     System.out.println("RELOADING");
                  }
+
          }
         else if (jsonResponse.get("result").asText().equalsIgnoreCase("ERROR")) {
             System.out.println(red + "Oops, there seems to be an error:" + reset);
