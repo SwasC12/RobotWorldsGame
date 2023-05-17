@@ -200,7 +200,6 @@ public class CommandHandler {
         fileJson.put("state",subJson2);
 
         return fileJson;
-
     }
 
     //For arguments
@@ -264,6 +263,7 @@ public class CommandHandler {
         return fileJson;
 
     }
+        //RELOADING
     public static JSONObject robotIsReload(Robot robot){
         JSONObject jsonRequest = new JSONObject();
         jsonRequest.put("result","OK");
@@ -277,6 +277,7 @@ public class CommandHandler {
         jsonRequest.put("state",subJson3);
         return jsonRequest;
     }
+    //REPAIRING
     public static JSONObject robotIsRepair(Robot robot) {
         JSONObject jsonRequest = new JSONObject();
         jsonRequest.put("result","OK");
