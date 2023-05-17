@@ -278,15 +278,17 @@ public class CommandHandler {
         return jsonRequest;
     }
     public static JSONObject robotIsRepair(Robot robot) {
-        JSONObject fileJson = new JSONObject();
-        fileJson.put("result",robot.getRobotResults().toString());
+        JSONObject jsonRequest = new JSONObject();
+        jsonRequest.put("result","OK");
+        JSONObject subJson1 = new JSONObject();
+        subJson1.put("message","DONE");
+        jsonRequest.put("data",subJson1);
         JSONObject subJson3 = new JSONObject();
-
-        subJson3.put("position", "[" + robot.getRobotX() + "," + robot.getRobotY() + "]");
-        subJson3.put("direction", robot.getRobotDirection());
-        subJson3.put("status", robot.getRobotStatus().toString());
-        fileJson.put("state", subJson3);
-        return fileJson;
+        subJson3.put("position","["+robot.getRobotX()+","+robot.getRobotY()+"]");
+        subJson3.put("direction",robot.getRobotDirection());
+        subJson3.put("status",robot.getRobotStatus().toString());
+        jsonRequest.put("state",subJson3);
+        return jsonRequest;
     }
 
     public void addToList(Robot rb){

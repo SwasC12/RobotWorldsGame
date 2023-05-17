@@ -104,8 +104,10 @@ public class ConsoleDisplayServerResponse {
                        }
                  } else if (command.equalsIgnoreCase("reload")){
                      System.out.println("RELOADING");
-                 }
 
+                 } else if (command.equalsIgnoreCase("repair")) {
+                     System.out.println("REPAIRING");
+                 }
          }
         else if (jsonResponse.get("result").asText().equalsIgnoreCase("ERROR")) {
             System.out.println(red + "Oops, there seems to be an error:" + reset);
