@@ -14,7 +14,7 @@ public class ConsoleDisplayServerResponse {
 
 
     public static void displayResponse(JsonNode jsonResponse, String command) throws NullPointerException, InterruptedException {
-    
+
 
         if (!command.equalsIgnoreCase("launch")) {
             System.out.println(green + "CLIENT REQUESTS: " + "COMMAND: " + command.split(" ")[0] + " ----->> SERVER ");

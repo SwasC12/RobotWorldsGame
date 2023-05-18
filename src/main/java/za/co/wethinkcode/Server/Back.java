@@ -6,6 +6,7 @@ import za.co.wethinkcode.Server.World.Robot;
 import za.co.wethinkcode.Server.World.UpdateResponse;
 
 import static za.co.wethinkcode.Server.CommandHandler.myRobots;
+import static za.co.wethinkcode.Server.World.Status.NORMAL;
 
 public class Back {
 
@@ -37,7 +38,7 @@ public class Back {
             subJson2.put("direction", myRobots.get(index).getRobotDirection().toString());
             subJson2.put("shields", myRobots.get(index).getRobotShields());
             subJson2.put("shots", myRobots.get(index).getRobotShots());
-            subJson2.put("status", myRobots.get(index).getRobotStatus().toString());
+            subJson2.put("status", myRobots.get(index).getRobotStatus(NORMAL).toString());
             fileJson.put("data", subJson1);
             fileJson.put("state", subJson2);
             return fileJson;

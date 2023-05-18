@@ -7,8 +7,8 @@ import za.co.wethinkcode.Server.World.World;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import za.co.wethinkcode.Server.ServerGraphics;
 
+import static za.co.wethinkcode.Server.World.Status.NORMAL;
 import static za.co.wethinkcode.Server.World.World.ListOfObstacles;
 
 
@@ -108,10 +108,11 @@ public class ServerCommands implements Runnable {
                         System.out.println(red +"   *   Position: " + "["+robot.getRobotX()+","+robot.getRobotY()+"]"+ reset);
                         System.out.println(red + "   *   Shots remaining: " + robot.getRobotShots()+ reset);
                         System.out.println(red + "   *   Direction: " + robot.getRobotDirection()+ reset);
-                        System.out.println(red + "   *   Status: " + robot.getRobotStatus()+ reset);
+                        System.out.println(red + "   *   Status: " + robot.getRobotStatus(NORMAL)+ reset);
 
                     }
                 }
+
 
             }
         } catch (IOException e) {

@@ -110,8 +110,17 @@ public class MultiServers {
         ServerCommands listener = new ServerCommands(commandHandler);
         Thread thread = new Thread(listener);
         thread.start();
-    }
 
+
+    }
+//    public static void startReloadThread(){
+//        Thread reloadingThread = new Thread((Runnable) new Reload());
+//        reloadingThread.start();
+//    }
+//    public static void startRepairThread(){
+//        Thread repairingThread = new Thread((Runnable) new Repair());
+//        repairingThread.start();
+//    }
     public static void stopRunning() throws IOException {
         serverInRunningState = false;
         serverSocket.close();

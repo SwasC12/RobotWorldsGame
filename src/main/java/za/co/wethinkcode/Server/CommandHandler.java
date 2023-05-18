@@ -7,10 +7,10 @@ import za.co.wethinkcode.Server.World.Robot;
 import za.co.wethinkcode.Server.World.Status;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import static java.lang.String.valueOf;
+import static za.co.wethinkcode.Server.World.Status.*;
 //import static sun.security.tools.keytool.Main.rb;
 
 
@@ -43,7 +43,7 @@ public class CommandHandler {
     public Robot generateRobot(String robotName, int shieldStrength, int maxShots, int shotDistance){
         int x = Robot.generateXAndY()[0];
         int y = Robot.generateXAndY()[1];
-        Robot robot = new Robot("ROBOT", robotName, x, y, "OK", 800, 5, 8, shieldStrength, "NORTH", maxShots, valueOf(Status.NORMAL));
+        Robot robot = new Robot("ROBOT", robotName, x, y, "OK", 800, 5, 8, shieldStrength, "NORTH", maxShots, valueOf(NORMAL));
         robot.setRobotName(robotName);
         robot.setRobotName(robotName);
         robot.setRobotShots(maxShots);
@@ -195,7 +195,7 @@ public class CommandHandler {
         subJson2.put("direction",rb.getRobotDirection());
         subJson2.put("shields",rb.getRobotShields());
         subJson2.put("shots",rb.getRobotShots());
-        subJson2.put("status",rb.getRobotStatus().toString());
+        subJson2.put("status",rb.getRobotStatus(NORMAL).toString());
         fileJson.put("data",subJson1);
         fileJson.put("state",subJson2);
 
@@ -257,7 +257,7 @@ public class CommandHandler {
         subJson2.put("direction",rb.getRobotDirection());
         subJson2.put("shields",rb.getRobotShields());
         subJson2.put("shots",rb.getRobotShots()+" (shotDistance = "+rb.getShotDistance()+" steps)");
-        subJson2.put("status",rb.getRobotStatus().toString());
+        subJson2.put("status",rb.getRobotStatus(NORMAL).toString());
         fileJson.put("state",subJson2);
 
         return fileJson;
@@ -273,7 +273,7 @@ public class CommandHandler {
         JSONObject subJson3 = new JSONObject();
         subJson3.put("position","["+robot.getRobotX()+","+robot.getRobotY()+"]");
         subJson3.put("direction",robot.getRobotDirection());
-        subJson3.put("status",robot.getRobotStatus().toString());
+        subJson3.put("status",robot.getRobotStatus(RELOAD).toString());
         jsonRequest.put("state",subJson3);
         return jsonRequest;
     }
@@ -287,7 +287,7 @@ public class CommandHandler {
         JSONObject subJson3 = new JSONObject();
         subJson3.put("position","["+robot.getRobotX()+","+robot.getRobotY()+"]");
         subJson3.put("direction",robot.getRobotDirection());
-        subJson3.put("status",robot.getRobotStatus().toString());
+        subJson3.put("status",robot.getRobotStatus(REPAIR).toString());
         jsonRequest.put("state",subJson3);
         return jsonRequest;
     }

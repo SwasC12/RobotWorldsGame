@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.Socket;
 
 import static java.lang.String.valueOf;
+import static za.co.wethinkcode.Server.World.Status.NORMAL;
 
 public class HandleFireCommand {
     Robot robot;
@@ -155,7 +156,7 @@ public class HandleFireCommand {
         subJson2.put("direction",getRobotHit().getRobotDirection());
         subJson2.put("shields",getRobotHit().getRobotShields());
         subJson2.put("shots",getRobotHit().getRobotShots());
-        subJson2.put("status",getRobotHit().getRobotStatus());
+        subJson2.put("status",getRobotHit().getRobotStatus(NORMAL));
 
 
         JSONObject dataJson = new JSONObject();
