@@ -41,15 +41,21 @@ public class MultiServers {
     public static void main(String[] args) throws ClassNotFoundException, IOException {
 
         JSONObject json = new JSONObject();
-        if (args.length <3 ){
+        if (args.length == 0 ){
             System.out.println(red + "You did not enter any configuration parameters thus we will use default values." + reset);
+        }
+        else if (args.length <6 && args.length >0 ){
+            System.out.println(red + "You entered less than the required number of configuration parameters thus we will use default values." + reset);
 
         }
 
-        else if (args.length == 3) {
+        else if (args.length == 6) {
             json.put("width", args[0]);
             json.put("height", args[1]);
             json.put("lookDistance", args[2]);
+            json.put("repairTime", args[3]);
+            json.put("reloadTime", args[4]);
+            json.put("maxShieldStrength", args[5]);
         }
 
 

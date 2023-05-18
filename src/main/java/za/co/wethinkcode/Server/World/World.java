@@ -21,6 +21,9 @@ public class World {
     public static int width ;
     public static int height;
     public static int lookDistance;
+    public static int repairTime;
+    public static int reloadTime;
+    public static int maxShieldStrength;
     public   static int[] Centre = new int[2];
 
     public static int[] Top_Left = new int[2];
@@ -92,6 +95,9 @@ public class World {
             height = Integer.parseInt(data.get("height").toString());
             width = Integer.parseInt(data.get("width").toString());
             lookDistance =  Integer.parseInt(data.get("lookDistance").toString());
+            repairTime = Integer.parseInt(data.get("repairTime").toString());
+            reloadTime = Integer.parseInt(data.get("reloadTime").toString());
+            maxShieldStrength = Integer.parseInt(data.get("maxShieldStrength").toString());
 
             reader.close();
         }catch (IOException | ParseException e){
