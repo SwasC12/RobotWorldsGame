@@ -4,6 +4,7 @@ package za.co.wethinkcode.Server.World;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import za.co.wethinkcode.Server.CurrentDirectory;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,6 +17,8 @@ import static za.co.wethinkcode.Server.World.Robot.robotBlockedPathByObstacle;
 public class World {
     FileReader reader;
     JSONObject data;
+
+    CurrentDirectory currentDirectory;
     public static List<Edge> listOfEdges;
     public static Random random = new Random();
     public static int width ;
@@ -82,13 +85,15 @@ public class World {
     public void ReadConfigFile(){
         JSONParser parser = new JSONParser();
         try{
-
-            // reader = new FileReader("src/main/java/za/co/wethinkcode/Server/World/config.json");
-           reader = new FileReader("/home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/World/config.json");
+             //reader = new FileReader(new CurrentDirectory("config.json").getFilePath());
+             reader = new FileReader("src/main/java/za/co/wethinkcode/Server/World/config.json");
+//           reader = new FileReader("/home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/World/config.json");
             data = (JSONObject) parser.parse(reader);
             if (data.size() == 0){
-                // reader = new FileReader("src/main/java/za/co/wethinkcode/Server/World/default.json");
-               reader = new FileReader("/home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/World/default.json");
+              //  reader = new FileReader(new CurrentDirectory("default.json").getFilePath());
+               // System.out.println(new CurrentDirectory("default.json").getFilePath());
+                reader = new FileReader("src/main/java/za/co/wethinkcode/Server/World/default.json");
+              // reader = new FileReader("/home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/World/default.json");
                 data = (JSONObject) parser.parse(reader);
             }
 

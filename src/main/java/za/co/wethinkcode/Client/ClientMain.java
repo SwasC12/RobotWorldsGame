@@ -82,32 +82,68 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
                     createJSONObject.setRobotName(getInput(green + "Please enter the name of the robot:" + reset));
                     String launchInput;
                     while (true){
-                        launchInput = getInput(createJSONObject.getRobotName() + green +  "> Please enter the launch command: <launch> <kind> <shieldStrength int> <maxShots int> ? " + reset);
-                        String[] launchInputs = launchInput.split(" ");
+//                        launchInput = getInput(createJSONObject.getRobotName() + green +  "> Please enter the launch command: <launch> <kind> <shieldStrength int> <maxShots int> ? " + reset);
+//                        String[] launchInputs = launchInput.split(" ");
+//
+//                        if (launchInputs.length!=4){
+//                            System.out.println(red + "Please type launch command as instructed!" + reset);
+//                            continue;
+//                        }
+//
+//                        if (!launchInputs[0].equalsIgnoreCase("launch")){
+//                            System.out.println(red + "Please type launch command as instructed!" + reset);
+//                            continue;
+//                        }
+//
+//                        if (launchInputs[1].equalsIgnoreCase("")){
+//                            System.out.println(red + "Please type launch command as instructed!" + reset);
+//                            continue;
+//                        }
+//                        if (!isDigitAndRangeOneToEight(launchInputs[2])) {
+//                            System.out.println(red + "Please type launch command as instructed!" + reset);
+//                            continue;
+//                        }
+//                        if (!isDigitAndRangeOneToEight(launchInputs[3])){
+//                            System.out.println(red + "Please type launch command as instructed!" + reset);
+//                        }
+//                        else{
+//                            break;}
+//
+                            launchInput = getInput(createJSONObject.getRobotName() + "> Please enter the launch command: <launch> <kind> ? \n " +
+                                    "There are three robot kinds you can choose from: \n" +
+                                    "        * kind: sniper,  max-shield: 1, max_shots: 30 steps \n" +
+                                    "        ** kind: bazooka,  max-shield: 4, max_shots: 20 steps \n " +
+                                    "        *** kind: shotgun,  max-shield: 5, max_shots: 10 steps\n" +
+                                    "                                                              \n" +
+                                    "        Your can also specify your own kind with maxShields and maxShots as follows:\n" +
+                                    "              : <launch> <kind> <shieldStrength int> <maxShots int>");
 
-                        if (launchInputs.length!=4){
-                            System.out.println(red + "Please type launch command as instructed!" + reset);
-                            continue;
-                        }
 
-                        if (!launchInputs[0].equalsIgnoreCase("launch")){
-                            System.out.println(red + "Please type launch command as instructed!" + reset);
-                            continue;
-                        }
+                            String[] launchInputs = launchInput.split(" ");
 
-                        if (launchInputs[1].equalsIgnoreCase("")){
-                            System.out.println(red + "Please type launch command as instructed!" + reset);
-                            continue;
-                        }
-                        if (!isDigitAndRangeOneToEight(launchInputs[2])) {
-                            System.out.println(red + "Please type launch command as instructed!" + reset);
-                            continue;
-                        }
-                        if (!isDigitAndRangeOneToEight(launchInputs[3])){
-                            System.out.println(red + "Please type launch command as instructed!" + reset);
-                        }
-                        else{
-                            break;}
+                            if (launchInputs.length==2) {
+                                String robotKind = launchInputs[1].toLowerCase();
+                                if (launchInputs[0].equalsIgnoreCase("launch") &&
+                                        robotKind.equals("sniper") || robotKind.equals("bazooka") || robotKind.equals("shotgun")) {
+                                    createJSONObject.setCommand(launchInput);
+                                    break;
+                                } else {
+                                    System.out.println(red + "Please type launch command as instructed!" + reset);
+                                }
+
+                            } else if (launchInputs.length==4 && launchInputs[0].equalsIgnoreCase("launch") &&
+                                    !launchInputs[1].equalsIgnoreCase("") && isDigit(launchInputs[2]) &&
+                                    isDigit(launchInputs[3])) {
+                                createJSONObject.setCommand(launchInput);
+                                break;
+                            }
+                            else {
+                                System.out.println(red + "Please type launch command as instructed!" + reset);
+
+                            }
+
+
+
                     }
 
                     createJSONObject.setCommand(launchInput);
@@ -206,7 +242,7 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
         return input.strip().toLowerCase();
     }
 
-    public static boolean isDigitAndRangeOneToEight(String user_input) {
+    public static boolean isDigit(String user_input) {
         return user_input.matches("[0-9]+");
     }
     public static boolean isNumber(String expression) {
