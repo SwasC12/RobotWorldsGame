@@ -49,7 +49,7 @@ public class CommandHandler {
     public Robot generateRobot(String robotName, int shieldStrength, int maxShots, int shotDistance){
         int x = Robot.generateXAndY()[0];
         int y = Robot.generateXAndY()[1];
-        Robot robot = new Robot("ROBOT", robotName, x, y, "OK", World.lookDistance, 5, 8, shieldStrength, "NORTH", maxShots, valueOf(NORMAL));
+        Robot robot = new Robot("ROBOT", robotName, x, y, "OK", World.lookDistance, World.reloadTime, World.repairTime, shieldStrength, "NORTH", maxShots, valueOf(NORMAL));
         robot.setRobotName(robotName);
         robot.setRobotName(robotName);
         robot.setRobotShots(maxShots);
