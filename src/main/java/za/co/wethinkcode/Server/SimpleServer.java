@@ -140,7 +140,7 @@ public class SimpleServer implements Runnable {
                         subJson2.put("direction",CommandHandler.deadRobots.get(index_dead).getRobotDirection());
                         subJson2.put("shields",CommandHandler.deadRobots.get(index_dead).getRobotShields());
                         subJson2.put("shots",CommandHandler.deadRobots.get(index_dead).getRobotShots()+" (shotDistance = "+CommandHandler.deadRobots.get(index_dead).getShotDistance()+" steps)");
-                        subJson2.put("status",CommandHandler.deadRobots.get(index_dead).getRobotStatus(NORMAL).toString());
+                        subJson2.put("status",CommandHandler.deadRobots.get(index_dead).getRobotStatus().toString());
                         fileJson.put("result", "DEAD");
                         fileJson.put("state",subJson2);
                         toClient.writeObject(fileJson);
@@ -148,7 +148,7 @@ public class SimpleServer implements Runnable {
                     }
                     else if (robotCommand != null && robotName != null ) {
                         for (Robot rob : myRobots){
-                            System.out.println(rob.getRobotName() +"  "+ rob.getRobotStatus(NORMAL));
+                            System.out.println(rob.getRobotName() +"  "+ rob.getRobotStatus());
                         }
 
                         System.out.println(green + "----------------------------------------------- " + reset);
@@ -174,7 +174,7 @@ public class SimpleServer implements Runnable {
                         toClient.writeObject(responseData);
                         toClient.flush();
                         for (Robot rob : myRobots){
-                            System.out.println(rob.getRobotName() +"  "+ rob.getRobotStatus(NORMAL));
+                            System.out.println(rob.getRobotName() +"  "+ rob.getRobotStatus());
                         }
                     }
 

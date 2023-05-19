@@ -18,12 +18,9 @@ import static java.lang.Integer.parseInt;
 public class ClientMain extends StoreClientDetails  implements Serializable {
     //    public static String name;
     static String command;
-    private static BufferedReader in;
-    private static PrintStream out;
-    private static String red = ServerGraphics.ANSI_RED;
-    private static String reset = ServerGraphics.ANSI_RESET;
-    private static String green = ServerGraphics.ANSI_GREEN;
-    private static String y_bg = ServerGraphics.ANSI_YELLOW_BG;
+    private static final String red = ServerGraphics.ANSI_RED;
+    private static final String reset = ServerGraphics.ANSI_RESET;
+    private static final String y_bg = ServerGraphics.ANSI_YELLOW_BG;
 
     public static List<String> forTurn= new ArrayList<>(List.of("right","left"));
     public static List<String> validCom= new ArrayList<>(List.of("forward","back","turn"));
@@ -50,15 +47,17 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
             asciiArt load = new asciiArt();
             load.rwLoadBar("loading",50,30);
             System.out.println(" ");
+            String green = ServerGraphics.ANSI_GREEN;
             System.out.println(green + "Waiting for connection response from server: " + reset);
 
 
             Thread.sleep(2000);
             ClientRequestandResponse client = new ClientRequestandResponse();
 
-            in = new BufferedReader(new InputStreamReader(
-                    socket.getInputStream()));
-            out = new PrintStream(String.valueOf(new OutputStreamWriter(socket.getOutputStream())));
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+
+
             out.flush();
             System.out.println(green + ">>> Response from server: " + reset + in.readLine());
 
@@ -80,43 +79,20 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
                 if (userInput.equalsIgnoreCase("yes")) {
                     CreateJSONObject createJSONObject = new CreateJSONObject();
                     createJSONObject.setRobotName(getInput(green + "Please enter the name of the robot:" + reset));
+
                     String launchInput;
                     while (true){
-//                        launchInput = getInput(createJSONObject.getRobotName() + green +  "> Please enter the launch command: <launch> <kind> <shieldStrength int> <maxShots int> ? " + reset);
-//                        String[] launchInputs = launchInput.split(" ");
-//
-//                        if (launchInputs.length!=4){
-//                            System.out.println(red + "Please type launch command as instructed!" + reset);
-//                            continue;
-//                        }
-//
-//                        if (!launchInputs[0].equalsIgnoreCase("launch")){
-//                            System.out.println(red + "Please type launch command as instructed!" + reset);
-//                            continue;
-//                        }
-//
-//                        if (launchInputs[1].equalsIgnoreCase("")){
-//                            System.out.println(red + "Please type launch command as instructed!" + reset);
-//                            continue;
-//                        }
-//                        if (!isDigitAndRangeOneToEight(launchInputs[2])) {
-//                            System.out.println(red + "Please type launch command as instructed!" + reset);
-//                            continue;
-//                        }
-//                        if (!isDigitAndRangeOneToEight(launchInputs[3])){
-//                            System.out.println(red + "Please type launch command as instructed!" + reset);
-//                        }
-//                        else{
-//                            break;}
-//
+
                             launchInput = getInput(createJSONObject.getRobotName() + "> Please enter the launch command: <launch> <kind> ? \n " +
-                                    "There are three robot kinds you can choose from: \n" +
-                                    "        * kind: sniper,  max-shield: 1, max_shots: 30 steps \n" +
-                                    "        ** kind: bazooka,  max-shield: 4, max_shots: 20 steps \n " +
-                                    "        *** kind: shotgun,  max-shield: 5, max_shots: 10 steps\n" +
-                                    "                                                              \n" +
-                                    "        Your can also specify your own kind with maxShields and maxShots as follows:\n" +
-                                    "              : <launch> <kind> <shieldStrength int> <maxShots int>");
+                                    "There are three robot kinds you can choose from:    \n" +
+                                    "              Kind          Shields         shots   \n" +
+                                    "----------------------------------------------------\n"+
+                                    "      (I)    : SNIPER           5              6   \n" +
+                                    "      (II)   : BAZOOKA          10              15   \n "+
+                                    "     (III)  : SHOTGUN          10              20   \n" +
+                                    " -------------#######################---------------\n"  +
+                                    " Your can also specify your own kind with maxShields and maxShots as follows:\n" +
+                                    "       : <launch> <kind> <shieldStrength int> <maxShots int>");
 
 
                             String[] launchInputs = launchInput.split(" ");
@@ -141,8 +117,6 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
                                 System.out.println(red + "Please type launch command as instructed!" + reset);
 
                             }
-
-
 
                     }
 
@@ -189,6 +163,7 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
                                     isMove = forMovem.contains(command.split(" ")[0]) && isNumber(command.split(" ")[1]);
 
                                 }
+
                             }
                             createJSONObject.setCommand(command);
                             if (createJSONObject.getCommand().equalsIgnoreCase("help")){
@@ -217,6 +192,7 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
                     return;
                 }else {
                     System.out.println(red + "Invalid input, please enter yes/no" + reset);
+
                     continue;
                 }
                 break;
@@ -260,6 +236,7 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
         }
         return false;
     }
+
 
 }
 

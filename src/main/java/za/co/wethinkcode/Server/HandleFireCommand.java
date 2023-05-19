@@ -156,7 +156,7 @@ public class HandleFireCommand {
         subJson2.put("direction",getRobotHit().getRobotDirection());
         subJson2.put("shields",getRobotHit().getRobotShields());
         subJson2.put("shots",getRobotHit().getRobotShots());
-        subJson2.put("status",getRobotHit().getRobotStatus(NORMAL));
+        subJson2.put("status",getRobotHit().getRobotStatus());
 
 
         JSONObject dataJson = new JSONObject();

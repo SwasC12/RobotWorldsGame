@@ -139,7 +139,7 @@ public class Robot{
     }
 
 
-    public String getRobotStatus(Status normal){
+    public String getRobotStatus(){
         return this.status;
     }
 

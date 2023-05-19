@@ -2,10 +2,13 @@ package za.co.wethinkcode.Server;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import za.co.wethinkcode.Server.World.Position;
 import za.co.wethinkcode.Server.World.Robot;
 import za.co.wethinkcode.Server.World.Status;
+import za.co.wethinkcode.Server.World.World;
 
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +25,9 @@ public class CommandHandler {
     public static List<Robot> reloadRobots = new ArrayList<>();
     LookCommandHandler lookCommandHandler;
     HandleFireCommand handleFireCommand;
+    int obstX_target;
+    int obstY_target;
+    Object reader;
 
     private int shotDistance;
 
@@ -82,14 +88,51 @@ public class CommandHandler {
                     }
                 }
 
-                int maxShots = Integer.parseInt(args[2].trim());
-                //configure Gun
-                Gun gun = new Gun(maxShots, robot);
+//                int maxShots = Integer.parseInt(args[2].trim());
+//                //configure Gun
+//                Gun gun = new Gun(maxShots, robot);
+//
+//                maxShots = gun.getNumShots();
+//                //from the maximum number of shots I can get a bullet distance
+//                shotDistance = gun.getShotDistance();
+//                int shieldStrength = Integer.parseInt(args[1].trim());
+//
+                int maxShots = 0;
+                int shieldStrength = 0;
+                if (args.length == 3) {
+                    maxShots = Integer.parseInt(args[2].trim());
+                    //configure Gun
+                    Gun gun = new Gun(maxShots, robot);
 
-                maxShots = gun.getNumShots();
-                //from the maximum number of shots I can get a bullet distance
-                shotDistance = gun.getShotDistance();
-                int shieldStrength = Integer.parseInt(args[1].trim());
+                    maxShots = gun.getNumShots();
+                    //from the maximum number of shots I can get a bullet distance
+                    shotDistance = gun.getShotDistance();
+                    shieldStrength = World.maxShieldStrength;
+
+//                this.robot = generateRobot(robotName, shieldStrength, maxShots, shotDistance);
+                }
+                else{
+
+                    //find index of the robot
+                    JSONParser parser = new JSONParser();
+                    reader =parser.parse(new FileReader("src/main/java/za/co/wethinkcode/Resources/robots.json"));
+                    JSONObject data = (JSONObject) reader;
+                    JSONArray robots = (JSONArray) data.get("robots");
+                    for (Object robotObj : robots) {
+                        JSONObject robot_kinds = (JSONObject) robotObj;
+                        String name = (String) robot_kinds.get("kind");
+                        if (name.equalsIgnoreCase(args[0])){
+                            shieldStrength = Integer.parseInt(String.valueOf(robot_kinds.get("max-shield")));
+//                            if (args.length == 1) {
+                            maxShots = Integer.parseInt(String.valueOf(robot_kinds.get("max-shots")));
+//                            }
+                            Gun gun = new Gun(maxShots, robot);
+                            shotDistance = gun.getShotDistance();
+                            this.robot = generateRobot(robotName,shieldStrength,maxShots,shotDistance );
+                            break;
+                        }
+                    }
+                }
 
                 this.robot = generateRobot(robotName,shieldStrength ,maxShots,shotDistance );
 
@@ -122,56 +165,64 @@ public class CommandHandler {
                 return robotIsRepair(robot);
 
             } else if (robotCommand.equalsIgnoreCase("fire")) {
-                //if I call the fire command, then I need to update the bullet position from the robot gun
+                    //if I call the fire command, then I need to update the bullet position from the robot gun
 //                    BulletPosition bulletPosition =  new BulletPosition(shotDistance);
 
-                //check the final position of the bullet
-                robot = myRobots.get(index);
-                BulletPosition bulletPosition =  new BulletPosition(robot.getShotDistance(), robot, robot.getRobotX(), robot.getRobotY() );
+                    //check the final position of the bullet
+                    robot = myRobots.get(index);
+                    BulletPosition bulletPosition =  new BulletPosition(robot.getShotDistance(), robot, robot.getRobotX(), robot.getRobotY() );
 
-                // BulletPosition bulletPosition = new BulletPosition(robot.getShotDistance(), robot);
-                Position shotPosition = new Position(bulletPosition.getXf(), bulletPosition.getYf());
-                Position robPostion = new Position(robot.getRobotX(),robot.getRobotY());
+                    // BulletPosition bulletPosition = new BulletPosition(robot.getShotDistance(), robot);
+                    Position shotPosition = new Position(bulletPosition.getXf(), bulletPosition.getYf());
+                    Position robPostion = new Position(robot.getRobotX(),robot.getRobotY());
 
-                if (robot.getRobotShots()>0){
-                    System.out.println("Bullet initial position: "+ "["+bulletPosition.getXi()+","+bulletPosition.getYi()+"]");
-                    System.out.println("Shot travel distance: "+ robot.getShotDistance() +" steps");
-                    System.out.println("Bullet final position: "+ "["+bulletPosition.getXf()+","+bulletPosition.getYf()+"]");
-
-                    if ( (!handleFireCommand.shotBlockedPathByObstacle(robPostion,shotPosition) &&
-                            handleFireCommand.shotBlockedPathByRobot(robPostion,shotPosition) )
-                            ||
-                            (!handleFireCommand.shotBlockedPathByObstacle(robPostion,shotPosition) &&
-                                    handleFireCommand.shotBlockedPositionByRobot(new Position(bulletPosition.getXf(), bulletPosition.getYf()))
-                            )
-                    )
-                    {
-                        System.out.println("I am in Case 1:   MyROBOT >>>> NO OBSTACLE  >>>>>>TargetROBOT");
-                        return handleFireCommand.createJSONResponseSuccess(robot);
+                    if (bulletPosition.getXi()==bulletPosition.getXf()){
+                        obstX_target = bulletPosition.getXi();
                     }
-                    else if ( ((handleFireCommand.shotBlockedPathByObstacle(robPostion,shotPosition) && handleFireCommand.shotBlockedPathByRobot(robPostion,shotPosition))
-                            ||  ( (handleFireCommand.shotBlockedPathByObstacle(robPostion,shotPosition) && handleFireCommand.shotBlockedPositionByRobot(new Position(bulletPosition.getXf(), bulletPosition.getYf()))))
-                    ) &&
-                            Math.sqrt((handleFireCommand.getObstaclePosition().getX()-robot.getRobotX())*(handleFireCommand.getObstaclePosition().getX()-robot.getRobotX())
-                                    + (handleFireCommand.getObstaclePosition().getY()-robot.getRobotY())*(handleFireCommand.getObstaclePosition().getY()-robot.getRobotY()))
-                                    >
-                                    Math.sqrt((handleFireCommand.getRobotPosition().getX()-robot.getRobotX())*(handleFireCommand.getRobotPosition().getX()-robot.getRobotX())
-                                            + (handleFireCommand.getRobotPosition().getY()-robot.getRobotY())*(handleFireCommand.getRobotPosition().getY()-robot.getRobotY())))
-                    {
-                        System.out.println("I am in Case 2:   MyROBOT >>>>>>> TargetROBOT >>>>>>> OBSTACLE ");
-                        return handleFireCommand.createJSONResponseSuccess(robot);
+                    else if (bulletPosition.getYi()==bulletPosition.getYf()){
+                        obstY_target = bulletPosition.getYi();
                     }
 
-                    else {
-                        System.out.println("I am in Miss Case:  MyROBOT >>>>>> OBSTACLE >>>>>>>> TargetROBOT\n" +
-                                "                 ");
-                        return handleFireCommand.createJSONResponseMiss(robot);
+                    if (robot.getRobotShots()>0){
+                        System.out.println("Bullet initial position: "+ "["+bulletPosition.getXi()+","+bulletPosition.getYi()+"]");
+                        System.out.println("Shot travel distance: "+ robot.getShotDistance() +" steps");
+                        System.out.println("Bullet final position: "+ "["+bulletPosition.getXf()+","+bulletPosition.getYf()+"]");
+
+                        if ( (!handleFireCommand.shotBlockedPathByObstacle(robPostion,shotPosition) &&
+                                handleFireCommand.shotBlockedPathByRobot(robPostion,shotPosition) )
+                                ||
+                                (!handleFireCommand.shotBlockedPathByObstacle(robPostion,shotPosition) &&
+                                        handleFireCommand.shotBlockedPositionByRobot(new Position(bulletPosition.getXf(), bulletPosition.getYf()))
+                                )
+                        )
+                        {
+                            System.out.println("I am in Case 1:   MyROBOT >>>> NO OBSTACLE  >>>>>>TargetROBOT");
+                            return handleFireCommand.createJSONResponseSuccess(robot);
+                        }
+                        else if ( ((handleFireCommand.shotBlockedPathByObstacle(robPostion,shotPosition) && handleFireCommand.shotBlockedPathByRobot(robPostion,shotPosition))
+                                ||  ( (handleFireCommand.shotBlockedPathByObstacle(robPostion,shotPosition) && handleFireCommand.shotBlockedPositionByRobot(new Position(bulletPosition.getXf(), bulletPosition.getYf()))))
+                        ) &&
+                                Math.sqrt((obstX_target -robot.getRobotX())*(obstX_target-robot.getRobotX())
+                                        + (obstY_target-robot.getRobotY())*(obstY_target-robot.getRobotY()))
+                                        >
+                                        Math.sqrt((handleFireCommand.getRobotPosition().getX()-robot.getRobotX())*(handleFireCommand.getRobotPosition().getX()-robot.getRobotX())
+                                                + (handleFireCommand.getRobotPosition().getY()-robot.getRobotY())*(handleFireCommand.getRobotPosition().getY()-robot.getRobotY())))
+                        {
+                            System.out.println("I am in Case 2:   MyROBOT >>>>>>> TargetROBOT >>>>>>> OBSTACLE ");
+                            return handleFireCommand.createJSONResponseSuccess(robot);
+                        }
+
+                        else {
+                            System.out.println("I am in Miss Case:  MyROBOT >>>>>> OBSTACLE >>>>>>>> TargetROBOT\n" +
+                                    "                 ");
+                            return handleFireCommand.createJSONResponseMiss(robot);
+                        }
+                    }
+                    else{
+                        return handleFireCommand.createJSONResponseNoShots(robot);
                     }
                 }
-                else{
-                    return handleFireCommand.createJSONResponseNoShots(robot);
-                }
-            }
+
         }
 
         return null;
@@ -195,7 +246,7 @@ public class CommandHandler {
         subJson2.put("direction",rb.getRobotDirection());
         subJson2.put("shields",rb.getRobotShields());
         subJson2.put("shots",rb.getRobotShots());
-        subJson2.put("status",rb.getRobotStatus(NORMAL).toString());
+        subJson2.put("status",rb.getRobotStatus());
         fileJson.put("data",subJson1);
         fileJson.put("state",subJson2);
 
@@ -257,7 +308,7 @@ public class CommandHandler {
         subJson2.put("direction",rb.getRobotDirection());
         subJson2.put("shields",rb.getRobotShields());
         subJson2.put("shots",rb.getRobotShots()+" (shotDistance = "+rb.getShotDistance()+" steps)");
-        subJson2.put("status",rb.getRobotStatus(NORMAL).toString());
+        subJson2.put("status",rb.getRobotStatus());
         fileJson.put("state",subJson2);
 
         return fileJson;
@@ -273,7 +324,7 @@ public class CommandHandler {
         JSONObject subJson3 = new JSONObject();
         subJson3.put("position","["+robot.getRobotX()+","+robot.getRobotY()+"]");
         subJson3.put("direction",robot.getRobotDirection());
-        subJson3.put("status",robot.getRobotStatus(RELOAD).toString());
+        subJson3.put("status",robot.getRobotStatus());
         jsonRequest.put("state",subJson3);
         return jsonRequest;
     }
@@ -287,7 +338,7 @@ public class CommandHandler {
         JSONObject subJson3 = new JSONObject();
         subJson3.put("position","["+robot.getRobotX()+","+robot.getRobotY()+"]");
         subJson3.put("direction",robot.getRobotDirection());
-        subJson3.put("status",robot.getRobotStatus(REPAIR).toString());
+        subJson3.put("status",robot.getRobotStatus());
         jsonRequest.put("state",subJson3);
         return jsonRequest;
     }

@@ -108,7 +108,7 @@ public class ServerCommands implements Runnable {
                         System.out.println(red +"   *   Position: " + "["+robot.getRobotX()+","+robot.getRobotY()+"]"+ reset);
                         System.out.println(red + "   *   Shots remaining: " + robot.getRobotShots()+ reset);
                         System.out.println(red + "   *   Direction: " + robot.getRobotDirection()+ reset);
-                        System.out.println(red + "   *   Status: " + robot.getRobotStatus(NORMAL)+ reset);
+                        System.out.println(red + "   *   Status: " + robot.getRobotStatus()+ reset);
 
                     }
                 }

@@ -230,7 +230,7 @@ public class LookCommandHandler {
         subJson2.put("direction",rb.getRobotDirection());
         subJson2.put("shields",rb.getRobotShields());
         subJson2.put("shots",rb.getRobotShots());
-        subJson2.put("status",rb.getRobotStatus(NORMAL));
+        subJson2.put("status",rb.getRobotStatus());
         fileJson.put("result",rb.getRobotResults());
         fileJson.put("objects",dataArray);
         fileJson.put("state",subJson2);
