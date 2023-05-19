@@ -49,7 +49,7 @@ public class CommandHandler {
     public Robot generateRobot(String robotName, int shieldStrength, int maxShots, int shotDistance){
         int x = Robot.generateXAndY()[0];
         int y = Robot.generateXAndY()[1];
-        Robot robot = new Robot("ROBOT", robotName, x, y, "OK", World.lookDistance, World.reloadTime, World.repairTime, shieldStrength, "NORTH", maxShots, valueOf(NORMAL));
+        Robot robot = new Robot("ROBOT", robotName, x, y, "OK", World.lookDistance, World.reloadTime, World.repairTime, shieldStrength, "UP", maxShots, valueOf(NORMAL));
         robot.setRobotName(robotName);
         robot.setRobotName(robotName);
         robot.setRobotShots(maxShots);
@@ -104,7 +104,8 @@ public class CommandHandler {
                 }
                 else if (args.length ==1) {
                     JSONParser parser = new JSONParser();
-                    reader = parser.parse(new FileReader("src/main/java/za/co/wethinkcode/Resources/robots.json"));
+//                    reader = parser.parse(new FileReader("src/main/java/za/co/wethinkcode/Resources/robots.json"));
+                    reader = parser.parse(new FileReader("/home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Resources/robots.json"));
                     JSONObject data = (JSONObject) reader;
                     JSONArray robots = (JSONArray) data.get("robots");
                     for (Object robotObj : robots) {

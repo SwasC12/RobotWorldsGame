@@ -86,14 +86,14 @@ public class World {
         JSONParser parser = new JSONParser();
         try{
              //reader = new FileReader(new CurrentDirectory("config.json").getFilePath());
-             reader = new FileReader("src/main/java/za/co/wethinkcode/Server/World/config.json");
-//           reader = new FileReader("/home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/World/config.json");
+//             reader = new FileReader("src/main/java/za/co/wethinkcode/Server/World/config.json");
+           reader = new FileReader("/home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/World/config.json");
             data = (JSONObject) parser.parse(reader);
             if (data.size() == 0){
               //  reader = new FileReader(new CurrentDirectory("default.json").getFilePath());
                // System.out.println(new CurrentDirectory("default.json").getFilePath());
-                reader = new FileReader("src/main/java/za/co/wethinkcode/Server/World/default.json");
-              // reader = new FileReader("/home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/World/default.json");
+//                reader = new FileReader("src/main/java/za/co/wethinkcode/Server/World/default.json");
+               reader = new FileReader("/home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/World/default.json");
                 data = (JSONObject) parser.parse(reader);
             }
 

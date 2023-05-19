@@ -220,6 +220,7 @@ public class Robot{
         Position end = new Position(newX,newY);
 
 
+
         Position newPosition = new Position(newX, newY);
         if (newPosition.isIn(TOP_LEFT, BOTTOM_RIGHT) && !command.IsPathBlockedObstacle(start,end)  && !command.IsRobotPathBlocked(start, end) ) {
             this.position = newPosition;

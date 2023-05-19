@@ -29,6 +29,7 @@ public class Forward  {
                 }
             }
         }
+
         JSONObject fileJson = new JSONObject();
         if (myRobots.get(index).updatePosition(nrSteps).equals(UpdateResponse.Done)) {
             fileJson.put("result", myRobots.get(index).getRobotResults());
