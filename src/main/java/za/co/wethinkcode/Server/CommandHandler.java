@@ -88,15 +88,7 @@ public class CommandHandler {
                     }
                 }
 
-//                int maxShots = Integer.parseInt(args[2].trim());
-//                //configure Gun
-//                Gun gun = new Gun(maxShots, robot);
-//
-//                maxShots = gun.getNumShots();
-//                //from the maximum number of shots I can get a bullet distance
-//                shotDistance = gun.getShotDistance();
-//                int shieldStrength = Integer.parseInt(args[1].trim());
-//
+
 
                 if (args.length ==3) {
                     int maxShots = Integer.parseInt(args[2].trim());
@@ -126,11 +118,6 @@ public class CommandHandler {
                         }
                     }
                 }
-
-
-
-
-
 
                 addToList(this.robot);
                 return writeJsonFile("Responsefile", robot);
