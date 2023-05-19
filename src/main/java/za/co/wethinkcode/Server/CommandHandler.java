@@ -98,37 +98,39 @@ public class CommandHandler {
 //                int shieldStrength = Integer.parseInt(args[1].trim());
 //
 
+                if (args.length ==3) {
+                    int maxShots = Integer.parseInt(args[2].trim());
 
-                int maxShots = Integer.parseInt(args[2].trim());
-                //configure Gun
-                Gun gun = new Gun(maxShots, robot);
+                    //configure Gun
+                    Gun gun = new Gun(maxShots, robot);
 
-                maxShots = gun.getNumShots();
-                //from the maximum number of shots I can get a bullet distance
-                shotDistance = gun.getShotDistance();
-//                        int shieldStrength = Integer.parseInt(args[1].trim());
-                int shieldStrength = World.maxShieldStrength;
-
-
-                JSONParser parser = new JSONParser();
-                reader =parser.parse(new FileReader("src/main/java/za/co/wethinkcode/Resources/robots.json"));
-                JSONObject data = (JSONObject) reader;
-                JSONArray robots = (JSONArray) data.get("robots");
-                for (Object robotObj : robots) {
-                    JSONObject robot = (JSONObject) robotObj;
-                    String name = (String) robot.get("kind");
-//                            System.out.println("- " + name);
-                    if (name.equalsIgnoreCase(args[0])){
-                        shieldStrength = Integer.parseInt(valueOf(robot.get("max-shield")));
-                        maxShots = Integer.parseInt(valueOf(robot.get("max-shots")));
-                        break;
+                    maxShots = gun.getNumShots();
+                    //from the maximum number of shots I can get a bullet distance
+                    shotDistance = gun.getShotDistance();
+                    int shieldStrength = World.maxShieldStrength;
+                    this.robot = generateRobot(robotName,shieldStrength,maxShots,shotDistance );
+                }
+                else if (args.length ==1) {
+                    JSONParser parser = new JSONParser();
+                    reader = parser.parse(new FileReader("src/main/java/za/co/wethinkcode/Resources/robots.json"));
+                    JSONObject data = (JSONObject) reader;
+                    JSONArray robots = (JSONArray) data.get("robots");
+                    for (Object robotObj : robots) {
+                        JSONObject robot = (JSONObject) robotObj;
+                        String name = (String) robot.get("kind");
+                        if (name.equalsIgnoreCase(args[0])) {
+                            int shieldStrength = Integer.parseInt(valueOf(robot.get("max-shield")));
+                            int maxShots = Integer.parseInt(valueOf(robot.get("max-shots")));
+                            this.robot = generateRobot(robotName,shieldStrength,maxShots,shotDistance );
+                            break;
+                        }
                     }
                 }
 
 
 
 
-                this.robot = generateRobot(robotName,shieldStrength,maxShots,shotDistance );
+
 
                 addToList(this.robot);
                 return writeJsonFile("Responsefile", robot);
