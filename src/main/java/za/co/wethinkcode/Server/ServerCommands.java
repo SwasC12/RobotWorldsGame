@@ -104,9 +104,9 @@ public class ServerCommands implements Runnable {
                     for (Robot robot : commandHandler.getRobots()) {
                         System.out.println(robot.getRobotName());
                         System.out.println(red + "The state of this robot is: " + reset);
-                        System.out.println(red + "   *   Shields: " + robot.getRobotShields()+ reset);
+                        System.out.println(red + "   *   Shields: " + robot.getRobotShields()+" hits"+ reset);
                         System.out.println(red +"   *   Position: " + "["+robot.getRobotX()+","+robot.getRobotY()+"]"+ reset);
-                        System.out.println(red + "   *   Shots remaining: " + robot.getRobotShots()+ reset);
+                        System.out.println(red + "   *   Shots remaining: " + robot.getRobotShots()+" shots"+ reset);
                         System.out.println(red + "   *   Direction: " + robot.getRobotDirection()+ reset);
                         System.out.println(red + "   *   Status: " + robot.getRobotStatus()+ reset);
 

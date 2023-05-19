@@ -130,9 +130,9 @@ public class ConsoleDisplayServerResponse {
     }
 
     public static void stateRobot(JsonNode jsonResponse) {
-        System.out.println(green + "   *   Shields: " + jsonResponse.get("state").get("shields").asText()+ reset);
+        System.out.println(green + "   *   Shields: " + jsonResponse.get("state").get("shields").asText()+" hits"+ reset);
         System.out.println(green + "   *   Position: " + jsonResponse.get("state").get("position").asText()+ reset);
-        System.out.println(green + "   *   Shots remaining: " + jsonResponse.get("state").get("shots").asText()+ reset);
+        System.out.println(green + "   *   Shots remaining: " + jsonResponse.get("state").get("shots").asText()+" shots"+ reset);
         System.out.println(green + "   *   Direction: " + jsonResponse.get("state").get("direction").asText()+ reset);
         System.out.println(green + "   *   Status: " + jsonResponse.get("state").get("status").asText()+ reset);
     }
