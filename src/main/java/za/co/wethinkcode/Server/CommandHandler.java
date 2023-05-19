@@ -97,44 +97,38 @@ public class CommandHandler {
 //                shotDistance = gun.getShotDistance();
 //                int shieldStrength = Integer.parseInt(args[1].trim());
 //
-                int maxShots = 0;
-                int shieldStrength = 0;
-                if (args.length == 3) {
-                    maxShots = Integer.parseInt(args[2].trim());
-                    //configure Gun
-                    Gun gun = new Gun(maxShots, robot);
 
-                    maxShots = gun.getNumShots();
-                    //from the maximum number of shots I can get a bullet distance
-                    shotDistance = gun.getShotDistance();
-                    shieldStrength = World.maxShieldStrength;
 
-//                this.robot = generateRobot(robotName, shieldStrength, maxShots, shotDistance);
-                }
-                else{
+                int maxShots = Integer.parseInt(args[2].trim());
+                //configure Gun
+                Gun gun = new Gun(maxShots, robot);
 
-                    //find index of the robot
-                    JSONParser parser = new JSONParser();
-                    reader =parser.parse(new FileReader("src/main/java/za/co/wethinkcode/Resources/robots.json"));
-                    JSONObject data = (JSONObject) reader;
-                    JSONArray robots = (JSONArray) data.get("robots");
-                    for (Object robotObj : robots) {
-                        JSONObject robot_kinds = (JSONObject) robotObj;
-                        String name = (String) robot_kinds.get("kind");
-                        if (name.equalsIgnoreCase(args[0])){
-                            shieldStrength = Integer.parseInt(String.valueOf(robot_kinds.get("max-shield")));
-//                            if (args.length == 1) {
-                            maxShots = Integer.parseInt(String.valueOf(robot_kinds.get("max-shots")));
-//                            }
-                            Gun gun = new Gun(maxShots, robot);
-                            shotDistance = gun.getShotDistance();
-                            this.robot = generateRobot(robotName,shieldStrength,maxShots,shotDistance );
-                            break;
-                        }
+                maxShots = gun.getNumShots();
+                //from the maximum number of shots I can get a bullet distance
+                shotDistance = gun.getShotDistance();
+//                        int shieldStrength = Integer.parseInt(args[1].trim());
+                int shieldStrength = World.maxShieldStrength;
+
+
+                JSONParser parser = new JSONParser();
+                reader =parser.parse(new FileReader("src/main/java/za/co/wethinkcode/Resources/robots.json"));
+                JSONObject data = (JSONObject) reader;
+                JSONArray robots = (JSONArray) data.get("robots");
+                for (Object robotObj : robots) {
+                    JSONObject robot = (JSONObject) robotObj;
+                    String name = (String) robot.get("kind");
+//                            System.out.println("- " + name);
+                    if (name.equalsIgnoreCase(args[0])){
+                        shieldStrength = Integer.parseInt(valueOf(robot.get("max-shield")));
+                        maxShots = Integer.parseInt(valueOf(robot.get("max-shots")));
+                        break;
                     }
                 }
 
-                this.robot = generateRobot(robotName,shieldStrength ,maxShots,shotDistance );
+
+
+
+                this.robot = generateRobot(robotName,shieldStrength,maxShots,shotDistance );
 
                 addToList(this.robot);
                 return writeJsonFile("Responsefile", robot);
