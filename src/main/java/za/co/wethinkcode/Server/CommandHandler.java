@@ -114,6 +114,10 @@ public class CommandHandler {
                         if (name.equalsIgnoreCase(args[0])) {
                             int shieldStrength = Integer.parseInt(valueOf(robot.get("max-shield")));
                             int maxShots = Integer.parseInt(valueOf(robot.get("max-shots")));
+                            Gun gun = new Gun(maxShots, this.robot);
+                            //from the maximum number of shots I can get a bullet distance
+                            shotDistance = gun.getShotDistance();
+
                             this.robot = generateRobot(robotName,shieldStrength,maxShots,shotDistance );
                             break;
                         }
