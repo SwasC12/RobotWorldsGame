@@ -248,7 +248,7 @@ public class asciiArt{
 
     public void rwShotgun() throws InterruptedException{
         long start_time = System.currentTimeMillis();
-        long wait_time = 2000;
+        long wait_time = 700;
         long end_time = start_time + wait_time;
 
         while (System.currentTimeMillis() < end_time){
@@ -264,7 +264,7 @@ public class asciiArt{
                 Thread.sleep(100);
                 System.out.print("\r" + "︻┻┳══━一     -");
                 Thread.sleep(100);
-                System.out.print("\r" + "︻┻┳══━一      -");
+                System.out.print("\r" + "︻┻┳══━一      - 𝕊ℍ𝕆𝕋𝔾𝕌ℕ");
                 Thread.sleep(100);
                 System.out.println(" ");
         }
@@ -274,7 +274,7 @@ public class asciiArt{
 
     public void rwBazooka() throws InterruptedException{
         long start_time = System.currentTimeMillis();
-        long wait_time = 2000;
+        long wait_time = 700;
         long end_time = start_time + wait_time;
 
         while (System.currentTimeMillis() < end_time){
@@ -290,7 +290,7 @@ public class asciiArt{
                 Thread.sleep(100);
                 System.out.print("\r" + "{>==╦╦=ʖ>      <O>");
                 Thread.sleep(100);
-                System.out.print("\r" + "{>==╦╦=ʖ>        <O>");
+                System.out.print("\r" + "{>==╦╦=ʖ>        <O> 𝔹𝔸ℤ𝕆𝕆𝕂𝔸");
                 Thread.sleep(100);
                 System.out.println(" ");
         }
@@ -302,7 +302,7 @@ public class asciiArt{
     public void rwSniper() throws InterruptedException{
 
         long start_time = System.currentTimeMillis();
-        long wait_time = 2000;
+        long wait_time = 700;
         long end_time = start_time + wait_time;
 
         while (System.currentTimeMillis() < end_time){
@@ -318,7 +318,7 @@ public class asciiArt{
                 Thread.sleep(100);
                 System.out.print("\r" + "(҂‾ ▵‾)︻デ═一     -");
                 Thread.sleep(100);
-                System.out.print("\r" + "(҂‾ ▵‾)︻デ═一      -");
+                System.out.print("\r" + "(҂‾ ▵‾)︻デ═一      -  𝕊ℕ𝕀ℙ𝔼ℝ");
                 Thread.sleep(100);
         }
     }

@@ -82,6 +82,21 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
 
                     String launchInput;
                     while (true){
+                        asciiArt sniper = new asciiArt();
+                        asciiArt baz = new asciiArt();
+                        asciiArt sg = new asciiArt();
+                        System.out.println("----------------------------------------------------");
+                        System.out.println("----------------------------------------------------");
+                        sniper.rwSniper();
+                        System.out.println("");
+                        System.out.println("");
+                        baz.rwBazooka();
+                        System.out.println("");
+                        sg.rwShotgun();
+                        System.out.println("");
+                        System.out.println("----------------------------------------------------");
+                        System.out.println("----------------------------------------------------");
+
 
                             launchInput = getInput(createJSONObject.getRobotName() + "> Please enter the launch command: <launch> <kind> ? \n " +
                                     "There are three robot kinds you can choose from:    \n" +
@@ -93,6 +108,7 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
                                     " -------------#######################---------------\n"  +
                                     " Your can also specify your own kind with maxShields and maxShots as follows:\n" +
                                     "       : <launch> <kind> <maxShots int>");
+                                    
 
 
                             String[] launchInputs = launchInput.split(" ");
