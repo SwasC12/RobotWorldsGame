@@ -90,8 +90,8 @@ public class CommandHandler {
 
 
 
-                if (args.length ==3) {
-                    int maxShots = Integer.parseInt(args[2].trim());
+                if (args.length ==2) {
+                    int maxShots = Integer.parseInt(args[1].trim());
 
                     //configure Gun
                     Gun gun = new Gun(maxShots, robot);
