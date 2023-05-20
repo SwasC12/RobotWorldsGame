@@ -105,7 +105,9 @@ public class CommandHandler {
                 else if (args.length ==1) {
                     JSONParser parser = new JSONParser();
 //                    reader = parser.parse(new FileReader("src/main/java/za/co/wethinkcode/Resources/robots.json"));
-                    reader = parser.parse(new FileReader("/home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Resources/robots.json"));
+                    CurrentDirectory currentDirectory = new CurrentDirectory();
+
+                    reader = parser.parse(new FileReader(currentDirectory.getAbsolutePath("/src/main/java/za/co/wethinkcode/Resources/robots.json")));
                     JSONObject data = (JSONObject) reader;
                     JSONArray robots = (JSONArray) data.get("robots");
                     for (Object robotObj : robots) {

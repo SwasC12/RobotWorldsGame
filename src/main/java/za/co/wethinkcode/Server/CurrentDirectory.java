@@ -1,13 +1,25 @@
 package za.co.wethinkcode.Server;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Paths;
+
 public class CurrentDirectory {
-    private final String fileName;
-    public CurrentDirectory(String fileName){
-        this.fileName=fileName;
-    }
-    public String getFilePath() throws IOException {
-        return new File(this.fileName).getAbsolutePath();  //  toString();//   toAbsolutePath().toString();
+    public CurrentDirectory(){
+        }
+
+    public String getAbsolutePath(String pathToFile) {
+        String baseDirectory = System.getProperty("user.dir");
+        //file path relative to the base directory
+        String filePath = baseDirectory + pathToFile;
+
+        File configFile = new File(filePath);
+        return configFile.getAbsolutePath();
     }
 }
+
+
+
+
+
+
+
+
+

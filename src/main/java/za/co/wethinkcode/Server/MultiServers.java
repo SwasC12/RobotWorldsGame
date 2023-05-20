@@ -60,13 +60,8 @@ public class MultiServers {
 
 
         try{
-           //  CurrentDirectory currentDirectory = new CurrentDirectory("Worldconfig.json");
-          //  System.out.println(currentDirectory.getFilePath());
-           // file = new FileWriter(currentDirectory.getFilePath());
-
-           file = new FileWriter("/home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/Worldconfig.json");
-
-//            file = new FileWriter("src/main/java/za/co/wethinkcode/Server/World/config.json");
+            CurrentDirectory currentDirectory = new CurrentDirectory();
+            file = new FileWriter( currentDirectory.getAbsolutePath("/src/main/java/za/co/wethinkcode/Server/Worldconfig.json"));
             file.write(json.toString());
         }catch (Exception e){
             e.printStackTrace();

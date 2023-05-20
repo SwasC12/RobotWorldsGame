@@ -87,12 +87,12 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
                                     "There are three robot kinds you can choose from:    \n" +
                                     "              Kind          Shields         shots   \n" +
                                     "----------------------------------------------------\n"+
-                                    "      (I)    : SNIPER           5              6   \n" +
+                                    "      (I)    : SNIPER           5               6   \n" +
                                     "      (II)   : BAZOOKA          10              15   \n "+
                                     "     (III)  : SHOTGUN          10              20   \n" +
                                     " -------------#######################---------------\n"  +
                                     " Your can also specify your own kind with maxShields and maxShots as follows:\n" +
-                                    "       : <launch> <kind> <shieldStrength int> <maxShots int>");
+                                    "       : <launch> <kind> <maxShots int>");
 
 
                             String[] launchInputs = launchInput.split(" ");
@@ -107,9 +107,8 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
                                     System.out.println(red + "Please type launch command as instructed!" + reset);
                                 }
 
-                            } else if (launchInputs.length==4 && launchInputs[0].equalsIgnoreCase("launch") &&
-                                    !launchInputs[1].equalsIgnoreCase("") && isDigit(launchInputs[2]) &&
-                                    isDigit(launchInputs[3])) {
+                            } else if (launchInputs.length==3 && launchInputs[0].equalsIgnoreCase("launch") &&
+                                    !launchInputs[1].equalsIgnoreCase("") && isDigit(launchInputs[2])) {
                                 createJSONObject.setCommand(launchInput);
                                 break;
                             }
