@@ -33,6 +33,10 @@ public class ServerCommands implements Runnable {
         this.commandHandler = commandHandler;
     }
 
+    public ServerCommands(){
+
+    }
+
 
     public  void Dump(){
         /*Dump method displays the worlds representation
