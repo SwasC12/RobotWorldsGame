@@ -1,10 +1,8 @@
 package za.co.wethinkcode.Server;
 
 import za.co.wethinkcode.Server.World.Robot;
-import za.co.wethinkcode.Server.World.Status;
+import za.co.wethinkcode.Server.World.World;
 
-import java.util.ArrayList;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -23,7 +21,7 @@ public class Reload {
             target.setStatus("RELOAD");
             try {
                 CommandHandler.reloadRobots.add(target);
-                Thread.sleep(30000);
+                Thread.sleep(World.reloadTime);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

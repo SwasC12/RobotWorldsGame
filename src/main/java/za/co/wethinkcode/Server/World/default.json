@@ -1,3 +1,3 @@
 {
-  "width":"400","lookDistance":"5","height":"400", "repairTime": "1000","reloadTime": "10","maxShieldStrength": "5"
+  "width":"400","lookDistance":"5","height":"400", "repairTime": "30000","reloadTime": "30000","maxShieldStrength": "5"
 }
