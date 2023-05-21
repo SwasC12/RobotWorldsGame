@@ -23,6 +23,8 @@ public class CommandHandler {
     public static List<Robot> myRobots = new ArrayList<>();
     public static List<Robot> deadRobots = new ArrayList<>();
     public static List<Robot> reloadRobots = new ArrayList<>();
+    public static List<Robot> repairRobots = new ArrayList<>();
+
     LookCommandHandler lookCommandHandler;
     HandleFireCommand handleFireCommand;
     int obstX_target;
@@ -148,7 +150,7 @@ public class CommandHandler {
                 reload.execute(robot);
                 return robotIsReload(robot);
 
-            }  else if (robotCommand.contains("repair")) {
+            } else if (robotCommand.contains("repair")) {
                 Repair repair = new Repair();
                 robot = myRobots.get(index);
                 repair.execute(robot);
@@ -352,9 +354,5 @@ public class CommandHandler {
         }
         myRobots.remove(myRobots.get(index));
 
-    }
-
-    public static void setReloadRobots(List<Robot> reloadRobots) {
-        CommandHandler.reloadRobots = reloadRobots;
     }
 }

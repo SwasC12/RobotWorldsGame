@@ -295,6 +295,15 @@ public class Robot{
         return y;
     }
 
+    @Override
+    public boolean equals(Object o){
+        if (!(o instanceof Robot)){
+            return false;
+        }
+        Robot otherRobot = (Robot) o;
+        return this.getRobotName().equals(otherRobot.getRobotName());
+    }
+
 }
 
 

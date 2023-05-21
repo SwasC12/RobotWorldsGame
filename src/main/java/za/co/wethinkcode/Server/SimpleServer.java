@@ -12,7 +12,7 @@ import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
 
-import static za.co.wethinkcode.Server.CommandHandler.myRobots;
+import static za.co.wethinkcode.Server.CommandHandler.*;
 import static za.co.wethinkcode.Server.World.Status.NORMAL;
 //import static za.co.wethinkcode.Server.CommandHandler.reloadRobots;
 
@@ -99,39 +99,51 @@ public class SimpleServer implements Runnable {
                     }
                     System.out.println(red + y_bg + "DEAD robots:" + reset + red + CommandHandler.deadRobots.size() + reset);
                     System.out.println("index:  "+ index_dead);
+                    if (reloadRobots.size()>= 1 && reloadRobots.contains(robot)){
+                        int realRobotIndex = CommandHandler.myRobots.indexOf(robot);
+                        Robot realRealRobot = CommandHandler.myRobots.get(realRobotIndex);
 
-//
-//                    int index_reload = 0;
-//                    ArrayList<String> robots = new ArrayList<>();
-//                    for (Robot robo : robots){
-//                        if (robo.getRobotStatus().equalsIgnoreCase(robotName)){
-//                            robots.add(robo.getRobotName());
-//                            break;
-//                        }else {
-//                            index_reload = index_reload+1;
-//                        }
-//                        System.out.println("Reloading");
-//                    }
-//
-//                    if (robots.size()>= 1 && robots.contains(robotName)){
-//                        ObjectOutputStream toClient = new ObjectOutputStream(socket.getOutputStream());
-//                        JSONObject subJson3 = new JSONObject();
-//                        JSONObject fileJson = new JSONObject();
-//
-//                        fileJson.put("result", "RELOADING");
-//                        subJson3.put("status", robots.get(index_reload).getRobotStatus().toString());
-//                        fileJson.put("state",subJson3);
-//                        toClient.writeObject(fileJson);
-//                        toClient.flush();
-//
-//                    }  else if (robotCommand != null && robotName != null ) {
-//                        for (Robot robo : robots){
-//                            System.out.println(robo.getRobotName() +"  "+ robo.getRobotStatus());
-//                        }
-//                }
+                        ObjectOutputStream ToClient = new ObjectOutputStream(socket.getOutputStream());
+                        JSONObject fileJson = new JSONObject();
+                        JSONObject subJson1 = new JSONObject();
+                        JSONObject subJson3 = new JSONObject();
+
+                        subJson3.put("position","["+ realRealRobot.getRobotX() + "," + realRealRobot.getRobotY() + "]");
+                        subJson3.put("direction", realRealRobot.getRobotDirection());
+                        subJson3.put("shields", realRealRobot.getRobotShields());
+                        subJson3.put("shots", realRealRobot.getRobotShots()+" (shotDistance = "+ realRealRobot.getShotDistance()+" steps)");
+                        subJson3.put("status", realRealRobot.getRobotStatus());
+
+                        fileJson.put("result", "RELOAD");
+                        subJson1.put("message","Done");
+                        fileJson.put("state",subJson3);
+                        ToClient.writeObject(fileJson);
+                        ToClient.flush();
 
 
-                    if (CommandHandler.deadRobots.size()>=1 && robotList.contains(robotName))  {
+                    }
+                    else if (repairRobots.size()>= 1 && repairRobots.contains(robot)) {
+                        int realRobotIndex = CommandHandler.myRobots.indexOf(robot);
+                        Robot realRealRobot = CommandHandler.myRobots.get(realRobotIndex);
+                        ObjectOutputStream TOClient = new ObjectOutputStream(socket.getOutputStream());
+                        JSONObject fileJson = new JSONObject();
+                        JSONObject subJson1 = new JSONObject();
+                        JSONObject subJson4 = new JSONObject();
+
+                        subJson4.put("position", "[" + realRealRobot.getRobotX() + "," + realRealRobot.getRobotY() + "]");
+                        subJson4.put("direction", realRealRobot.getRobotDirection());
+                        subJson4.put("shields", realRealRobot.getRobotShields());
+                        subJson4.put("shots", realRealRobot.getRobotShots() + " (shotDistance = " + realRealRobot.getShotDistance() + " steps)");
+                        subJson4.put("status", realRealRobot.getRobotStatus());
+
+                        fileJson.put("result", "REPAIR");
+                        subJson1.put("message", "Done");
+                        fileJson.put("state", subJson4);
+                        TOClient.writeObject(fileJson);
+                        TOClient.flush();
+                    }
+
+                    else if(CommandHandler.deadRobots.size()>=1 && robotList.contains(robotName))  {
                         ObjectOutputStream toClient = new ObjectOutputStream(socket.getOutputStream());
                         JSONObject subJson2 = new JSONObject();
                         JSONObject fileJson = new JSONObject();
