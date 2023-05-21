@@ -31,6 +31,8 @@ public class Robot{
     int reload;
     int repair;
     int shields;
+    int maxShield;
+    int maxShots;
 
     String currentDirection;
     int shots;
@@ -61,7 +63,20 @@ public class Robot{
         this.robotName = nameOfRobot;
     }
 
+    public void setMaxShield(int maxShield) {
+        this.maxShield = maxShield;
+    }
 
+    public void setMaxShots(int maxShots) {
+        this.maxShots = maxShots;
+    }
+
+    public int getMaxShield() {
+        return maxShield;
+    }
+    public int getMaxShots() {
+        return maxShots;
+    }
 
     public void setRobotName(String inp){
         this.robotName = inp;

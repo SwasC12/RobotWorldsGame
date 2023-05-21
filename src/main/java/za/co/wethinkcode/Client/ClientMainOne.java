@@ -1,5 +1,6 @@
 package za.co.wethinkcode.Client;
 import com.fasterxml.jackson.databind.JsonNode;
+import za.co.wethinkcode.Server.ServerGraphics;
 
 import java.io.*;
 import java.net.ConnectException;
@@ -15,13 +16,15 @@ import static java.lang.Integer.parseInt;
     public class ClientMainOne extends StoreClientDetails  implements Serializable {
         //    public static String name;
         static String command;
-        private static BufferedReader in;
-        private static PrintStream out;
+        private static final String red = ServerGraphics.ANSI_RED;
+        private static final String reset = ServerGraphics.ANSI_RESET;
+        private static final String y_bg = ServerGraphics.ANSI_YELLOW_BG;
+
         public static List<String> forTurn= new ArrayList<>(List.of("right","left"));
         public static List<String> validCom= new ArrayList<>(List.of("forward","back","turn"));
         public static List<String> other = new ArrayList<>(List.of("launch", "look", "repair", "reload", "fire", "state"));
-
         public static List<String> forMovem= new ArrayList<>(List.of("forward","back"));
+
 
 
 
@@ -39,20 +42,27 @@ import static java.lang.Integer.parseInt;
                     //Socket socket = new Socket("20.20.15.174", 5000))
                     Socket socket = new Socket("localhost", 5000))
             {
-                System.out.println("Waiting for connection response from server: ");
+                asciiArt load = new asciiArt();
+                load.rwLoadBar("loading",50,30);
+                System.out.println(" ");
+                String green = ServerGraphics.ANSI_GREEN;
+                System.out.println(green + "Waiting for connection response from server: " + reset);
+
+
                 Thread.sleep(2000);
                 ClientRequestandResponse client = new ClientRequestandResponse();
 
-                in = new BufferedReader(new InputStreamReader(
-                        socket.getInputStream()));
-                out = new PrintStream(String.valueOf(new OutputStreamWriter(socket.getOutputStream())));
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+
+
                 out.flush();
-                System.out.println(">>> Response from server: "+ in.readLine());
+                System.out.println(green + ">>> Response from server: " + reset + in.readLine());
+
 
                 String[] rwArts = {asciiArt.rw,asciiArt.rw2,asciiArt.rw3,
                         asciiArt.rw4,asciiArt.rw5,asciiArt.rw6, asciiArt.rw7,
-                        asciiArt.rw9, asciiArt.rw11,
-                        asciiArt.rw12};
+                        asciiArt.rw9,asciiArt.rw11, asciiArt.rw12};
 
                 Random random = new Random();
                 String asciiText = rwArts[random.nextInt(rwArts.length)];
@@ -62,45 +72,70 @@ import static java.lang.Integer.parseInt;
                 }
 
                 while (true){
-                    String userInput = getInput("Do you want to launch a robot? (yes/no): ");
+                    String userInput = getInput(green + "Do you want to launch a robot? (yes/no): " + reset);
 
                     if (userInput.equalsIgnoreCase("yes")) {
                         CreateJSONObject createJSONObject = new CreateJSONObject();
-                        createJSONObject.setRobotName(getInput("Please enter the name of the robot:"));
+                        createJSONObject.setRobotName(getInput(green + "Please enter the name of the robot:" + reset));
+
                         String launchInput;
                         while (true){
-                            launchInput = getInput(createJSONObject.getRobotName() + "> Please enter the launch command: <launch> <kind> <shieldStrength int> <maxShots int> ? ");
+                            asciiArt sniper = new asciiArt();
+                            asciiArt baz = new asciiArt();
+                            asciiArt sg = new asciiArt();
+                            System.out.println("----------------------------------------------------");
+                            System.out.println("----------------------------------------------------");
+                            sniper.rwSniper();
+                            System.out.println("");
+                            System.out.println("");
+                            baz.rwBazooka();
+                            System.out.println("");
+                            sg.rwShotgun();
+                            System.out.println("");
+                            System.out.println("----------------------------------------------------");
+                            System.out.println("----------------------------------------------------");
+
+
+                            launchInput = getInput(createJSONObject.getRobotName() + "> Please enter the launch command: <launch> <kind> ? \n " +
+                                    "There are three robot kinds you can choose from:    \n" +
+                                    "              Kind          Shields         shots   \n" +
+                                    "----------------------------------------------------\n"+
+                                    "      (I)    : SNIPER           5               6   \n" +
+                                    "      (II)   : BAZOOKA          10              15   \n "+
+                                    "     (III)  : SHOTGUN          10              20   \n" +
+                                    " -------------#######################---------------\n"  +
+                                    " Your can also specify your own kind with maxShields and maxShots as follows:\n" +
+                                    "       : <launch> <kind> <maxShots int>");
+
+
+
                             String[] launchInputs = launchInput.split(" ");
 
-                            if (launchInputs.length!=4){
-                                System.out.println("Please type launch command as instructed!");
-                                continue;
-                            }
+                            if (launchInputs.length==2) {
+                                String robotKind = launchInputs[1].toLowerCase();
+                                if (launchInputs[0].equalsIgnoreCase("launch") &&
+                                        robotKind.equals("sniper") || robotKind.equals("bazooka") || robotKind.equals("shotgun")) {
+                                    createJSONObject.setCommand(launchInput);
+                                    break;
+                                } else {
+                                    System.out.println(red + "Please type launch command as instructed!" + reset);
+                                }
 
-                            if (!launchInputs[0].equalsIgnoreCase("launch")){
-                                System.out.println("Please type launch command as instructed!");
-                                continue;
+                            } else if (launchInputs.length==3 && launchInputs[0].equalsIgnoreCase("launch") &&
+                                    !launchInputs[1].equalsIgnoreCase("") && isDigit(launchInputs[2])) {
+                                createJSONObject.setCommand(launchInput);
+                                break;
                             }
-
-                            if (launchInputs[1].equalsIgnoreCase("")){
-                                System.out.println("Please type launch command as instructed!");
-                                continue;
-                            }
-                            if (!isDigitAndRangeOneToEight(launchInputs[2])) {
-                                System.out.println("Please type launch command as instructed!");
-                                continue;
-                            }
-                            if (!isDigitAndRangeOneToEight(launchInputs[3])){
-                                System.out.println("Please type launch command as instructed!");
+                            else {
+                                System.out.println(red + "Please type launch command as instructed!" + reset);
 
                             }
-                            else{
-                                break;}
+
                         }
 
                         createJSONObject.setCommand(launchInput);
 
-                        System.out.println("Client launching " + createJSONObject.getRobotName() + "...");
+                        System.out.println(green + "Client launching " + createJSONObject.getRobotName() + "..." + reset);
 
                         // code to launch the robot
                         JsonNode response = client.sendRequestToServer(createJSONObject.getJsonObject() ,socket);
@@ -132,15 +167,16 @@ import static java.lang.Integer.parseInt;
                                     boolean isMove = forMovem.contains(command.split(" ")[0]) && isNumber(command.split(" ")[1]);
 
                                     while (((!isTurn) && (!isMove))&& !other.contains(command.split(" ")[0])){
-                                        System.out.println("Please specify the correct argument format for "+command.split(" ")[0]);
+                                        System.out.println(red + "Please specify the correct argument format for "+ y_bg + red + command.split(" ")[0] + reset);
                                         command = getInput(createJSONObject.getRobotName() + "> What must I do next?");
                                         while (isLenghtOne(command)){
-                                            command = getInput(createJSONObject.getRobotName() + "> What must I do next?");
+                                            command = getInput(createJSONObject.getRobotName() + green + "> What must I do next?" + reset);
                                         }
                                         isTurn = command.split(" ")[0].equalsIgnoreCase("turn") && forTurn.contains(command.split(" ")[1]);
                                         isMove = forMovem.contains(command.split(" ")[0]) && isNumber(command.split(" ")[1]);
 
                                     }
+
                                 }
                                 createJSONObject.setCommand(command);
                                 if (createJSONObject.getCommand().equalsIgnoreCase("help")){
@@ -151,12 +187,12 @@ import static java.lang.Integer.parseInt;
                                     //send request to server and receive response
                                     response = client.sendRequestToServer(createJSONObject.getJsonObject(),socket);
                                     //display response on console
-                                    System.out.println("Waiting for the response from the server");
+                                    System.out.println(green + "Waiting for the response from the server" + reset);
                                     //  Thread.sleep(3000);
                                     ConsoleDisplayServerResponse.displayResponse(response, createJSONObject.getCommand());
                                 }
                                 else  {
-                                    System.out.println("You already launched your robot!!!");
+                                    System.out.println(red + "You already launched your robot!!!" + reset);
                                 }
                             }
                         } else {
@@ -165,21 +201,22 @@ import static java.lang.Integer.parseInt;
 
 
                     } else if (userInput.equalsIgnoreCase("no")) {
-                        System.out.println("Okay, bye...");
+                        System.out.println(green + "Okay, bye..." + reset);
                         return;
                     }else {
-                        System.out.println("Invalid input, please enter yes/no");
+                        System.out.println(red + "Invalid input, please enter yes/no" + reset);
+
                         continue;
                     }
                     break;
                 }
 
 
-            } catch (InterruptedException | ClassNotFoundException | ConnectException e) {
-                System.err.println("Failed to connect to server: " + e.getMessage());
+            } catch (InterruptedException| ClassNotFoundException | ConnectException e) {
+                System.err.println(red + "Failed to connect to server: "+ y_bg+ e.getMessage() + reset);
                 //throw new RuntimeException(e);
             }catch (IOException e){
-                System.err.println("Error : "+ e.getMessage());
+                System.err.println(red + "Error : "+ y_bg+ e.getMessage()+reset);
             }
         }
 
@@ -194,7 +231,7 @@ import static java.lang.Integer.parseInt;
             return input.strip().toLowerCase();
         }
 
-        public static boolean isDigitAndRangeOneToEight(String user_input) {
+        public static boolean isDigit(String user_input) {
             return user_input.matches("[0-9]+");
         }
         public static boolean isNumber(String expression) {
@@ -207,12 +244,18 @@ import static java.lang.Integer.parseInt;
         }
         public static boolean isLenghtOne(String command){
             if (command.split(" ").length == 1 && validCom.contains(command) && !other.contains(command)){
-                System.out.println("Please enter arguments for "+command.split(" ")[0]);
+                System.out.println(red + "Please enter arguments for "+ y_bg + red +command.split(" ")[0] + reset);
                 return true;
             }
             return false;
         }
 
+
     }
+
+
+
+
+
 
 

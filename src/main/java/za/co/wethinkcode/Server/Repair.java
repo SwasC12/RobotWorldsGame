@@ -22,7 +22,7 @@ public class Repair {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            target.setRobotShots(5);
+            target.setRobotShots(target.getMaxShield());
             target.setStatus("NORMAL");
             CommandHandler.repairRobots.remove(target);
         });

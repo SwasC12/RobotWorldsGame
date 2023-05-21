@@ -99,9 +99,11 @@ public class CommandHandler {
                     Gun gun = new Gun(maxShots, robot);
 
                     maxShots = gun.getNumShots();
+                    this.robot.setMaxShots(maxShots);
                     //from the maximum number of shots I can get a bullet distance
                     shotDistance = gun.getShotDistance();
                     int shieldStrength = World.maxShieldStrength;
+                    this.robot.setMaxShield(shieldStrength);
                     this.robot = generateRobot(robotName,shieldStrength,maxShots,shotDistance );
                 }
                 else if (args.length ==1) {
@@ -123,6 +125,8 @@ public class CommandHandler {
                             shotDistance = gun.getShotDistance();
 
                             this.robot = generateRobot(robotName,shieldStrength,maxShots,shotDistance );
+                            this.robot.setMaxShield(shieldStrength);
+                            this.robot.setMaxShots(maxShots);
                             break;
                         }
                     }

@@ -25,7 +25,7 @@ public class Reload {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            target.setRobotShots(5);
+            target.setRobotShots(target.getMaxShots());
             target.setStatus("NORMAL");
             CommandHandler.reloadRobots.remove(target);
         });
