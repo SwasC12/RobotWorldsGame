@@ -24,7 +24,7 @@ public class ConsoleDisplayServerResponse {
         System.out.println(green + "SERVER RESPONSE:" + reset);
 
         if (command.equalsIgnoreCase("state")) {
-            System.out.println(red + y_bg + "Current state of robot :\n" + reset);
+            System.out.println(red + y_bg + "Current state of robot :" + reset + "\n");
             stateRobot(jsonResponse);
         } else if (jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
 
