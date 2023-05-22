@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="1" failures="0" name="za.co.wethinkcode.ServerTest.MultiServerTest" time="0.003" errors="0" skipped="0">
+<testsuite tests="1" failures="0" name="za.co.wethinkcode.ServerTest.MultiServerTest" time="0.005" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="16.0.1+9"/>
     <property name="sun.boot.library.path" value="/home/wtc/.sdkman/candidates/java/16.0.1.hs-adpt/lib"/>
-    <property name="maven.multiModuleProjectDirectory" value="/home/wtc/rw_demo/dbn11_robot_worlds"/>
+    <property name="maven.multiModuleProjectDirectory" value="/home/wtc/student_work/dbn11_robot_worlds"/>
     <property name="java.vm.vendor" value="AdoptOpenJDK"/>
     <property name="java.vendor.url" value="https://adoptopenjdk.net/"/>
     <property name="path.separator" value=":"/>
@@ -13,7 +13,7 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
-    <property name="user.dir" value="/home/wtc/rw_demo/dbn11_robot_worlds"/>
+    <property name="user.dir" value="/home/wtc/student_work/dbn11_robot_worlds"/>
     <property name="java.vm.compressedOopsMode" value="Zero based"/>
     <property name="java.runtime.version" value="16.0.1+9"/>
     <property name="os.arch" value="amd64"/>
@@ -55,5 +55,5 @@
     <property name="sun.cpu.endian" value="little"/>
     <property name="java.vendor.version" value="AdoptOpenJDK-16.0.1+9"/>
   </properties>
-  <testcase classname="za.co.wethinkcode.ServerTest.MultiServerTest" name="testWorldValues" time="0.003"/>
+  <testcase classname="za.co.wethinkcode.ServerTest.MultiServerTest" name="testWorldValues" time="0.005"/>
 </testsuite>

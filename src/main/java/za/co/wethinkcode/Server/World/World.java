@@ -86,11 +86,13 @@ public class World {
         JSONParser parser = new JSONParser();
         try{
             CurrentDirectory currentDirectory1 = new CurrentDirectory();
-            reader = new FileReader(currentDirectory1.getAbsolutePath("/src/main/java/za/co/wethinkcode/Server/World/config.json"));
+//            reader = new FileReader(currentDirectory1.getAbsolutePath("/src/main/java/za/co/wethinkcode/Server/World/config.json"));
+            reader = new FileReader("/home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/World/config.json");
             data = (JSONObject) parser.parse(reader);
 
             if (data.size() == 0){
-               reader = new FileReader(currentDirectory1.getAbsolutePath("/src/main/java/za/co/wethinkcode/Server/World/default.json"));
+//               reader = new FileReader(currentDirectory1.getAbsolutePath("/src/main/java/za/co/wethinkcode/Server/World/default.json"));
+                reader = new FileReader("/home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/World/default.json");
                 data = (JSONObject) parser.parse(reader);
             }
 
