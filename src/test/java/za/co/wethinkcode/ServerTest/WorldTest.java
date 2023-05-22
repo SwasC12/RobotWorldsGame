@@ -55,8 +55,8 @@ public class WorldTest {
         assertEquals(400, World.height);
         assertEquals(400, World.width);
         assertEquals(5, World.lookDistance);
-        assertEquals(1000, World.repairTime);
-        assertEquals(10, World.reloadTime);
+        assertEquals(30000, World.repairTime);
+        assertEquals(30000, World.reloadTime);
         assertEquals(5, World.maxShieldStrength);
     }
 }
