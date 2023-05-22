@@ -87,7 +87,7 @@ public class ServerCommands implements Runnable {
             String line;
             while (!finishRun) {
                 line = reader.readLine();
-                if (line.contains("quit")) {
+                if (line.equalsIgnoreCase("quit")) {
                     // perform quit action
                     ServerCommands.quit();
                     //server shutdown for individual client
@@ -95,13 +95,13 @@ public class ServerCommands implements Runnable {
                     finishRun = true;
                     break;
                 }
-                else if (line.contains("dump")) {
+                else if (line.equalsIgnoreCase("dump")) {
                     // perform dump action
                     ServerCommands obj = new ServerCommands(commandHandler);
                     obj.Dump();
 
                 }
-                else if (line.contains("robots")) {
+                else if (line.equalsIgnoreCase("robots")) {
                     // perform robots action
 
                     System.out.println(cyan_bg + green + "Number of robots in the world: " + commandHandler.getRobots().size() + reset);
@@ -115,6 +115,9 @@ public class ServerCommands implements Runnable {
                         System.out.println(red + "   *   Status: " + robot.getRobotStatus()+ reset);
 
                     }
+                }
+                else{
+                    System.out.println(red+"Invalid server command!"+reset);
                 }
 
 
