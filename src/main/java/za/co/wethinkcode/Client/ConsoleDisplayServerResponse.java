@@ -66,8 +66,16 @@ public class ConsoleDisplayServerResponse {
                     System.out.println(red + "You have run out of bullets!!!, try reload option" + reset);
 
                 }
+            }
+                else if (command.equalsIgnoreCase("reload")) {//&& jsonResponse.get("data").get("message").asText().equalsIgnoreCase("Done")) {
+                    System.out.println(green + StoreClientDetails.name + " is now RELOADING !!!!!!");
 
-            } else if (command.split(" ").length > 1) {
+                } else if (command.equalsIgnoreCase("repair")) {
+                    System.out.println(green + StoreClientDetails.name + " is now REPAIRING !!!!!!");
+
+
+
+                } else if (command.split(" ").length > 1) {
 
                 if (command.split(" ")[0].equalsIgnoreCase("forward") && jsonResponse.get("data").get("message").asText().equalsIgnoreCase("Done")) {
                     System.out.println(green + StoreClientDetails.name + " moved forward by " + command.split(" ")[1] + " steps" + reset);
