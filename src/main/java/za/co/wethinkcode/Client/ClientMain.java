@@ -38,11 +38,12 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
 //        }
 //        String ipAddress = args[0];
 //        int port = Integer.parseInt(args[1]);
-
+//        if (args.length == 1)
         try (
                 // Socket socket = new Socket(ipAddress,port))
                 //Socket socket = new Socket("20.20.15.174", 5000))
-                Socket socket = new Socket("localhost", 5000))
+                Socket socket = new Socket("localhost", 5000)
+        )
         {
             asciiArt load = new asciiArt();
             load.rwLoadBar("loading",50,30);

@@ -236,8 +236,8 @@ public class CommandHandler {
         JSONObject subJson1 = new JSONObject();
         subJson1.put("position","["+rb.getRobotX()+","+rb.getRobotY()+"]");
         subJson1.put("visibility",rb.getRobotVisibility());
-        subJson1.put("reload",rb.getRobotReload());
-        subJson1.put("repair",rb.getRobotRepair());
+        subJson1.put("reload",rb.getRobotReload()/1000);
+        subJson1.put("repair",rb.getRobotRepair()/1000);
         subJson1.put("shields",rb.getRobotShields());
         JSONObject subJson2 = new JSONObject();
         subJson2.put("position","["+rb.getRobotX()+","+rb.getRobotY()+"]");
