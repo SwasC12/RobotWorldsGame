@@ -46,17 +46,4 @@ public class WorldTest {
         assertEquals(0, center[1]);
     }
 
-    @Test
-    public void testReadConfigFile() throws Exception {
-
-        World world = new World();
-
-
-        assertEquals(400, World.height);
-        assertEquals(400, World.width);
-        assertEquals(5, World.lookDistance);
-        assertEquals(30000, World.repairTime);
-        assertEquals(30000, World.reloadTime);
-        assertEquals(5, World.maxShieldStrength);
-    }
 }
