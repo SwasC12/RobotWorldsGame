@@ -1,10 +1,11 @@
 za/co/wethinkcode/ServerTest/WorldTest.class
 za/co/wethinkcode/ServerTest/MovementTest.class
-za/co/wethinkcode/ServerTest/dumpTest.class
 za/co/wethinkcode/ClientTest/ClientRequestandResponseTest.class
+za/co/wethinkcode/ServerTest/dumpTest.class
 za/co/wethinkcode/ClientTest/ClientMainTest.class
+za/co/wethinkcode/ServerTest/FireTest.class
 za/co/wethinkcode/ServerTest/CommandHandlerTest.class
 za/co/wethinkcode/ClientTest/SimpleClientTest.class
-za/co/wethinkcode/ServerTest/ObstacleTest.class
-za/co/wethinkcode/ServerTest/MultiServerTest.class
 za/co/wethinkcode/ClientTest/CreateJSONObjectTest.class
+za/co/wethinkcode/ServerTest/MultiServerTest.class
+za/co/wethinkcode/ServerTest/ObstacleTest.class
