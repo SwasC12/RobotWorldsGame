@@ -234,13 +234,13 @@ public class asciiArt{
         while (System.currentTimeMillis() < end_time){
                 System.out.print("\r" + "𝔾𝕒𝕞𝕖 𝕆𝕧𝕖𝕣");
                 Thread.sleep(300);
-                System.out.print("\r" + " ");
+                System.out.print("\r" + "");
                 Thread.sleep(300);
                 System.out.print("\r" + "𝔾𝕒𝕞𝕖 𝕆𝕧𝕖𝕣");
                 Thread.sleep(300);
-                System.out.print("\r" + " ");
+                System.out.print("\r" + "");
                 Thread.sleep(300);
-                System.out.println(" ");
+                System.out.println("");
 
         }
     }
