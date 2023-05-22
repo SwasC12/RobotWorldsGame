@@ -31,6 +31,8 @@ public class Robot{
     int reload;
     int repair;
     int shields;
+    int maxShield;
+    int maxShots;
 
     String currentDirection;
     int shots;
@@ -61,7 +63,20 @@ public class Robot{
         this.robotName = nameOfRobot;
     }
 
+    public void setMaxShield(int maxShield) {
+        this.maxShield = maxShield;
+    }
 
+    public void setMaxShots(int maxShots) {
+        this.maxShots = maxShots;
+    }
+
+    public int getMaxShield() {
+        return maxShield;
+    }
+    public int getMaxShots() {
+        return maxShots;
+    }
 
     public void setRobotName(String inp){
         this.robotName = inp;
@@ -220,6 +235,7 @@ public class Robot{
         Position end = new Position(newX,newY);
 
 
+
         Position newPosition = new Position(newX, newY);
         if (newPosition.isIn(TOP_LEFT, BOTTOM_RIGHT) && !command.IsPathBlockedObstacle(start,end)  && !command.IsRobotPathBlocked(start, end) ) {
             this.position = newPosition;
@@ -294,6 +310,19 @@ public class Robot{
         return y;
     }
 
+    @Override
+    public boolean equals(Object o){
+        if (!(o instanceof Robot)){
+            return false;
+        }
+        Robot otherRobot = (Robot) o;
+        return this.getRobotName().equals(otherRobot.getRobotName());
+    }
+
+
+    public String getStatus() {
+        return status;
+    }
 }
 
 

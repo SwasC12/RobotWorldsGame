@@ -7,6 +7,8 @@ import za.co.wethinkcode.Server.World.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static za.co.wethinkcode.Server.World.Status.NORMAL;
+
 
 public class LookCommandHandler {
 

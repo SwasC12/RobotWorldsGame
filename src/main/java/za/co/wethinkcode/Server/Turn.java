@@ -4,6 +4,7 @@ import org.json.simple.JSONObject;
 import za.co.wethinkcode.Server.World.Robot;
 
 import static za.co.wethinkcode.Server.CommandHandler.myRobots;
+import static za.co.wethinkcode.Server.World.Status.NORMAL;
 
 public class Turn {
 
@@ -41,7 +42,7 @@ public class Turn {
 
         subJson2.put("shields", myRobots.get(index).getRobotShields());
         subJson2.put("shots", myRobots.get(index).getRobotShots());
-        subJson2.put("status", myRobots.get(index).getRobotStatus().toString());
+        subJson2.put("status", myRobots.get(index).getRobotStatus());
         fileJson.put("data", subJson1);
         fileJson.put("state", subJson2);
 

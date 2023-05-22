@@ -4,6 +4,7 @@ package za.co.wethinkcode.Server.World;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import za.co.wethinkcode.Server.CurrentDirectory;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,11 +17,16 @@ import static za.co.wethinkcode.Server.World.Robot.robotBlockedPathByObstacle;
 public class World {
     FileReader reader;
     JSONObject data;
+
+    CurrentDirectory currentDirectory;
     public static List<Edge> listOfEdges;
     public static Random random = new Random();
     public static int width ;
     public static int height;
     public static int lookDistance;
+    public static int repairTime;
+    public static int reloadTime;
+    public static int maxShieldStrength;
     public   static int[] Centre = new int[2];
 
     public static int[] Top_Left = new int[2];
@@ -79,12 +85,13 @@ public class World {
     public void ReadConfigFile(){
         JSONParser parser = new JSONParser();
         try{
-
-//            reader = new FileReader("src/main/java/za/co/wethinkcode/Server/World/config.json");
+            CurrentDirectory currentDirectory1 = new CurrentDirectory();
+//            reader = new FileReader(currentDirectory1.getAbsolutePath("/src/main/java/za/co/wethinkcode/Server/World/config.json"));
             reader = new FileReader("/home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/World/config.json");
             data = (JSONObject) parser.parse(reader);
+
             if (data.size() == 0){
-//                reader = new FileReader("src/main/java/za/co/wethinkcode/Server/World/default.json");
+//               reader = new FileReader(currentDirectory1.getAbsolutePath("/src/main/java/za/co/wethinkcode/Server/World/default.json"));
                 reader = new FileReader("/home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/World/default.json");
                 data = (JSONObject) parser.parse(reader);
             }
@@ -92,6 +99,9 @@ public class World {
             height = Integer.parseInt(data.get("height").toString());
             width = Integer.parseInt(data.get("width").toString());
             lookDistance =  Integer.parseInt(data.get("lookDistance").toString());
+            repairTime = Integer.parseInt(data.get("repairTime").toString());
+            reloadTime = Integer.parseInt(data.get("reloadTime").toString());
+            maxShieldStrength = Integer.parseInt(data.get("maxShieldStrength").toString());
 
             reader.close();
         }catch (IOException | ParseException e){

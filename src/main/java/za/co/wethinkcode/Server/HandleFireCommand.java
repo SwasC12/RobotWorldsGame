@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.Socket;
 
 import static java.lang.String.valueOf;
+import static za.co.wethinkcode.Server.World.Status.NORMAL;
 
 public class HandleFireCommand {
     Robot robot;
@@ -135,17 +136,19 @@ public class HandleFireCommand {
         //subJSON for data and state
 
         //Update robot shields
-
+        boolean deadRob = false;
         for (Robot robot1: CommandHandler.myRobots){
             if (robot1.getRobotX()==getRobotPosition().getX() && robot1.getRobotY()==getRobotPosition().getY()){
                 setRobotHit(robot1);
                 getRobotHit().setShields(robot1.getRobotShields()-1);
-                if (getRobotHit().getRobotShields()==-1){
-                    getRobotHit().setStatus(valueOf(Status.DEAD));
-                    CommandHandler.myRobots.remove(robot1);
+                System.out.println("I am in njjj");
+
+                if (robot1.getRobotShields()==-1){
+                    deadRob=true;
+                    robot1.setStatus(String.valueOf(Status.DEAD));
                 }
-            }
-        }
+
+        }}
 
         //Update hit rob state
         JSONObject subJson2 = new JSONObject();
@@ -153,8 +156,7 @@ public class HandleFireCommand {
         subJson2.put("direction",getRobotHit().getRobotDirection());
         subJson2.put("shields",getRobotHit().getRobotShields());
         subJson2.put("shots",getRobotHit().getRobotShots());
-        subJson2.put("status",rb.getRobotStatus());
-
+        subJson2.put("status",getRobotHit().getRobotStatus());
 
 
         JSONObject dataJson = new JSONObject();
@@ -170,6 +172,25 @@ public class HandleFireCommand {
         successResponse.put("result", "OK");
         successResponse.put("data", dataJson.toJSONString());
         successResponse.put("state", stateJson.toJSONString());
+
+        if (deadRob){
+            CommandHandler.deadRobots.add(getRobotHit());
+            CommandHandler.myRobots.remove(getRobotHit());
+        }
         return successResponse;
+    }
+
+    public JSONObject createJSONResponseNoShots(Robot rb){
+        //subJSON for data and state
+        JSONObject dataJson1 = new JSONObject();
+        dataJson1.put("message","No bullets left!!!");
+        JSONObject stateJson1 = new JSONObject();
+        stateJson1.put("shots", rb.getRobotShots());
+
+        JSONObject missResponse = new JSONObject();
+        missResponse.put("result", "OK");
+        missResponse.put("data", dataJson1);
+        missResponse.put("state", stateJson1);
+        return missResponse;
     }
 }

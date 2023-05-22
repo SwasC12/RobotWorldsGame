@@ -1,10 +1,14 @@
-/home/wtc/student_work/dbn11_robot_worlds/src/test/java/za/co/wethinkcode/ClientTest/ClientMainTest.java
 /home/wtc/student_work/dbn11_robot_worlds/src/test/java/za/co/wethinkcode/ServerTest/dumpTest.java
 /home/wtc/student_work/dbn11_robot_worlds/src/test/java/za/co/wethinkcode/ClientTest/SimpleClientTest.java
 /home/wtc/student_work/dbn11_robot_worlds/src/test/java/za/co/wethinkcode/ServerTest/MultiServerTest.java
-/home/wtc/student_work/dbn11_robot_worlds/src/test/java/za/co/wethinkcode/ClientTest/CreateJSONObjectTest.java
+/home/wtc/student_work/dbn11_robot_worlds/src/test/java/za/co/wethinkcode/ServerTest/FireTest.java
 /home/wtc/student_work/dbn11_robot_worlds/src/test/java/za/co/wethinkcode/ServerTest/CommandHandlerTest.java
+/home/wtc/student_work/dbn11_robot_worlds/src/test/java/za/co/wethinkcode/ServerTest/ReloadTest.java
+/home/wtc/student_work/dbn11_robot_worlds/src/test/java/za/co/wethinkcode/ClientTest/ClientMainTest.java
+/home/wtc/student_work/dbn11_robot_worlds/src/test/java/za/co/wethinkcode/ClientTest/CreateJSONObjectTest.java
 /home/wtc/student_work/dbn11_robot_worlds/src/test/java/za/co/wethinkcode/ServerTest/ObstacleTest.java
 /home/wtc/student_work/dbn11_robot_worlds/src/test/java/za/co/wethinkcode/ClientTest/ClientRequestandResponseTest.java
+/home/wtc/student_work/dbn11_robot_worlds/src/test/java/za/co/wethinkcode/ServerTest/RobotTest.java
+/home/wtc/student_work/dbn11_robot_worlds/src/test/java/za/co/wethinkcode/ServerTest/RepairTest.java
 /home/wtc/student_work/dbn11_robot_worlds/src/test/java/za/co/wethinkcode/ServerTest/MovementTest.java
 /home/wtc/student_work/dbn11_robot_worlds/src/test/java/za/co/wethinkcode/ServerTest/WorldTest.java
