@@ -43,4 +43,29 @@ public class RobotTest {
         // Test equality between a robot and a non-robot object
         assertNotEquals(robot1, "Not a robot");
     }
+    @Test
+    public void testGetRobotX() {
+        Robot robot = new Robot("type", "Robot1", 5, 10, "", 0, 0, 0, 0, "", 0, "");
+        assertEquals(5, robot.getRobotX());
+    }
+
+    @Test
+    public void testGetRobotY() {
+        Robot robot = new Robot("type", "Robot1", 5, 10, "", 0, 0, 0, 0, "", 0, "");
+        assertEquals(10, robot.getRobotY());
+    }
+
+    @Test
+    public void testSetRobotX() {
+        Robot robot = new Robot("type", "Robot1", 0, 0, "", 0, 0, 0, 0, "", 0, "");
+        robot.setRobotX(7);
+        assertEquals(7, robot.getRobotX());
+    }
+
+    @Test
+    public void testSetRobotY() {
+        Robot robot = new Robot("type", "Robot1", 0, 0, "", 0, 0, 0, 0, "", 0, "");
+        robot.setRobotY(12);
+        assertEquals(12, robot.getRobotY());
+    }
 }
