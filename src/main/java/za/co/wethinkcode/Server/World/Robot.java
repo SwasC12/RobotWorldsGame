@@ -319,6 +319,10 @@ public class Robot{
         return this.getRobotName().equals(otherRobot.getRobotName());
     }
 
+
+    public String getStatus() {
+        return status;
+    }
 }
 
 
