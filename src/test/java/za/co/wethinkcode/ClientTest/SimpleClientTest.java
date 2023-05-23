@@ -4,7 +4,6 @@ package za.co.wethinkcode.ClientTest;
 import org.json.simple.JSONObject;
 import org.junit.jupiter.api.Test;
 import za.co.wethinkcode.Client.CreateJSONObject;
-import za.co.wethinkcode.Client.SimpleClient;
 
 import static org.junit.jupiter.api.Assertions.*;
 

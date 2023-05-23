@@ -47,7 +47,7 @@ public class World {
     public static void addObstacles(){
         int X;
         int Y;
-        while(ListOfObstacles.size()<20){
+        while(ListOfObstacles.size()<10){
             X = random.nextInt(width)-width/2;
             Y = random.nextInt(height)-height/2;
 //            X = 0;

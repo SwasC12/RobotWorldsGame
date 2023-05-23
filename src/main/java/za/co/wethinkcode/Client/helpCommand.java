@@ -1,13 +1,18 @@
 package za.co.wethinkcode.Client;
 
+import za.co.wethinkcode.Server.ServerGraphics;
+
 public class helpCommand {
+    private static final String y_bg = ServerGraphics.ANSI_YELLOW_BG;
+    private static final String reset = ServerGraphics.ANSI_RESET;
+    private static String green = ServerGraphics.ANSI_GREEN;
 
     public helpCommand(){
     }
 
     @Override
     public String toString() {
-        return
+        return green+
          "I can understand these commands:\n"+
         "   quit - Shut down robot.\n"+
         "   HELP - provide information about commands.\n"+
@@ -18,6 +23,6 @@ public class helpCommand {
         "   REPAIR - Instruct the robot to repair its shields.\n"+
         "   RELOAD - Instruct the robot to reload its weapons.\n"+
         "   FIRE - Instruct the robot to fire its gun.\n"+
-        "   STATE - Ask the world for the state of the robot.\n";
+        "   STATE - Ask the world for the state of the robot.\n"+reset;
     }
 }

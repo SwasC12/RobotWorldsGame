@@ -14,7 +14,6 @@ import java.util.List;
 
 import static java.lang.String.valueOf;
 import static za.co.wethinkcode.Server.World.Status.*;
-//import static sun.security.tools.keytool.Main.rb;
 
 
 public class CommandHandler {
@@ -36,7 +35,6 @@ public class CommandHandler {
     public CommandHandler() {
         this.myRobots = new ArrayList<>();
         this.deadRobots = new ArrayList<>();
-//        this.reloadRobots = new ArrayList<>();
     }
 
 
@@ -109,10 +107,7 @@ public class CommandHandler {
                 }
                 else if (args.length ==1) {
                     JSONParser parser = new JSONParser();
-//                    reader = parser.parse(new FileReader("src/main/java/za/co/wethinkcode/Resources/robots.json"));
                     CurrentDirectory currentDirectory = new CurrentDirectory();
-
-//                    reader = parser.parse(new FileReader(currentDirectory.getAbsolutePath("/src/main/java/za/co/wethinkcode/Resources/robots.json")));
                     reader = parser.parse(new FileReader("/home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Resources/robots.json"));
                     JSONObject data = (JSONObject) reader;
                     JSONArray robots = (JSONArray) data.get("robots");
@@ -141,7 +136,6 @@ public class CommandHandler {
                 return robotIsFull("Responsefile");
             } else if (robotCommand.contains("look")) {
                 robot = myRobots.get(index);
-//                    System.out.println(robot.getRobotName());
                 return lookCommandHandler.writeJsonFileForLook("Responsefile", robot);
 
             } else if (robotCommand.contains("state")) {
@@ -164,13 +158,10 @@ public class CommandHandler {
 
             } else if (robotCommand.equalsIgnoreCase("fire")) {
                     //if I call the fire command, then I need to update the bullet position from the robot gun
-//                    BulletPosition bulletPosition =  new BulletPosition(shotDistance);
 
                     //check the final position of the bullet
                     robot = myRobots.get(index);
                     BulletPosition bulletPosition =  new BulletPosition(robot.getShotDistance(), robot, robot.getRobotX(), robot.getRobotY() );
-
-                    // BulletPosition bulletPosition = new BulletPosition(robot.getShotDistance(), robot);
                     Position shotPosition = new Position(bulletPosition.getXf(), bulletPosition.getYf());
                     Position robPostion = new Position(robot.getRobotX(),robot.getRobotY());
 

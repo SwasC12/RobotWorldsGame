@@ -16,6 +16,7 @@ import static java.lang.Integer.parseInt;
     public class ClientMainOne extends StoreClientDetails  implements Serializable {
         //    public static String name;
         static String command;
+        public static String ipAddress;
         private static final String red = ServerGraphics.ANSI_RED;
         private static final String reset = ServerGraphics.ANSI_RESET;
         private static final String y_bg = ServerGraphics.ANSI_YELLOW_BG;
@@ -36,11 +37,17 @@ import static java.lang.Integer.parseInt;
 //        }
 //        String ipAddress = args[0];
 //        int port = Integer.parseInt(args[1]);
+            if (args.length == 1){
+                ipAddress = args[0];
+            }else{
+                ipAddress = "localhost";
+            }
+
 
             try (
                     // Socket socket = new Socket(ipAddress,port))
                     //Socket socket = new Socket("20.20.15.174", 5000))
-                    Socket socket = new Socket("localhost", 5000))
+                    Socket socket = new Socket(ipAddress, 5000))
             {
                 asciiArt load = new asciiArt();
                 load.rwLoadBar("loading",50,30);
