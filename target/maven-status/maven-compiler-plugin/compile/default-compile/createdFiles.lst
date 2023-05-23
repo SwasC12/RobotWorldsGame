@@ -24,15 +24,12 @@ za/co/wethinkcode/Client/GuiResponseDisplay.class
 za/co/wethinkcode/Server/Reload.class
 za/co/wethinkcode/Server/ServerGraphics.class
 za/co/wethinkcode/Client/ConsoleDisplayServerResponse.class
-za/co/wethinkcode/Client/NewClient.class
 za/co/wethinkcode/Server/LookCommandHandler.class
-za/co/wethinkcode/Client/ClientMainTwo.class
 za/co/wethinkcode/Client/StoreClientDetails.class
 za/co/wethinkcode/Server/World/IWorld$Direction.class
 za/co/wethinkcode/Server/Gun.class
 za/co/wethinkcode/Client/asciiArt.class
 za/co/wethinkcode/Server/HandleFireCommand.class
-za/co/wethinkcode/Client/SimpleClient.class
 za/co/wethinkcode/Server/World/Position.class
 za/co/wethinkcode/Server/Repair.class
 za/co/wethinkcode/Server/World/WorldConfig.class

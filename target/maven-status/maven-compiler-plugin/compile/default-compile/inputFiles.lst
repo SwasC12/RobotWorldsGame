@@ -22,7 +22,6 @@
 /home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Client/StoreClientDetails.java
 /home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/World/Edge.java
 /home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Client/ConsoleDisplayServerResponse.java
-/home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Client/NewClient.java
 /home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/Back.java
 /home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Client/ClientMainOne.java
 /home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/CurrentDirectory.java
@@ -32,10 +31,8 @@
 /home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/Repair.java
 /home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/MultiServers.java
 /home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/World/Status.java
-/home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Client/ClientMainTwo.java
 /home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/SimpleServer.java
 /home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/World/IWorld.java
 /home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Client/asciiArt.java
 /home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/BulletPosition.java
 /home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/World/Robot.java
-/home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Client/SimpleClient.java
