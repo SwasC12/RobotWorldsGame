@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 import static za.co.wethinkcode.Server.CommandHandler.*;
 import static za.co.wethinkcode.Server.World.Status.NORMAL;
-//import static za.co.wethinkcode.Server.CommandHandler.reloadRobots;
+
 
 
 public class SimpleServer implements Runnable {
@@ -36,9 +36,6 @@ public class SimpleServer implements Runnable {
     public static World textWorld;
 
     JSONObject responseData;
-//    private String Reload;
-
-
 
 
     public SimpleServer(Socket socket, World textWorld, CommandHandler commandHandler) throws IOException {

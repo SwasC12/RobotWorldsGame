@@ -16,8 +16,6 @@ import static java.lang.Character.isDigit;
 import static java.lang.Integer.parseInt;
 
 public class ClientMain extends StoreClientDetails  implements Serializable {
-    //    public static String name;
-    static String command;
     public static String ipAddress;
     private static final String red = ServerGraphics.ANSI_RED;
     private static final String reset = ServerGraphics.ANSI_RESET;
@@ -33,20 +31,13 @@ public class ClientMain extends StoreClientDetails  implements Serializable {
 
     public static void main(String[] args) throws IOException {
 
-//        if (args.length != 2) {
-//            System.out.println("java ClientExample <ipAddress> <port>");
-//            return;
-//        }
-//        String ipAddress = args[0];
-//        int port = Integer.parseInt(args[1]);
         if (args.length == 1){
             ipAddress = args[0];
         }else{
             ipAddress = "localhost";
         }
         try (
-                // Socket socket = new Socket(ipAddress,port))
-                //Socket socket = new Socket("20.20.15.174", 5000))
+
                 Socket socket = new Socket(ipAddress, 5000)
         )
         {

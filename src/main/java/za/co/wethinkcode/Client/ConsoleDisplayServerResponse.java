@@ -120,9 +120,6 @@ public class ConsoleDisplayServerResponse {
                     System.out.println(red + "Sorry the path you attempting to move to is obstructed" + reset);
                     System.out.println(green + StoreClientDetails.name + " is now at position " + jsonResponse.get("state").get("position").asText() + reset);
 
-//                } else if (command.equalsIgnoreCase("reload") && jsonResponse.get("data").get("message").asText().equalsIgnoreCase("Done")) {
-//                    System.out.println(green + StoreClientDetails.name + "is now RELOADING !!!!!!");
-
                 }
 
             }

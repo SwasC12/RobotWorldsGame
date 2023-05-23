@@ -61,7 +61,6 @@ public class MultiServers {
 
         try{
             CurrentDirectory currentDirectory = new CurrentDirectory();
-//            file = new FileWriter( currentDirectory.getAbsolutePath("/src/main/java/za/co/wethinkcode/Server/Worldconfig.json"));
             file = new FileWriter("/home/wtc/student_work/dbn11_robot_worlds/src/main/java/za/co/wethinkcode/Server/World/config.json");
             file.write(json.toString());
         }catch (Exception e){
@@ -113,17 +112,8 @@ public class MultiServers {
         ServerCommands listener = new ServerCommands(commandHandler);
         Thread thread = new Thread(listener);
         thread.start();
-
-
     }
-//    public static void startReloadThread(){
-//        Thread reloadingThread = new Thread((Runnable) new Reload());
-//        reloadingThread.start();
-//    }
-//    public static void startRepairThread(){
-//        Thread repairingThread = new Thread((Runnable) new Repair());
-//        repairingThread.start();
-//    }
+
     public static void stopRunning() throws IOException {
         serverInRunningState = false;
         serverSocket.close();
