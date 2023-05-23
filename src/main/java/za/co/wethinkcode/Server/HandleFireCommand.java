@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.net.Socket;
 
 import static java.lang.String.valueOf;
-import static za.co.wethinkcode.Server.World.Status.NORMAL;
 
 public class HandleFireCommand {
     Robot robot;
@@ -62,7 +61,7 @@ public class HandleFireCommand {
 
             )
             {
-               // obt.setShields(obt.getRobotShields()-1);
+                // obt.setShields(obt.getRobotShields()-1);
                 setRobotPosition(new Position(obt.getRobotX(),obt.getRobotY()));
                 return true;
 
@@ -148,7 +147,7 @@ public class HandleFireCommand {
                     robot1.setStatus(String.valueOf(Status.DEAD));
                 }
 
-        }}
+            }}
 
         //Update hit rob state
         JSONObject subJson2 = new JSONObject();
@@ -160,18 +159,18 @@ public class HandleFireCommand {
 
 
         JSONObject dataJson = new JSONObject();
-        dataJson.put("message", "Hit");
+        dataJson.put("message","Hit");
         dataJson.put("distance", distance);//distance to the robot hit
         dataJson.put("robot", getRobotHit().getRobotName()); //getRobotName
-        dataJson.put("state", subJson2.toJSONString()); //state info of the robot that was hot
+        dataJson.put("state", subJson2); //state info of the robot that was hot
 
 
         JSONObject stateJson = new JSONObject();
         stateJson.put("shots",rb.getRobotShots());
         JSONObject successResponse = new JSONObject();
         successResponse.put("result", "OK");
-        successResponse.put("data", dataJson.toJSONString());
-        successResponse.put("state", stateJson.toJSONString());
+        successResponse.put("data", dataJson);
+        successResponse.put("state", stateJson);
 
         if (deadRob){
             CommandHandler.deadRobots.add(getRobotHit());

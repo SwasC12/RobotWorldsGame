@@ -58,15 +58,34 @@ public class ConsoleDisplayServerResponse {
                 System.out.println(green + "    State of robot: " + reset);
                 stateRobot(jsonResponse);
             } else if (command.equalsIgnoreCase("fire")) {
-                if (jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
-                    System.out.println(red + "Fire response:  \n" + "    data:  " + jsonResponse.get("data") + reset);
-                    System.out.println(red + "    My Robot state: " + jsonResponse.get("state") + reset);
-                } else if (jsonResponse.get("result").asText().equalsIgnoreCase("No bullets")) {
-//                            System.out.println(jsonResponse.get("message"));
-                    System.out.println(red + "You have run out of bullets!!!, try reload option" + reset);
 
+                if (jsonResponse.get("result").asText().equalsIgnoreCase("OK")) {
+
+                    System.out.println("-------FIRE RESPONSE----:  \n");
+
+                    if (jsonResponse.get("data").get("message").asText().equalsIgnoreCase("Miss")){
+
+                        System.out.println(red+"                    MESSAGE:                        "+ jsonResponse.get("data").get("message").asText()+reset );
+                        System.out.println(red+"                    MY ROBOT REMAINING SHOTS:       " + jsonResponse.get("state").get("shots").asText()+reset);
+                        System.out.println();
+                    }else if (jsonResponse.get("data").get("message").asText().equalsIgnoreCase("Hit")){
+                        System.out.println(red+ "                    MESSAGE:                        "+ jsonResponse.get("data").get("message").asText() +reset );
+                        System.out.println(red+ "                    ROBOT SHOT NAME:                "+ jsonResponse.get("data").get("robot").asText() +reset  );
+                        System.out.println(red+ "                    STATE OF THE ROBOT SHOT:         ");
+                        stateRobot(jsonResponse.get("data"));
+                        System.out.println(red+ "                    MY ROBOT REMAINING SHOTS:       " + jsonResponse.get("state").get("shots").asText()+reset );
+                        System.out.println();
+                    }
+
+                    else if (jsonResponse.get("data").get("message").asText().equalsIgnoreCase("No bullets left!!!")){
+                        System.out.println(red+"You have run out of bullets!!!, try reload option"+reset );
+                        System.out.println();
+
+                    }
                 }
+
             }
+
                 else if (command.equalsIgnoreCase("reload")) {//&& jsonResponse.get("data").get("message").asText().equalsIgnoreCase("Done")) {
                     System.out.println(green + StoreClientDetails.name + " is now RELOADING !!!!!!");
 
@@ -133,10 +152,10 @@ public class ConsoleDisplayServerResponse {
     }
 
     public static void stateRobot(JsonNode jsonResponse) {
-        System.out.println(green + "   *   Shields: " + jsonResponse.get("state").get("shields").asText()+" hits"+ reset);
-        System.out.println(green + "   *   Position: " + jsonResponse.get("state").get("position").asText()+ reset);
-        System.out.println(green + "   *   Shots remaining: " + jsonResponse.get("state").get("shots").asText()+" shots"+ reset);
-        System.out.println(green + "   *   Direction: " + jsonResponse.get("state").get("direction").asText()+ reset);
-        System.out.println(green + "   *   Status: " + jsonResponse.get("state").get("status").asText()+ reset);
+        System.out.println(green + "                                     *   Shields: " + jsonResponse.get("state").get("shields").asText()+" hits"+ reset);
+        System.out.println(green + "                                     *   Position: " + jsonResponse.get("state").get("position").asText()+ reset);
+        System.out.println(green + "                                     *   Shots remaining: " + jsonResponse.get("state").get("shots").asText()+" shots"+ reset);
+        System.out.println(green + "                                     *   Direction: " + jsonResponse.get("state").get("direction").asText()+ reset);
+        System.out.println(green + "                                     *   Status: " + jsonResponse.get("state").get("status").asText()+ reset);
     }
 }
