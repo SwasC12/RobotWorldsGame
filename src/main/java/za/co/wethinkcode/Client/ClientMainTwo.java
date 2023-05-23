@@ -15,6 +15,7 @@ import static java.lang.Integer.parseInt;
 public class ClientMainTwo extends StoreClientDetails  implements Serializable {
     //    public static String name;
     static String command;
+    public static String ipAddress;
     private static BufferedReader in;
     private static PrintStream out;
     public static List<String> forTurn= new ArrayList<>(List.of("right","left"));
@@ -33,11 +34,16 @@ public class ClientMainTwo extends StoreClientDetails  implements Serializable {
 //        }
 //        String ipAddress = args[0];
 //        int port = Integer.parseInt(args[1]);
+        if (args.length == 1){
+            ipAddress = args[0];
+        }else{
+            ipAddress = "localhost";
+        }
 
         try (
                 // Socket socket = new Socket(ipAddress,port))
                 //Socket socket = new Socket("20.20.15.174", 5000))
-                Socket socket = new Socket("localhost", 5000))
+                Socket socket = new Socket(ipAddress, 5000))
         {
             System.out.println("Waiting for connection response from server: ");
             Thread.sleep(2000);
