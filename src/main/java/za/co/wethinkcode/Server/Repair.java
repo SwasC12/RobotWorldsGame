@@ -17,12 +17,11 @@ public class Repair {
         manage.submit(() -> {
             target.setStatus("REPAIR");
             try {
-
                 Thread.sleep(World.repairTime);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            target.setRobotShots(target.getMaxShield());
+            target.setShields(target.getMaxShield());
             target.setStatus("NORMAL");
             CommandHandler.repairRobots.remove(target);
         });
