@@ -30,17 +30,17 @@ public class ConsoleDisplayServerResponse {
 
             if (command.split(" ")[0].equalsIgnoreCase("launch")) {
                 System.out.println(green + "Launch Success!\nHere is the current data of your robot:" + reset);
-                System.out.println(green + "   *   Repair: " + jsonResponse.get("data").get("repair").asText() + " seconds" + reset);
-                System.out.println(green + "   *   Shields: " + jsonResponse.get("data").get("shields").asText() + " hits" + reset);
-                System.out.println(green + "   *   Reload: " + jsonResponse.get("data").get("reload").asText() + " seconds" + reset);
-                System.out.println(green + "   *   Visibility: " + jsonResponse.get("data").get("visibility").asText() + " steps" + reset);
-                System.out.println(green + "   *   Position: " + jsonResponse.get("data").get("position").asText() + "\n" + reset);
+                System.out.println(green + "          *   Repair: " + jsonResponse.get("data").get("repair").asText() + " seconds" + reset);
+                System.out.println(green + "          *   Shields: " + jsonResponse.get("data").get("shields").asText() + " hits" + reset);
+                System.out.println(green + "          *   Reload: " + jsonResponse.get("data").get("reload").asText() + " seconds" + reset);
+                System.out.println(green + "          *   Visibility: " + jsonResponse.get("data").get("visibility").asText() + " steps" + reset);
+                System.out.println(green + "          *   Position: " + jsonResponse.get("data").get("position").asText() + "\n" + reset);
                 System.out.println(green + "Here is the current state of your robot:" + reset);
-                System.out.println(green + "   *   position: " + jsonResponse.get("state").get("position").asText() + reset);
-                System.out.println(green + "   *   direction: " + jsonResponse.get("state").get("direction").asText() + reset);
-                System.out.println(green + "   *   shields: " + jsonResponse.get("state").get("shields").asText() + " hits" + reset);
-                System.out.println(green + "   *   shots: " + jsonResponse.get("state").get("shots").asText() + " shots" + reset);
-                System.out.println(green + "   *   status: " + jsonResponse.get("state").get("status").asText() + "\n" + reset);
+                System.out.println(green + "          *   position: " + jsonResponse.get("state").get("position").asText() + reset);
+                System.out.println(green + "          *   direction: " + jsonResponse.get("state").get("direction").asText() + reset);
+                System.out.println(green + "          *   shields: " + jsonResponse.get("state").get("shields").asText() + " hits" + reset);
+                System.out.println(green + "          *   shots: " + jsonResponse.get("state").get("shots").asText() + " shots" + reset);
+                System.out.println(green + "          *   status: " + jsonResponse.get("state").get("status").asText() + "\n" + reset);
             } else if (command.equalsIgnoreCase("look")) {
                 asciiArt rwLooked = new asciiArt();
                 rwLooked.rwLook();//
